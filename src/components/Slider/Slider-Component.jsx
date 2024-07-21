@@ -34,7 +34,7 @@ export default function SimpleSlider() {
 <div className="flex flex-col items-center justify-center">
 <img src={METAL_COIN.image} alt={METAL_COIN.name} className="w-8/12 sm:w-9/12 h-auto"/>
 </div>                <div className="w-full flex flex-col items-center justify-center  ">
-                  <div className="flex flex-col items-start sm:pr-0 pr-2">
+                  <div className="flex flex-col items-start sm:pr-0 pr-4">
                   <h1 className=" lato-700 text-[18px] sm:text-[20px] xl:text-[40px]">Lorem ipsum dolor sit amet</h1>
                   <p className="text-[12px] sm:text-[16px]">consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nis</p>
                   <button className="button bg-[#E3BB59] px-2 py-1 sm:p-2 mt-4 w-auto sm:w-4/12">Buy Now</button>
@@ -51,7 +51,7 @@ export default function SimpleSlider() {
 <div className="flex flex-col items-center justify-center">
 <img src={METAL_COIN.image} alt={METAL_COIN.name} className="w-8/12 sm:w-9/12 h-auto"/>
 </div>                <div className="w-full flex flex-col items-center justify-center  ">
-                  <div className="flex flex-col items-start sm:pr-0 pr-2">
+                  <div className="flex flex-col items-start sm:pr-0 pr-4">
                   <h1 className=" lato-700 text-[18px] sm:text-[20px] xl:text-[40px]">Lorem ipsum dolor sit amet</h1>
                   <p className="text-[12px] sm:text-[16px]">consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nis</p>
                   <button className="button bg-[#E3BB59] px-2 py-1 sm:p-2 mt-4 w-auto sm:w-4/12">Buy Now</button>
@@ -68,7 +68,7 @@ export default function SimpleSlider() {
 <div className="flex flex-col items-center justify-center">
 <img src={METAL_COIN.image} alt={METAL_COIN.name} className="w-8/12 sm:w-9/12 h-auto"/>
 </div>                <div className="w-full flex flex-col items-center justify-center  ">
-                  <div className="flex flex-col items-start sm:pr-0 pr-2">
+                  <div className="flex flex-col items-start sm:pr-0 pr-4">
                   <h1 className=" lato-700 text-[18px] sm:text-[20px] xl:text-[40px]">Lorem ipsum dolor sit amet</h1>
                   <p className="text-[12px] sm:text-[16px]">consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nis</p>
                   <button className="button bg-[#E3BB59] px-2 py-1 sm:p-2 mt-4 w-auto sm:w-4/12">Buy Now</button>
@@ -85,7 +85,7 @@ export default function SimpleSlider() {
 <div className="flex flex-col items-center justify-center">
 <img src={METAL_COIN.image} alt={METAL_COIN.name} className="w-8/12 sm:w-9/12 h-auto"/>
 </div>                <div className="w-full flex flex-col items-center justify-center  ">
-                  <div className="flex flex-col items-start sm:pr-0 pr-2">
+                  <div className="flex flex-col items-start sm:pr-0 pr-4">
                   <h1 className=" lato-700 text-[18px] sm:text-[20px] xl:text-[40px]">Lorem ipsum dolor sit amet</h1>
                   <p className="text-[12px] sm:text-[16px]">consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nis</p>
                   <button className="button bg-[#E3BB59] px-2 py-1 sm:p-2 mt-4 w-auto sm:w-4/12">Buy Now</button>

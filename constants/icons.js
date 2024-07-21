@@ -7,3 +7,4 @@ export const WHY_US = {image:"/assets/Why-us.jpeg",name:"Why us"}
 export const READ_MORE = {image:"/assets/read-more-arrow.svg",name:"readmore"}
 export const CONTACT = {image:"/assets/contact.svg",name:"Contact"}
 export const MAIL = {image:"/assets/mail.svg",name:"mail"}
+export const HAMBURGER = {image:"/assets/hamburger.svg",name:"hamburger"}
