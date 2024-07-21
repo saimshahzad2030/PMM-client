@@ -16,18 +16,38 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
+ 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+.lato {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.lato-700{
+  font-family: "Lato", sans-serif;
+  font-weight: 700; 
+  font-style: normal;
+}
+ 
+
+/* Change the color of the navigation arrows */
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  color: white !important; /* Change to your desired color */
+}
+
+/* Additional custom styles for navigation arrows (optional) */
+.mySwiper .swiper-button-next::after,
+.mySwiper .swiper-button-prev::after {
+  font-size: 20px !important; /* Adjust the size of the arrows */
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background-color: white !important; /* Change to your desired active color */
+}
+
+ 

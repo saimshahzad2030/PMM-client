@@ -1,0 +1,8 @@
+.search-input::placeholder {
+    color: white; /* Change placeholder color to white */
+  }
+
+  .search-input:focus {
+    outline: none; /* Remove the default outline */
+    border: 1px solid #ffffff; /* Ensure the border color doesn't change on focus */
+  }

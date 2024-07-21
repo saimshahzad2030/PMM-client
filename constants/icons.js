@@ -1,0 +1,9 @@
+export const cart = {image:"/assets/cart.svg",name:'cart logo'}
+export const SEARCH = {image:"/assets/search.svg",name:'search logo'}
+export const HEART = {image:"/assets/heart.svg",name:'heart logo'}
+export const VERIFIED = {image:"/assets/verified.svg",name:'verified logo'}
+export const STAR = {image:"/assets/star.svg",name:'star logo'}
+export const WHY_US = {image:"/assets/Why-us.jpeg",name:"Why us"}
+export const READ_MORE = {image:"/assets/read-more-arrow.svg",name:"readmore"}
+export const CONTACT = {image:"/assets/contact.svg",name:"Contact"}
+export const MAIL = {image:"/assets/mail.svg",name:"mail"}
