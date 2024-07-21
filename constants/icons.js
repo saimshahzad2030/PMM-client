@@ -1,5 +1,7 @@
 export const cart = {image:"/assets/cart.svg",name:'cart logo'}
 export const SEARCH = {image:"/assets/search.svg",name:'search logo'}
+export const SEARCH_BLACK = {image:"/assets/search-black.svg",name:'search logo'}
+export const SEARCH_WITH_NO_BORDER = {image:"/assets/search-without-border.svg",name:'search logo'}
 export const HEART = {image:"/assets/heart.svg",name:'heart logo'}
 export const VERIFIED = {image:"/assets/verified.svg",name:'verified logo'}
 export const STAR = {image:"/assets/star.svg",name:'star logo'}
