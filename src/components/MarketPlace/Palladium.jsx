@@ -60,8 +60,8 @@ const Palladium = () => {
                 )}
 
                 <div className="flex flex-col items-center w-full" key={index}>
-                  <div className="flex flex-col items-center w-11/12">
-                    <div className="min-w-full h-full relative flex flex-col items-center justify-center bg-[#F2F2F2]">
+                   <div className="flex flex-col items-center w-11/12 bg-gray-100">
+                    <div className="min-w-full h-full relative flex flex-col items-center justify-center bg-gray-200">
                       <img
                         className="w-9/12 h-full py-4 px-4"
                         src={mp.imageUrl}
@@ -83,9 +83,10 @@ const Palladium = () => {
                       <span className="w-full text-end lato-700 text-[14px] md:text-[12px] xl:text-[17px]">
                         {mp.price}
                       </span>
-                      <button className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 text-white">
+                      <div className="flex flex-col items-center w-full mb-2"><button className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 text-white">
                         Add to Cart{" "}
-                      </button>
+                      </button></div>
+
                     </div>
                   </div>
                 </div>
