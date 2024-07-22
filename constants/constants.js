@@ -226,7 +226,180 @@ export const MARKET_PLACE = [
     price: "$123.00",
   },
 ];
-
+export const MARKET_PLACE_PAGE = [
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+   },
+  // {
+  //   backgroundImage:"",
+  //   backgroundImageName:""
+  // },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+  },
+];
 export const CLIENT = "/assets/reviews-image.png";
 export const CLIENT_REVIEWS = [
   {
@@ -276,3 +449,5 @@ export const PAYMENTS = [ { name: "paypal logo", image: "/assets/paypal.png" },
   { name: "apple-pay logo", image: "/assets/apple-pay.png" },
 ]
 export const SLIDER_BG = {name:"background with texture",image:"/assets/slider-bg.jpeg"}
+export const USA_BG = {name:"USA Flag",image:"/assets/usa-bg.jpeg"}
+export const RARE_COINS = {name:"rare coins",image:"/assets/rare-coins.png"}

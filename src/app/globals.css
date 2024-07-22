@@ -50,4 +50,23 @@
   background-color: white !important; /* Change to your desired active color */
 }
 
- 
+.form-container::-webkit-scrollbar {
+  display:none;
+  width: 0px; /* Adjust the width as needed */
+}
+
+/* Track */
+.form-container::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+.form-container::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px; /* Optional: to make the scrollbar rounded */
+}
+
+/* Handle on hover */
+.form-container::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

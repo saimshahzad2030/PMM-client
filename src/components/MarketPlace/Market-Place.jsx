@@ -28,7 +28,7 @@ const MarketPlace = () => {
             ))
         }
        </div>
-       <Link href={'/'} className='text-[#E3BB59] underline '>View More</Link>
+       <Link href={'/market-place'} className='text-[#E3BB59] underline '>View More</Link>
     </div>
   )
 }

@@ -10,3 +10,6 @@ export const READ_MORE = {image:"/assets/read-more-arrow.svg",name:"readmore"}
 export const CONTACT = {image:"/assets/contact.svg",name:"Contact"}
 export const MAIL = {image:"/assets/mail.svg",name:"mail"}
 export const HAMBURGER = {image:"/assets/hamburger.svg",name:"hamburger"}
+export const MOVE_TO_TOP = {image:"public/assets/move-top.svg",name:"move to top"}
+export const DROPDOWN = {image:"/assets/dropdown-more.svg",name:"dropdown"}
+export const CROSS = {image:"/assets/cross.svg",name:"cross"}
