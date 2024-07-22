@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Checkbox from '@mui/material/Checkbox';
-
+import { CROSS } from '../../../constants/icons';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 import {
   Button,
@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
   .matches(/[0-9]/, 'Password must contain at least one number')
   .matches(/[@$!%*?&#]/, 'Password must contain at least one special character').required('Password is required'),
 });
-const SignupForm = () => {
+const SignupForm = ({handleBackdropClose}) => {
     const [submitButtonClicked,setSubmitButtonClicked] = useState(false)
     React.useEffect(() => {
         document.body.style.overflow = 'hidden'; // Disable body scroll when form is open
@@ -34,6 +34,8 @@ const SignupForm = () => {
       }, []);
   return (
     <div className='form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-20 rounded-xl h-[90vh] overflow-y-auto' >
+        <div className='w-full flex flex-col items-end'><img className=" mt-1 mr-2 cursor-pointer w-6 h-6" onClick={handleBackdropClose} src={CROSS.image} alt={CROSS.name}/>
+        </div>
       <h1 className='lato-700  text-[30px] md:text-[32px] xl:text-[40px] text-gray-800 mb-12 text-center'>
         Create an Account
       </h1>

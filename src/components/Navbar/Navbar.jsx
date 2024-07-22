@@ -44,7 +44,7 @@ setCreatingAcccount(false)
     <>
       <nav className="bg-[#E3BB59] h-auto w-full container mx-auto flex flex-row items-center justify-between text-white">
         <div className="  mr-8 flex flex-col items-center w-full  py-4 pb-10">
-          <div className="flex flex-row items-center w-full justify-end  text-lg">
+          <div className="flex flex-row items-center w-full justify-end text-[10px] sm:text-lg">
             {userLoggedIn ? (
               <Link href={"/"}>My Account</Link>
             ) : (
@@ -62,7 +62,7 @@ setCreatingAcccount(false)
             )}
             <img className="ml-4 w-6 h-6" src={cart.image} alt={cart.name} />
           </div>
-          <div className="relative flex flex-row items-center justify-between w-full  text-lg">
+          <div className="relative flex flex-row items-center justify-between w-full  text-lg mt-2 sm:mt-0">
             <h1 className="ml-4 lg:ml-6 text-[40px] absolute left-4 lg:left-10">
               PMM
             </h1>
@@ -174,9 +174,8 @@ setCreatingAcccount(false)
         // onClick={handleBackdropClose}
       >
       <div className="relative flex flex-col items-center w-full">
-        <img className="absolute top-[-16px]  sm:top-2 sm:right-4 cursor-pointer w-6 h-6" onClick={handleBackdropClose} src={CROSS.image} alt={CROSS.name}/>
-      {signingIn && <LoginForm/>}
-      {creatingAccount && <SignupForm/>}
+         {signingIn && <LoginForm/>}
+      {creatingAccount && <SignupForm handleBackdropClose={handleBackdropClose}/>}
       </div>
 
       </Backdrop>
