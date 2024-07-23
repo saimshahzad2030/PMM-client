@@ -17,7 +17,7 @@ const validationSchema = Yup.object({
   .matches(/[0-9]/, 'Password must contain at least one number')
   .matches(/[@$!%*?&#]/, 'Password must contain at least one special character').required('Password is required'),
   });
-const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setForgotPassword}) => {
+const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setForgotPassword, setUserLoggedIn}) => {
     const [submitButtonClicked,setSubmitButtonClicked] = useState(false)
     React.useEffect(() => {
         document.body.style.overflow = 'hidden'; // Disable body scroll when form is open
@@ -40,7 +40,9 @@ const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setFor
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
+          handleBackdropClose()
           console.log(values);
+          setUserLoggedIn(true)
         }}
         
       >

@@ -59,7 +59,7 @@ setOtpVerified(false)
         <div className="  mr-8 flex flex-col items-center w-full  py-4 pb-10">
           <div className="flex flex-row items-center w-full justify-end text-[10px] sm:text-lg">
             {userLoggedIn ? (
-              <Link href={"/"}>My Account</Link>
+              <Link href={"/my-account"}>My Account</Link>
             ) : (
               <>
                 <button classname="cursor-pointer text-white"
@@ -186,7 +186,7 @@ setOtpVerified(false)
         open={backdropopen} 
       >
       <div className="relative flex flex-col items-center w-full">
-         {signingIn && <LoginForm handleBackdropClose={handleBackdropClose} setSigningIn={setSigningIn} setCreatingAcccount={setCreatingAcccount}  setForgotPassword={setForgotPassword}/>}
+         {signingIn && <LoginForm handleBackdropClose={handleBackdropClose} setSigningIn={setSigningIn} setCreatingAcccount={setCreatingAcccount}  setForgotPassword={setForgotPassword} setUserLoggedIn={setUserLoggedIn}/>}
       {creatingAccount && <SignupForm handleBackdropClose={handleBackdropClose} setSigningIn={setSigningIn} setCreatingAcccount={setCreatingAcccount}/>}
       {forgotPassword && <ForgotPassword handleBackdropClose={handleBackdropClose} setEmailEntered={setEmailEntered} setEmailVerified={setEmailVerified} setForgotPassword={setForgotPassword}/>}
       {emailVerified && <OtpVerification  handleBackdropClose={handleBackdropClose} setOtpEntered={setOtpEntered} setOtpVerified={setOtpVerified}  setEmailVerified={setEmailVerified} email={'sadsa@gmail.com'}/>}
