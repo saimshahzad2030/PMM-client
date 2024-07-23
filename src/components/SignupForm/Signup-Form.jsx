@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
   .matches(/[0-9]/, 'Password must contain at least one number')
   .matches(/[@$!%*?&#]/, 'Password must contain at least one special character').required('Password is required'),
 });
-const SignupForm = ({handleBackdropClose}) => {
+const SignupForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn}) => {
     const [submitButtonClicked,setSubmitButtonClicked] = useState(false)
     React.useEffect(() => {
         document.body.style.overflow = 'hidden'; // Disable body scroll when form is open
@@ -34,9 +34,9 @@ const SignupForm = ({handleBackdropClose}) => {
       }, []);
   return (
     <div className='form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-20 rounded-xl h-[90vh] overflow-y-auto' >
-        <div className='w-full flex flex-col items-end'><img className=" mt-1 mr-2 cursor-pointer w-6 h-6" onClick={handleBackdropClose} src={CROSS.image} alt={CROSS.name}/>
+        <div className='w-full flex flex-col items-end'><img className=" mt-1 mr-1 cursor-pointer w-6 h-6" onClick={handleBackdropClose} src={CROSS.image} alt={CROSS.name}/>
         </div>
-      <h1 className='lato-700  text-[30px] md:text-[32px] xl:text-[40px] text-gray-800 mb-12 text-center'>
+      <h1 className='lato-700  text-[30px] md:text-[32px] xl:text-[40px] text-gray-800 mb-6 text-center'>
         Create an Account
       </h1>
          
@@ -55,7 +55,7 @@ const SignupForm = ({handleBackdropClose}) => {
         
       >
         {({ errors, touched, handleChange, handleBlur, values }) => (
-          <Form>
+          <Form className='w-full'>
             <div className='grid grid-cols-2 w-full gap-y-2 gap-x-2'>
               <div className='flex flex-col items-center col-span-2 md:col-span-1'>
                 <TextField
@@ -130,12 +130,15 @@ const SignupForm = ({handleBackdropClose}) => {
               </div>
               <div className='flex flex-row items-center col-span-2 py-2'>
               <Checkbox {...label} />
-              <p className='text-black text-[12px]'>By creating an account you agree to Precious Metal Market,<Link className="text-blue-800" href={'/'}>Privacy Policy</Link> and <Link className="text-blue-800" href={'/'}>Terms & Conditions</Link> .</p>
+              <p className='text-black text-[12px]'>By creating an account you agree to Precious Metal Market,<Link className="text-blue-600" href={'/'}>Privacy Policy</Link> and <Link className="text-blue-600" href={'/'}>Terms & Conditions</Link> .</p>
               </div>
               <div className='flex flex-col items-center col-span-2'>
                 <button className=" button bg-[#E3BB59] text-white p-2 w-full" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
                   Submit
                 </button>
+              </div>
+              <div className='flex flex-col items-center col-span-2'>
+                 <p className='text-black text-[10px] sm:text-[14px] w-full text-center'>Already have an account?&nbsp;&nbsp;&nbsp; <span className='cursor-pointer text-blue-600' onClick={()=>{setCreatingAcccount(false);setSigningIn(true)}}>Log in</span></p>
               </div>
             </div>
           </Form>

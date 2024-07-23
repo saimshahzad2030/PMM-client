@@ -15,6 +15,9 @@ import {
 } from "../../../constants/icons";
 import LoginForm from "../LoginForm/Login-Form";
 import SignupForm from "../SignupForm/Signup-Form";
+import ForgotPassword from "../ForgotPassword/Forgot-Password";
+import OtpVerification from "../OtpVerification/Otp-Verification";
+import ChangePassword from "../ChangePassword/Change-Password";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
@@ -22,10 +25,20 @@ const Navbar = () => {
   const [backdropopen, setBackdropOpen] = React.useState(false);
   const [creatingAccount, setCreatingAcccount] = React.useState(false);
   const [signingIn, setSigningIn] = React.useState(false);
+  const [forgotPassword, setForgotPassword] = React.useState(false);
+  const [emailEntered, setEmailEntered] = React.useState(false);
+  const [emailVerified, setEmailVerified] = React.useState(false);
+  const [otpEntered, setOtpEntered] = React.useState(false);
+  const [otpVerified, setOtpVerified] = React.useState(false);
   const handleBackdropClose = () => {
     setBackdropOpen(false);
     setSigningIn(false)
 setCreatingAcccount(false)
+setForgotPassword(false)
+setEmailEntered(false)
+setEmailVerified(false)
+setOtpEntered(false)
+setOtpVerified(false)
   };
   const handleBackdropOpen = () => {
     setBackdropOpen(true);
@@ -170,12 +183,14 @@ setCreatingAcccount(false)
       </nav>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={backdropopen}
-        // onClick={handleBackdropClose}
+        open={backdropopen} 
       >
       <div className="relative flex flex-col items-center w-full">
-         {signingIn && <LoginForm/>}
-      {creatingAccount && <SignupForm handleBackdropClose={handleBackdropClose}/>}
+         {signingIn && <LoginForm handleBackdropClose={handleBackdropClose} setSigningIn={setSigningIn} setCreatingAcccount={setCreatingAcccount}  setForgotPassword={setForgotPassword}/>}
+      {creatingAccount && <SignupForm handleBackdropClose={handleBackdropClose} setSigningIn={setSigningIn} setCreatingAcccount={setCreatingAcccount}/>}
+      {forgotPassword && <ForgotPassword handleBackdropClose={handleBackdropClose} setEmailEntered={setEmailEntered} setEmailVerified={setEmailVerified} setForgotPassword={setForgotPassword}/>}
+      {emailVerified && <OtpVerification  handleBackdropClose={handleBackdropClose} setOtpEntered={setOtpEntered} setOtpVerified={setOtpVerified}  setEmailVerified={setEmailVerified} email={'sadsa@gmail.com'}/>}
+      {otpVerified && <ChangePassword  handleBackdropClose={handleBackdropClose}  />}
       </div>
 
       </Backdrop>

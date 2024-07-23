@@ -26,15 +26,15 @@ export default function Home() {
       <CustomerReviews/>
       <WhyPreciousMarket/>
       </div>
-    <div className="w-full h-1 bg-[#E3BB59]"></div>
+      <div className="w-full h-1 bg-[#E3BB59]"></div>
       
-    <div className="container mx-auto">
-    <Footer/>
-    </div>
-    <div className="w-full h-[2px] bg-gray-400"></div>
-    <div className="container mx-auto">
-      <Copyright/>
-    </div>
-    </>
+      <div className="container mx-auto">
+      <Footer/>
+      </div>
+      <div className="w-full h-[2px] bg-gray-400"></div>
+      <div className="container mx-auto">
+        <Copyright/>
+      </div>
+      </>
   );
 }

@@ -1,32 +1,31 @@
 import React from "react";
 import RouteComponent from "../RouteComponent/Route-Component";
-import {
-  MARKET_PLACE_PAGE, 
-} from "../../../constants/constants";
-import { DROPDOWN, HEART } from "../../../constants/icons"; 
+import { MARKET_PLACE_PAGE } from "../../../constants/constants";
+import { DROPDOWN, HEART } from "../../../constants/icons";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl"; 
+import FormControl from "@mui/material/FormControl";
 import Pagination from "@mui/material/Pagination";
 import JoinNowSection from "./Join-Now-Section";
-import Accordion from "@mui/material/Accordion"; 
+import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 const Rare = () => {
   return (
     <div className="flex flex-col items-center w-full px-8 mt-4 mb-12">
-            <RouteComponent mainRoute={" Rare Collection"} parentRoute={`Home > Market Place >`} />
+      <RouteComponent
+        mainRoute={" Rare Collection"}
+        parentRoute={`Home > Market Place >`}
+      />
 
       <div className="w-full flex flex-col-reverse sm:flex-row items-start justify-between ">
         <div className="w-full sm:w-9/12 flex flex-col items-center">
           <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-12 md:gap-y-8">
             {MARKET_PLACE_PAGE.map((mp, index) => (
               <>
-               
-
                 <div className="flex flex-col items-center w-full" key={index}>
-                   <div className="flex flex-col items-center w-11/12 bg-gray-100">
+                  <div className="flex flex-col items-center w-11/12 bg-gray-100">
                     <div className="min-w-full h-full relative flex flex-col items-center justify-center bg-gray-200">
                       <img
                         className="w-9/12 h-full py-4 px-4"
@@ -49,10 +48,11 @@ const Rare = () => {
                       <span className="w-full text-end lato-700 text-[14px] md:text-[12px] xl:text-[17px]">
                         {mp.price}
                       </span>
-                      <div className="flex flex-col items-center w-full mb-2"><button className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 text-white">
-                        Add to Cart{" "}
-                      </button></div>
-
+                      <div className="flex flex-col items-center w-full mb-2">
+                        <button className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 text-white">
+                          Add to Cart{" "}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -65,7 +65,19 @@ const Rare = () => {
         </div>
         <div className="w-full sm:w-3/12 flex flex-col items-center h-full justify-between">
           <div className="flex flex-col items-center w-full ">
-            <Accordion className="w-11/12 md:w-9/12">
+            <Accordion
+              className="w-11/12 md:w-9/12"
+              sx={{
+                boxShadow: "none",
+                border: "1px solid #ddd",
+                "&:before": {
+                  display: "none",
+                },
+                "& .MuiAccordionSummary-root": {
+                  borderBottom: "1px solid #ddd",
+                },
+              }}
+            >
               <AccordionSummary
                 expandIcon={
                   <img
@@ -80,7 +92,7 @@ const Rare = () => {
                 Metal
               </AccordionSummary>
               <AccordionDetails>
-                <FormControl> 
+                <FormControl>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="gold"
@@ -110,8 +122,19 @@ const Rare = () => {
                 </FormControl>
               </AccordionDetails>
             </Accordion>
-            <Accordion className="w-11/12 md:w-9/12 mt-4">
-
+            <Accordion
+              className="w-11/12 md:w-9/12 mt-4"
+              sx={{
+                boxShadow: "none",
+                border: "1px solid #ddd",
+                "&:before": {
+                  display: "none",
+                },
+                "& .MuiAccordionSummary-root": {
+                  borderBottom: "1px solid #ddd",
+                },
+              }}
+            >
               <AccordionSummary
                 expandIcon={
                   <img
@@ -132,13 +155,11 @@ const Rare = () => {
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="jewellery"
                     name="radio-buttons-group"
-                    
                   >
                     <FormControlLabel
                       value="jewellery"
                       control={<Radio />}
                       label="Jewellery"
-                      
                     />
                     <FormControlLabel
                       value="coins"
@@ -159,8 +180,19 @@ const Rare = () => {
                 </FormControl>
               </AccordionDetails>
             </Accordion>
-            <Accordion className="w-11/12 md:w-9/12 mt-4">
-
+            <Accordion
+              className="w-11/12 md:w-9/12 mt-4"
+              sx={{
+                boxShadow: "none",
+                border: "1px solid #ddd",
+                "&:before": {
+                  display: "none",
+                },
+                "& .MuiAccordionSummary-root": {
+                  borderBottom: "1px solid #ddd",
+                },
+              }}
+            >
               <AccordionSummary
                 expandIcon={
                   <img
