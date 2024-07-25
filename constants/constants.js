@@ -462,9 +462,10 @@ export const USER = {
   name: "Saim",
   image: "/assets/reviews-image.png",
   gender: "male",
-  phone: "+923104418998",
+  phone: 923104418998,
   email: "abc@gmail.com",
   birthday: "MM/DD/YYYY",
+  fullName: "Saim Shahzad",
 };
 export const NOTIFICATIONS = [
   {
@@ -495,7 +496,7 @@ export const NOTIFICATIONS = [
 
 export const SHIPMENTS = [
   {
-    id:'#039123213',
+    id: "#039123213",
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "not completed",
@@ -516,12 +517,12 @@ export const SHIPMENTS = [
     },
     orderPlaced: "17 Jan, 2021 at 7:32 PM",
     orderExpectedArrival: "23 Jan, 2021",
-    orderPlaced:true,
-    orderPacked:true,
-    undergoingVerificationProcess:true,
-    verificationPorcessCompleted:false,
-    onTheRoad:false,
-    delivered:false,
+    orderPlaced: true,
+    orderPacked: true,
+    undergoingVerificationProcess: true,
+    verificationPorcessCompleted: false,
+    onTheRoad: false,
+    delivered: false,
     orderActivities: [
       {
         activityName: "Your order on the way to verification facility.",
@@ -538,7 +539,7 @@ export const SHIPMENTS = [
     ],
   },
   {
-    id:'#039123213',
+    id: "#039123213",
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "not completed",
@@ -559,13 +560,13 @@ export const SHIPMENTS = [
     },
     orderPlaced: "17 Jan, 2021 at 7:32 PM",
     orderExpectedArrival: "23 Jan, 2021",
-    orderPlaced:true,
-    orderPacked:true,
-    undergoingVerificationProcess:false,
-    verificationPorcessCompleted:false,
+    orderPlaced: true,
+    orderPacked: true,
+    undergoingVerificationProcess: false,
+    verificationPorcessCompleted: false,
 
-    onTheRoad:false,
-    delivered:false,
+    onTheRoad: false,
+    delivered: false,
     orderActivities: [
       {
         activityName: "Your order on the way to verification facility.",
@@ -582,7 +583,7 @@ export const SHIPMENTS = [
     ],
   },
   {
-    id:'#039123213',
+    id: "#039123213",
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "not completed",
@@ -603,13 +604,13 @@ export const SHIPMENTS = [
     },
     orderPlacedDate: "17 Jan, 2021 at 7:32 PM",
     orderExpectedArrival: "23 Jan, 2021",
-    orderPlaced:true,
-    orderPacked:true,
-    undergoingVerificationProcess:false,
-    verificationPorcessCompleted:false,
+    orderPlaced: true,
+    orderPacked: true,
+    undergoingVerificationProcess: false,
+    verificationPorcessCompleted: false,
 
-    onTheRoad:false,
-    delivered:false,
+    onTheRoad: false,
+    delivered: false,
     orderActivities: [
       {
         activityName: "Your order on the way to verification facility.",
@@ -627,7 +628,7 @@ export const SHIPMENTS = [
   },
   ,
   {
-    id:'#039123213',
+    id: "#039123213",
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "completed",
@@ -648,13 +649,13 @@ export const SHIPMENTS = [
     },
     orderPlacedDate: "17 Jan, 2021 at 7:32 PM",
     orderExpectedArrival: "23 Jan, 2021",
-    orderPlaced:true,
-    orderPacked:true,
-    undergoingVerificationProcess:true,
-    verificationPorcessCompleted:true,
+    orderPlaced: true,
+    orderPacked: true,
+    undergoingVerificationProcess: true,
+    verificationPorcessCompleted: true,
 
-    onTheRoad:true,
-    delivered:true,
+    onTheRoad: true,
+    delivered: true,
     orderActivities: [
       {
         activityName: "Your order on the way to verification facility.",
@@ -671,7 +672,7 @@ export const SHIPMENTS = [
     ],
   },
   {
-    id:'#039123213',
+    id: "#039123213",
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "completed",
@@ -692,13 +693,13 @@ export const SHIPMENTS = [
     },
     orderPlacedDate: "17 Jan, 2021 at 7:32 PM",
     orderExpectedArrival: "23 Jan, 2021",
-    orderPlaced:true,
-    orderPacked:true,
-    undergoingVerificationProcess:true,
-    verificationPorcessCompleted:true,
+    orderPlaced: true,
+    orderPacked: true,
+    undergoingVerificationProcess: true,
+    verificationPorcessCompleted: true,
 
-    onTheRoad:true,
-    delivered:true,
+    onTheRoad: true,
+    delivered: true,
     orderActivities: [
       {
         activityName: "Your order on the way to verification facility.",
@@ -713,5 +714,86 @@ export const SHIPMENTS = [
         activityDate: "19 Jan, 2021 at 2:61 PM",
       },
     ],
+  },
+];
+
+export const ADDRESSES = [
+  {
+    id: "sdasdsa",
+    name: "Lorem ipsum",
+    address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    phone: "+00 000 0000 000",
+    addressType: "Home Address",
+    postalCode: "132213",
+    deliveryType: "home",
+    city: "mumbai",
+    state: "las vegas",
+    defaultShippingAddress: true,
+  },
+  {
+    id: "sdasdsa",
+    name: "Lorem ipsum",
+    address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    phone: "+00 000 0000 000",
+    addressType: "Home Address",
+    postalCode: "132213",
+    deliveryType: "office",
+    city: "mumbai",
+    state: "las vegas",
+
+    defaultShippingAddress: false,
+  },
+  {
+    id: "sdasdsa",
+    name: "Lorem ipsum",
+    address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    phone: "+00 000 0000 000",
+    addressType: "Home Address",
+    postalCode: "132213",
+    deliveryType: "home",
+    city: "mumbai",
+    state: "las vegas",
+
+    defaultShippingAddress: false,
+  },
+];
+
+export const MY_CREDIT_CARDS = [
+  {
+    cardName: "Visa",
+    fullName: "name on card",
+    accountNumber: "0000 0000 0000 0000",
+  },
+  {
+    cardName: "American Express",
+    fullName: "name on card",
+    accountNumber: "0000 0000 0000 0000",
+  },
+];
+export const MY_BANK_ACCOUNTS = [
+  {
+    bankName: "Bank Name",
+    fullName: "fullName in bank account",
+    accountNumber: "0000 0000 0000 0000",
+  },
+  {
+    bankName: "Bank Name",
+    fullName: "fullName in bank account",
+    accountNumber: "0000 0000 0000 0000",
+  },
+  {
+    bankName: "Bank Name",
+    fullName: "fullName in bank account",
+    accountNumber: "0000 0000 0000 0000",
+  },
+];
+export const MY_DIGITAL_WALLETS = [
+  {
+    walletName: "Paypal",
+    email:'any@gmail.com'
+  },
+  {
+    walletName: "Wise",
+    email:'any@gmail.com'
   },
 ];
