@@ -28,7 +28,11 @@ const PasswordAndSecurity = () => {
             </p>
             <button
               className="button p-1  text-[12px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md w-[120px] sm:w-[200px] "
-              onClick={() => setAccountDeletionClicked(true)}
+              onClick={() => {
+                setAccountDeletionClicked(true)
+                setChangeAccountPassword(false)
+                setAccountDeletionConfirmed(false)
+              }}
             >
               Delete
             </button>
@@ -40,6 +44,9 @@ const PasswordAndSecurity = () => {
             <button className="button p-1   text-[12px] sm:text-[16px] sm:p-2 bg-[#E3BB59] text-white border border-[#E3BB59] hover:text-[#E3BB59] hover:border-[#E3BB59] hover:bg-white transition-all duration-300 rounded-md w-[120px] sm:w-[200px] "
               onClick={() => {
                 setChangeAccountPassword(true);
+                setAccountDeletionClicked(false)
+                setAccountDeletionConfirmed(false)
+
                 handleBackdropOpen()
               }}
 
@@ -68,6 +75,7 @@ const PasswordAndSecurity = () => {
               className=" mt-4 sm:mt-12 ml-2 button p-1 px-4  text-[16px] sm:text-[16px] sm:p-2 sm:px-8 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md  "
               onClick={() => {
                 setAccountDeletionConfirmed(true);
+                setChangeAccountPassword(false)
                 handleBackdropOpen()
               }}
             >
