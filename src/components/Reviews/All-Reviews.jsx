@@ -1,18 +1,13 @@
-import React from "react";
-import { CLIENT_REVIEWS } from "../../../constants/constants";
-import { STAR, VERIFIED } from "../../../constants/icons";
-import Link from "next/link";
-const CustomerReviews = ({heading,text,reviews}) => {
+import React from 'react'
+import { VERIFIED,STAR, LOAD_MORE } from '../../../constants/icons'
+import { CLIENT_REVIEWS } from '../../../constants/constants'
+import Button from '../Button/Button'
+import JoinNowSection from '../JoinNowSection/Join-Now-Section'
+const AllReviews = () => {
   return (
-    <div className="flex flex-col items-center w-full my-8 mt-16 text-center  px-8">
-      <h1 className=" lato-700 text-[24px] md:text-[32px] xl:text-[40px] ">
-        {heading}
-      </h1>
-      <h3 className="mt-2 lato text-[12px] md:text-[16px] xl:text-[24px]  ">
-        {text}
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-12 w-full my-4">
-        {reviews.map((review, index) => (
+    <>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-12 w-full my-4 ">
+        {CLIENT_REVIEWS.map((review, index) => (
           <div className="flex flex-col items-center w-full" key={index}>
             <div className="flex flex-col items-center w-full md:w-11/12 border border-gray-600 px-6 rounded-md py-4">
               <div className="flex flex-row items-center justify-between w-full">
@@ -65,11 +60,32 @@ const CustomerReviews = ({heading,text,reviews}) => {
           </div>
         ))}
       </div>
-      <Link href={"/website-reviews"} className="text-[#E3BB59] underline">
-        View More
-      </Link>
-    </div>
-  );
-};
+      <Button
+        others={'border p-1 px-2 sm:p-2 mt-4 rounded-md flex flex-row items-center mb-8'}
+        text={
+            <>
+            <p>Load more</p>
+            <img className='w-4 h-auto ml-2' src={LOAD_MORE.image} alt={LOAD_MORE.name}/>
+            </>
+        }
+        bgColor={'gray-300'}
+        textColor={'gray-800'}  
+      />
 
-export default CustomerReviews;
+<div className=' w-full '>
+<JoinNowSection
+        text={
+          "Join Precious Metal Market today and experience the easiest way to buy and sell precious metals online."
+        }
+        clickHandler={()=>{}}
+      />
+      <p className='text-gray-800 text-[12px] sm:text-[16px] lg::text-[24px]'>
+         
+If you would like to provide us with feedback, please email us at <span className='text-blue-600 '>support@preciousmetalmarket.com.</span> 
+      </p>
+</div>
+      </>
+  )
+}
+
+export default AllReviews

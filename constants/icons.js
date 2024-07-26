@@ -26,4 +26,5 @@ export const PAYPAL = { name: "paypal logo", image: "/assets/paypal.png" }
 export const AMERICAN_EXPRESS = { name: "american express logo", image: "/assets/american-express.png" }
 export const VISA = { name: "visa logo", image: "/assets/visa.png" }
 export const G_PAY = { name: "G-pay logo", image: "/assets/g-pay.png" }
-export const APPLE_PAY = { name: "apple-pay logo", image: "/assets/apple-pay.png" }
+export const APPLE_PAY = { name: "apple-pay logo", image: "/assets/apple-pay.png" } 
+export const NOT_FOUND = { name: "Notfound", image: "/assets/not-found.svg" } 

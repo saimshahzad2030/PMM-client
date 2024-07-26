@@ -63,13 +63,13 @@ export default function ShipmentTrack({
       ></div>
       <div
         className={`w-6 h-6 ${
-          orderPlaced ? "bg-[#E3BB59]" : "bg-[#F1DDAC]"
+          orderPlaced ? "bg-[#E3BB59]" : "bg-[#F1DDAC]  border-2 border-white"
         } rounded-full relative flex flex-col items-center justify-center`}
       >
         {orderPlaced && (
           <img className="w-3 h-3" src={TICK.image} alt={TICK.name} />
         )}
-        <div className="flex flex-col items-start absolute left-8 top-0 sm:top-8">
+        <div className="flex flex-col  sm:items-center items-start absolute left-8 sm:left-auto top-0 sm:top-8">
           <PlacedIcon color={orderPlaced ? "#E3BB59" : "#F1DDAC"} />
           <p className={`${orderPlaced ? "text-black" : " text-gray-400"}`}>
             Order Placed
@@ -78,13 +78,13 @@ export default function ShipmentTrack({
       </div>
       <div
         className={`w-6 h-6 ${
-          orderPacked ? "bg-[#E3BB59]" : "bg-[#F1DDAC]"
+          orderPacked ? "bg-[#E3BB59]" : "bg-[#F1DDAC]  border-2 border-white"
         } rounded-full relative flex flex-col items-center justify-center`}
       >
         {orderPacked && (
           <img className="w-3 h-3" src={TICK.image} alt={TICK.name} />
         )}
-                <div className="flex flex-col items-end absolute right-8 top-0 sm:top-8">
+                <div className="flex flex-col sm:items-center items-end absolute right-8 sm:right-auto top-0 sm:top-8">
 
           <PackedIcon color={orderPacked ? "#E3BB59" : "#F1DDAC"} />
           <p className={`${orderPacked ? "text-black" : " text-gray-400"}`}>
@@ -95,13 +95,13 @@ export default function ShipmentTrack({
       {verificationProcess && (
         <div
           className={`w-6 h-6 ${
-            verificationPorcessCompleted ? "bg-[#E3BB59]" : "bg-[#F1DDAC]"
+            verificationPorcessCompleted ? "bg-[#E3BB59]" : "bg-[#F1DDAC]  border-2 border-white"
           } rounded-full relative flex flex-col items-center justify-center`}
         >
           {verificationPorcessCompleted && (
             <img className="w-3 h-3" src={TICK.image} alt={TICK.name} />
           )}
-                  <div className="flex flex-col items-start absolute left-8 top-0 sm:top-8">
+                  <div className="flex flex-col items-start sm:items-center absolute left-8 sm:left-auto top-0 sm:top-8">
 
             <Verification
               color={verificationPorcessCompleted ? "#E3BB59" : "#F1DDAC"}
@@ -118,13 +118,13 @@ export default function ShipmentTrack({
       )}
       <div
         className={`w-6 h-6 ${
-          onTheRoad ? "bg-[#E3BB59]" : "bg-[#F1DDAC]"
+          onTheRoad ? "bg-[#E3BB59]" : "bg-[#F1DDAC] border-2 border-white"
         } rounded-full relative flex flex-col items-center justify-center`}
       >
         {onTheRoad && (
           <img className="w-3 h-3" src={TICK.image} alt={TICK.name} />
         )}
-                <div className="flex flex-col items-end absolute right-8 top-0 sm:top-8">
+                <div className="flex flex-col items-end sm:items-center absolute right-8 sm:right-auto top-0 sm:top-8">
 
           <OnTheRoad color={onTheRoad ? "#E3BB59" : "#F1DDAC"} />
           <p className={`${onTheRoad ? "text-black" : " text-gray-400"}`}>
@@ -134,13 +134,13 @@ export default function ShipmentTrack({
       </div>
       <div
         className={`w-6 h-6 ${
-          delivered ? "bg-[#E3BB59]" : "bg-[#F1DDAC]"
+          delivered ? "bg-[#E3BB59]" : "bg-[#F1DDAC]  border-2 border-white"
         } rounded-full relative flex flex-col items-center justify-center`}
       >
         {delivered && (
           <img className="w-3 h-3" src={TICK.image} alt={TICK.name} />
         )}
-                <div className="flex flex-col items-start absolute left-8 top-0 sm:top-8">
+                <div className="flex flex-col items-start sm:items-center absolute left-8 sm:left-auto top-0 sm:top-8">
 
           <Delivered color={delivered ? "#E3BB59" : "#F1DDAC"} />
           <p className={`${delivered ? "text-black" : " text-gray-400"}`}>

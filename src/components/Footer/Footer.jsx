@@ -30,11 +30,11 @@ const Footer = () => {
         <div className="w-auto flex flex-col items-center">
           <div className="flex flex-col items-start  w-full">
             <h4 className="lato-700 text-[16px] uppercase">info</h4>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/blogs"} className="text-[16px] mt-4">
               Blog
             </Link>
-            <Link href={"/"} className="text-[16px] mt-4">
-              Payment methods
+            <Link href={"/how-it-works"} className="text-[16px] mt-4">
+              How it works
             </Link>
           </div>
         </div>
