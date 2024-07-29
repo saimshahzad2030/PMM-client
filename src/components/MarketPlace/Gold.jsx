@@ -21,10 +21,7 @@ const Gold = () => {
       selectedMetal={'gold'}
       />
       <JoinNowSection
-        text={
-          "Join Precious Metal Market today and experience the easiest way to buy and sell precious metals online."
-        }
-        clickHandler={()=>{}}
+       
       />
     </div>
   );

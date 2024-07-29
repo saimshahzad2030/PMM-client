@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { CLIENT_REVIEWS } from "../../../constants/constants";
 import { STAR, VERIFIED } from "../../../constants/icons";

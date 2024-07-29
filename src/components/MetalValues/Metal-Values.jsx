@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { METAL_VALUES } from '../../../constants/constants'
 

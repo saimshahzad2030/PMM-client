@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import styles from "./Address-Book.module.css";
 import Button from "../../../Button/Button";

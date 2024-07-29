@@ -42,10 +42,7 @@ const JoinUs = ({ route }) => {
         <img className="mt-8 md:mt-0 w-full md:w-[47%] h-auto rounded-lg" src={JOIN_US1.image} alt={JOIN_US1.name}/>
       </div>
       <JoinNowSection
-        text={
-          "Join Precious Metal Market today and experience the easiest way to buy and sell precious metals online."
-        }
-        clickHandler={() => {}}
+        
       />
     </div>
   );

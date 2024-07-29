@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import RouteComponent from '../RouteComponent/Route-Component' 
 import { USER } from '../../../constants/constants'

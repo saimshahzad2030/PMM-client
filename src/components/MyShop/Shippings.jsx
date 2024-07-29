@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { SHIPMENTS } from '../../../constants/constants';
 import ShipmentTrack from '../MyAccount/Shipment-Track';

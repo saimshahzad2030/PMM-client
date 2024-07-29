@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import PackedIcon from "../../../public/assets/shipment/Packed";
 import PlacedIcon from "../../../public/assets/shipment/Placed";

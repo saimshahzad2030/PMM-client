@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import RouteComponent from "../RouteComponent/Route-Component";
 import { READ_MORE } from "../../../constants/icons";
@@ -66,7 +68,7 @@ const Blogs = () => {
          <div className="w-full flex flex-row justify-center my-4">
             <Pagination count={10} />
           </div>
-        <JoinNowSection text={'Join Precious Metal Market today and experience the easiest way to buy and sell precious metals online.'} clickHandler={()=>{}}/>
+        <JoinNowSection  />
 
     </div>
   );

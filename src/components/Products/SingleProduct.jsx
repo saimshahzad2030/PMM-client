@@ -40,6 +40,7 @@ const SingleProduct = ({product,buttonClickHandler,buttonText}) => {
             e.stopPropagation();
             console.log('s');
           }}
+          // onClick={()=>console.log('sdad')}
             >
               {buttonText?buttonText:'Add to Cart'}
             </button>

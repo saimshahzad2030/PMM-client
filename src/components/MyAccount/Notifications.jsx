@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import UserSection from './User-Section'
 import { NOTIFICATIONS, USER } from '../../../constants/constants'

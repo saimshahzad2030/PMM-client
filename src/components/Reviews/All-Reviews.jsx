@@ -74,10 +74,7 @@ const AllReviews = () => {
 
 <div className=' w-full '>
 <JoinNowSection
-        text={
-          "Join Precious Metal Market today and experience the easiest way to buy and sell precious metals online."
-        }
-        clickHandler={()=>{}}
+         
       />
       <p className='text-gray-800 text-[12px] sm:text-[16px] lg::text-[24px]'>
          

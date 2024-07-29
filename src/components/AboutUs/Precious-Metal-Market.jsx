@@ -53,10 +53,7 @@ const PreciousMetalMarket = ({ route }) => {
          
       </div>
       <JoinNowSection
-        text={
-          "Join Precious Metal Market today and experience the easiest way to buy and sell precious metals online."
-        }
-        clickHandler={() => {}}
+      
       />
     </div>
   );
