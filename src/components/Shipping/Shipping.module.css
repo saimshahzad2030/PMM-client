@@ -1,0 +1,10 @@
+/* .custom-list {
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+   */
+  .custom-list li::marker {
+    color: #E3BB59; /* Custom color */
+    /* font-size: 24px;  */
+    font-weight: 800;
+  }

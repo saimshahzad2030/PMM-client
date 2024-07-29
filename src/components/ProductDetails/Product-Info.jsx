@@ -21,9 +21,9 @@ const ProductInfo = ({ product }) => {
       </div>
       <div className="flex flex-col sm:flex-row items-center justify-between w-full my-8">
         <div className="w-auto md:w-auto grid grid-cols-3">
-          <button className=" h-12 w-12 md:h-8 md:w-8 flex flex-col items-center justify-center button px-2 p-1 sm:p-2 border border-gray-400 text-gray-800 bg-white hover:bg-gray-800 hover:border-gray-800 hover:text-white transition-all duration-300" onClick={()=>setCounter(counter-1)}>-</button>
+          <button className=" h-12 w-12 md:h-8 md:w-8 flex flex-col items-center justify-center button px-2 p-1 sm:p-2 border border-gray-400 text-gray-800 bg-white hover:bg-gray-800 hover:border-gray-800 hover:text-white transition-all duration-300" onClick={()=>setCounter(counter>1?counter-1:0)}>-</button>
           <button className=" h-12 w-12 md:h-8 md:w-8 flex flex-col items-center justify-center button px-2 p-1 sm:p-2 border border-gray-400 text-gray-800 bg-white hover:bg-gray-800 hover:border-gray-800 hover:text-white transition-all duration-300">{counter}</button>
-          <button className=" h-12 w-12 md:h-8 md:w-8 flex flex-col items-center justify-center button px-2 p-1 sm:p-2 border border-gray-400 text-gray-800 bg-white hover:bg-gray-800 hover:border-gray-800 hover:text-white transition-all duration-300" onClick={()=>setCounter(counter+1)}>+</button>
+          <button className=" h-12 w-12 md:h-8 md:w-8 flex flex-col items-center justify-center button px-2 p-1 sm:p-2 border border-gray-400 text-gray-800 bg-white hover:bg-gray-800 hover:border-gray-800 hover:text-white transition-all duration-300" onClick={()=>setCounter(counter===product.available?counter:counter+1)}>+</button>
          
         </div>
         <Button

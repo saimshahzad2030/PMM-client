@@ -44,7 +44,7 @@ const Footer = () => {
             <Link href={"/"} className="text-[16px] mt-4">
               Account log in
             </Link>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/my-account/track-my-orders"} className="text-[16px] mt-4">
               Track my order
             </Link>
             <Link href={"/"} className="text-[16px] mt-4">
@@ -55,13 +55,13 @@ const Footer = () => {
         <div className="w-full flex flex-col items-center ">
           <div className="flex flex-col items-start w-full ">
             <h4 className="lato-700 text-[16px] uppercase">about us</h4>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/shipping"} className="text-[16px] mt-4">
               Shipping
             </Link>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/about-us/precious-metal-market"} className="text-[16px] mt-4">
               About precious metal market
             </Link>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/website-reviews"} className="text-[16px] mt-4">
               Precious Metal Market Reviews
             </Link>
           </div>

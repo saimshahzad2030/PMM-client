@@ -672,6 +672,8 @@ export const SHIPMENTS = [
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "not completed",
+    shipmentStatus: "to ship",
+    shippingTypeDate: "MM/DD/YYYY",
     price: "$1199.00",
     reciever: {
       contact: "+000 000 0000 0",
@@ -701,6 +703,7 @@ export const SHIPMENTS = [
         activityDate: "21, 2021 at 5:32 AM",
       },
       {
+        shipmentStatus: "to arrange",
         activityName: "Your order is successfully picked-up by logistics.",
         activityDate: "20 Jan, 2021 at 7:32 PM",
       },
@@ -715,6 +718,8 @@ export const SHIPMENTS = [
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "not completed",
+    shipmentStatus: "to ship",
+    shippingTypeDate: "MM/DD/YYYY",
     price: "$1199.00",
     reciever: {
       contact: "+000 000 0000 0",
@@ -759,6 +764,8 @@ export const SHIPMENTS = [
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "not completed",
+    shipmentStatus: "to arrange",
+    shippingTypeDate: "MM/DD/YYYY",
     price: "$1199.00",
     reciever: {
       contact: "+000 000 0000 0",
@@ -804,6 +811,8 @@ export const SHIPMENTS = [
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "completed",
+    shipmentStatus: "to ship",
+    shippingTypeDate: "MM/DD/YYYY",
     price: "$1199.00",
     reciever: {
       contact: "+000 000 0000 0",
@@ -848,6 +857,8 @@ export const SHIPMENTS = [
     description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
     quantity: 1,
     status: "completed",
+    shipmentStatus: "to arrange",
+    shippingTypeDate: "MM/DD/YYYY",
     price: "$1199.00",
     reciever: {
       contact: "+000 000 0000 0",
@@ -976,278 +987,534 @@ export const ARTICLES_IMAGE = {
 export const ARTICLES = [
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
   {
     description: "Understanding the Value of Gold in Today’s Economy",
-    startingText:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
+
     by: "Cameron Williamson",
+    blogPosterImage: "/assets/blogger-image.png",
+
     date: "8 Sep, 2020",
     socialLinks: [
       {
-        facebook: "",
-        insta: "",
-        twitter: "",
-        linkedin: "",
+        facebook: "/",
+        linkedin: "/",
+        twitter: "/",
+        link: "/",
       },
     ],
     quotions:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. ",
-    textAfterQuotions:
+    textBeforeImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
     images: [
       { name: "article", image: "/assets/articles-image.png" },
       { name: "article", image: "/assets/articles-image.png" },
     ],
-    textAfterImaage:
+    textAfterImage:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. Suspendisse et nunc eu ex efficitur rhoncus. Mauris venenatis, turpis non sagittis imperdiet, ipsum elit cursus.",
   },
 ];
 
+export const BLOG_SOCIALS = [
+  {
+    name: "fb",
+    image: "/assets/blogSocialLinks/facebook.svg",
+  },
+  {
+    name: "linkedin",
+    image: "/assets/blogSocialLinks/linkedin.svg",
+  },
+  {
+    name: "twitter",
+    image: "/assets/blogSocialLinks/twitter.svg",
+  },
+  { name: "link", image: "/assets/blogSocialLinks/link.svg" },
+];
+export const ABOUT_US_BG = {
+  name: "About US",
+  image: "/assets/AboutUs/about-us-bg.jpeg",
+};
+export const JOIN_US1 = {
+  name: "About US",
+  image: "/assets/AboutUs/joinus1.jpeg",
+};
+export const OUR_COMMITMENT = {
+  name: "Our Commitment",
+  image: "/assets/AboutUs/joinus1.jpeg",
+};
+export const PRECIOUS_METAL_MARKET1 = {
+  name: "preciousmetalmarket1",
+  image: "/assets/AboutUs/preciousmetalmarket1.png",
+};
+export const PRECIOUS_METAL_MARKET2 = {
+  name: "preciousmetalmarket2",
+  image: "/assets/AboutUs/preciousmetalmarket2.jpeg",
+};
+export const WHY_CHOOSE_US_1 = {
+  name: "whychooseus1",
+  image: "/assets/AboutUs/whychooseus1.jpeg",
+};
+export const WHY_CHOOSE_US_2 = {
+  name: "whychooseus2",
+  image: "/assets/AboutUs/whychooseus2.jpeg",
+};
+export const WHY_CHOOSE_US_3 = {
+  name: "whychooseus3",
+  image: "/assets/AboutUs/whychooseus3.jpeg",
+};
+export const WHY_CHOOSE_US_4 = {
+  name: "whychooseus4",
+  image: "/assets/AboutUs/whychooseus4.jpeg",
+};
+
+export const My_SHOP_ITEMS = [
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 1,
+    metal: "gold",
+    rating: 4,
+    available: 10,
+    model: "Model A1",
+    specification: ["High purity", "Durable", "Attractive finish"],
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    highlights: ["Best seller", "Limited edition", "High demand"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 2,
+    metal: "silver",
+    rating: 3,
+    available: 15,
+    model: "Model B2",
+    specification: ["Affordable", "Widely used", "Versatile"],
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+
+    highlights: ["New arrival", "Exclusive design", "Top-rated"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 3,
+    metal: "platinum",
+    rating: 5,
+    available: 5,
+    model: "Model C3",
+    specification: [
+      "Rare and valuable",
+      "High investment potential",
+      "Excellent conductivity",
+    ],
+
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    highlights: ["Discounted", "Special offer", "Highly recommended"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 4,
+    metal: "palladium",
+    rating: 4,
+    available: 8,
+    model: "Model D4",
+    specification: ["Used in industry", "Durable", "Unique properties"],
+
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    highlights: ["Best seller", "Limited edition", "High demand"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 5,
+    metal: "gold",
+    rating: 4,
+    available: 12,
+    model: "Model E5",
+    specification: ["High purity", "Durable", "Attractive finish"],
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    highlights: ["New arrival", "Exclusive design", "Top-rated"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 6,
+    metal: "silver",
+    rating: 3,
+    available: 7,
+    model: "Model A1",
+    specification: ["Affordable", "Widely used", "Versatile"],
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    highlights: ["Discounted", "Special offer", "Highly recommended"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 7,
+    metal: "platinum",
+    rating: 5,
+    available: 3,
+    model: "Model B2",
+    specification: [
+      "Rare and valuable",
+      "High investment potential",
+      "Excellent conductivity",
+    ],
+
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    highlights: ["Best seller", "Limited edition", "High demand"],
+  },
+
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 18,
+    metal: "silver",
+    rating: 3,
+    available: 9,
+    model: "Model C3",
+    specification: ["Affordable", "Widely used", "Versatile"],
+    details: "Highly recommended by experts.",
+    highlights: ["Discounted", "Special offer", "Highly recommended"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 19,
+    metal: "platinum",
+    rating: 5,
+    available: 8,
+    model: "Model D4",
+    specification: [
+      "Rare and valuable",
+      "High investment potential",
+      "Excellent conductivity",
+    ],
+    details: "Best in its category.",
+    highlights: ["Best seller", "Limited edition", "High demand"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 20,
+    metal: "palladium",
+    rating: 4,
+    available: 7,
+    model: "Model E5",
+    specification: ["Used in industry", "Durable", "Unique properties"],
+    details: "Customer favorite.",
+    highlights: ["New arrival", "Exclusive design", "Top-rated"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 21,
+    metal: "gold",
+    rating: 4,
+    available: 14,
+    model: "Model A1",
+    specification: ["High purity", "Durable", "Attractive finish"],
+    details: "This is a detailed description of the product.",
+    highlights: ["Discounted", "Special offer", "Highly recommended"],
+  },
+  {
+    imageUrl: METAL_COIN.image,
+    imageName: METAL_COIN.name,
+    description: "Lorem ipsum dolor sit amet, consectetur Vivamus le",
+    price: "$123.00",
+    id: 22,
+    metal: "silver",
+    rating: 3,
+    available: 13,
+    model: "Model B2",
+    specification: ["Affordable", "Widely used", "Versatile"],
+    details: "The product is known for its excellent quality.",
+    highlights: ["Best seller", "Limited edition", "High demand"],
+  },
+];

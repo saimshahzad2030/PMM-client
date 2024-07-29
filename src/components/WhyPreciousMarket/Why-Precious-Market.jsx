@@ -27,7 +27,7 @@ const WhyPreciousMarket = () => {
               precious metals, our marketplace offers a wide range of gold,
               silver, platinum, and other valuable metals to suit your needs.
             </span>
-            <Link href={"/"} className="text-[#E3BB59] flex flex-row items-center w-full mt-2">
+            <Link href={"/about-us/precious-metal-market"} className="text-[#E3BB59] flex flex-row items-center w-full mt-2">
           Read More
           <img className="w-4 h-4 ml-2" src={READ_MORE.image} alt={READ_MORE.name}/>
         </Link>

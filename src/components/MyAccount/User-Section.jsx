@@ -39,7 +39,7 @@ const UserSection = ({User}) => {
                 <div className="flex flex-row items-center mt-4 md:mt-0">
                     <span className='underline text-[#2176BD]  mr-1 sm:mr-4 cursor-pointer text-[10px] md:text-[14px] lg:text-[16px]'  onClick={()=>router.push('/my-account/track-my-orders')}>Track My Orders</span>
                     <img className='w-4 h-4 lg:w-6 lg:h-6  mr-1 sm:mr-4  cursor-pointer' src={BELL.image} alt={BELL.name} onClick={()=>router.push('/my-account/notifications')}/>
-                    <button className='button text-[10px] sm:text-[16px] bg-[#E3BB59] text-white py-[3px] lg:py-[6px] px-2 mr-1 sm:mr-4 rounded-md border border-[#E3BB59] hover:bg-white hover:text-[#E3BB59] hover:border-[#E3BB59] transition-all duration-300'>My Shop</button>
+                    <button className='button text-[10px] sm:text-[16px] bg-[#E3BB59] text-white py-[3px] lg:py-[6px] px-2 mr-1 sm:mr-4 rounded-md border border-[#E3BB59] hover:bg-white hover:text-[#E3BB59] hover:border-[#E3BB59] transition-all duration-300' onClick={()=>router.push('/my-account/my-shop')}>My Shop</button>
                     <button className='button text-[10px] sm:text-[16px] bg-white text-[#E3BB59] py-[3px] lg:py-[6px] px-2 border border-[#E3BB59]  rounded-md hover:bg-[#E3BB59] hover:text-white hover:border-white transition-all duration-300'  onClick={()=>router.push('/my-account/account-settings')}>Account Settings</button>
                 </div>
               </div>

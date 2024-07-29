@@ -37,7 +37,7 @@ const Blogs = () => {
       <h3 className="mt-4 lato-700 text-[16px] sm:text-[16px] md:text-[16px] xl:text-[20px]  w-full">
       {article.description}</h3>
       <p className=" text-[12px] sm:text-[16px] md:text-[16px] xl:text-[20px]  w-full">{article.startingText}</p>
-      <Link href={"/"} className="text-[#887035] flex flex-row items-center w-full mt-2 mb-16">
+      <Link href={`/blogs/${index}`} className="text-[#887035] flex flex-row items-center w-full mt-2 mb-16">
           Read More
           <img className="w-4 h-4 ml-2" src={READ_MORE.image} alt={READ_MORE.name}/>
         </Link>
@@ -50,7 +50,7 @@ const Blogs = () => {
                 <img className="w-full h-auto rounded-lg" src={ARTICLES_IMAGE.image} alt = {ARTICLES_IMAGE.name}/>
                 <h4 className="lato-700 text-[18px] mt-4">{article.description}</h4>
                 <p className="truncate-multiline text-[16px]">{article.startingText}</p>
-                <Link href={"/"} className="text-[#887035] flex flex-row items-center w-full mt-2 mb-16">
+                <Link href={`/blogs/${index}`} className="text-[#887035] flex flex-row items-center w-full mt-2 mb-16">
           Read More
           <img className="w-4 h-4 ml-2" src={READ_MORE.image} alt={READ_MORE.name}/>
         </Link>

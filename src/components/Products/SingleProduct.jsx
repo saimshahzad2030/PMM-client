@@ -1,6 +1,12 @@
 import React from 'react'
 import { HEART } from '../../../constants/icons'
-const SingleProduct = ({productClickHandler,product}) => {
+import { useRouter } from 'next/navigation'
+const SingleProduct = ({product,buttonClickHandler,buttonText}) => {
+  const router = useRouter();
+  const productClickHandler = (id)=>{
+    router.push(`/market-place/product-details/${id}`)
+
+  }
   return (
     <div className="flex flex-col items-center w-full cursor-pointer" 
     onClick={()=>productClickHandler(product.id)}
@@ -29,8 +35,13 @@ const SingleProduct = ({productClickHandler,product}) => {
             {product.price}
           </span>
           <div className="flex flex-col items-center w-full mb-2">
-            <button className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 border border-white text-white hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300">
-              Add to Cart{" "}
+            <button className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 border border-white text-white hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300"
+           onClick={(e) => {
+            e.stopPropagation();
+            console.log('s');
+          }}
+            >
+              {buttonText?buttonText:'Add to Cart'}
             </button>
           </div>
         </div>
