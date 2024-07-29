@@ -1518,3 +1518,52 @@ export const My_SHOP_ITEMS = [
     highlights: ["Best seller", "Limited edition", "High demand"],
   },
 ];
+
+export const FAQS = [
+  {
+    faq: "What is Precious Metal Market?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "How do I create an account?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "How do I buy precious metals on your platform?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "What payment methods are accepted?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "How can I be sure of the quality of the metals I buy?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "What if I am not satisfied with my purchase?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "How do I list precious metals for sale?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "Are there any fees for selling?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+  {
+    faq: "How do I get paid after a sale?",
+    answer:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et risus. Nam nec lobortis nisi. Maecenas porttitor tristique lacinia. Quisque congue, nunc a molestie maximus, mauris justo porta nisl, eu aliquam libero urna quis ex. Suspendisse potenti. In volutpat nulla sagittis tortor finibus, vitae fringilla metus faucibus. ",
+  }, 
+   
+];

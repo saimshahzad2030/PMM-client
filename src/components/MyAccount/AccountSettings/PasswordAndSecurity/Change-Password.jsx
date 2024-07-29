@@ -124,7 +124,7 @@ const ChangePassword = ({ handleBackdropClose }) => {
               
               <div className='flex flex-col items-start col-span-2 p-0 w-full'>
                 <p className='text-[12px] sm:text-[14px] md:text-[16px] text-gray-700'>Please add all necessary characters to create safe password</p>
-                <ul className='list-disc list-inside text-[12px] sm:text-[14px] md:text-[16px] text-gray-700 pl-2 mb-3'>
+                 <ul className='list-disc list-inside text-[12px] sm:text-[14px] md:text-[16px] text-gray-700 pl-2 mb-3'>
                     <li>Minimum character 12</li>
                     <li>One special character (!@%$)</li>
                     <li>One number</li>

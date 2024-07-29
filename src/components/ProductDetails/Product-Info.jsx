@@ -48,7 +48,7 @@ const ProductInfo = ({ product }) => {
       <p className="mt-2">Model: {product.model}</p>
       <p className="mt-2">Availability: {product.available}</p>
       </div>
-      <ul className='list-disc list-inside  text-gray-700 pl-2   mt-4'>
+       <ul className='list-disc list-inside  text-gray-700 pl-2   mt-4'>
                      {product.highlights.map((h)=>(
                         <li>{h}</li>
                      ))}

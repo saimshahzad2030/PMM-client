@@ -17,7 +17,7 @@ const AccountDeletetionConfirmation = ({ handleBackdropClose }) => {
       <p className="text-center w-full text-gray-900 lato-700 text-[18px] sm:text-[14px]">
         This action is irreversible.
       </p>
-      <ul className="list-disc pl-5 space-y-2 w-full ml-2 mt-4 text-gray-700">
+      <ul className="  list-outside list-disc pl-5 space-y-2 w-full ml-2 mt-4 text-gray-700">
         <li>
           All your data, including your profile information, product listings,
           and other content, will be permanently removed.

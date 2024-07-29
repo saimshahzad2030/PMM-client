@@ -291,7 +291,7 @@ const MyShop = () => {
                 <img src={ALERT.image} alt={ALERT.name} className="w-6 h-auto mr-4"/>
               <p className="text-[16px] md:text-[20px]">{arrangeForDropOff?'Arrange for Drop off':'Arrange for pickup'}</p>
               </div>
-              <ul className='list-disc list-inside text-[14px] md:text-[12px] text-gray-700 pl-2 mb-3 my-4'>
+               <ul className='list-disc list-inside text-[14px] md:text-[12px] text-gray-700 pl-2 mb-3 my-4'>
                     {arrangeForDropOff?
                     <>
                     <li>Dropoff parcel by January 23, 2021</li>

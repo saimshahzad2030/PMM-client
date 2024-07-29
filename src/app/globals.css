@@ -32,7 +32,9 @@
   font-weight: 700; 
   font-style: normal;
 }
- 
+body {
+  scroll-behavior: smooth;
+}
 
 /* Change the color of the navigation arrows */
 .mySwiper .swiper-button-next,

@@ -157,7 +157,7 @@ const AddNewProduct = () => {
                       <p className="text-center text-[12px] sm:text-[16px]">Add image</p>
                       <p className="text-center text-[12px] sm:text-[16px]">{`(${imagesUpload}/9)`}</p>
                     </label>
-                    <ul className="list-disc list-inside  text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-1 sm:ml-4">
+                    <ul className="  list-outside list-disc list-inside  text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-1 sm:ml-4">
                       <li>Size: 3:4 Image</li>
                       <li>File size: Maximum of 25mb</li>
                       <li>Format: Lorem impsum</li>
@@ -212,7 +212,7 @@ const AddNewProduct = () => {
                       <p className="text-[12px] sm:text-[16px] text-center">Add Video</p>
                       <p className="text-[12px] sm:text-[16px]">{`(${videosUpload}/9)`}</p>
                     </label>
-                    <ul className="list-disc list-inside text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-2 sm:ml-4">
+                    <ul className="  list-outside list-disc list-inside text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-2 sm:ml-4">
                       <li>Size: 3:4 Image</li>
                       <li>File size: Maximum of 25mb</li>
                       <li>Format: Lorem impsum</li>

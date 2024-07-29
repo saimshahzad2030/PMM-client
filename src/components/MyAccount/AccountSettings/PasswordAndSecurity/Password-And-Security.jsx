@@ -59,7 +59,7 @@ const PasswordAndSecurity = () => {
       {accountDeletionClicked && (
         <div className="w-full flex flex-col items-center my-3">
           <h2 className="w-full text-gray-800 text-start">Account Deletion</h2>
-          <ul className="list-disc pl-5 space-y-2 w-full ml-2 mt-4">
+          <ul className="  list-outside list-disc pl-5 space-y-2 w-full ml-2 mt-4">
             <li>
               Continuing with the application will be considered as your
               confirmation that there are no pending buying or selling

@@ -55,7 +55,7 @@ setOtpVerified(false)
   };  
   return (
     <>
-      <nav className="bg-[#E3BB59] h-auto w-full container mx-auto flex flex-row items-center justify-between text-white px-8">
+      <nav className="z-50 fixed bg-[#E3BB59] h-auto w-full container mx-auto flex flex-row items-center justify-between text-white px-8">
         <div className="   flex flex-col items-center w-full  py-4 pb-10">
           <div className="flex flex-row items-center w-full justify-end text-[14px] sm:text-lg">
             {userLoggedIn ? (
@@ -76,9 +76,9 @@ setOtpVerified(false)
             <img className="ml-4 w-6 h-6" src={cart.image} alt={cart.name} />
           </div>
           <div className="relative flex flex-row items-center justify-between w-full  text-lg mt-2 sm:mt-0">
-            <h1 className=" text-[40px] absolute    left-0">
-              PMM
-            </h1>
+            
+            <Link href={"/"} className=" text-[40px] absolute    left-0">PMM</Link>
+ 
 
             <div className="flex flex-row items-center justify-end w-full">
               <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12">

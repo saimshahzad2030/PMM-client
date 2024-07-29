@@ -13,16 +13,16 @@ const Footer = () => {
         <div className="w-auto flex flex-col items-center">
           <div className="flex flex-col items-start w-full">
             <h4 className="lato-700 text-[16px] uppercase">Customer Support</h4>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/faqs"} className="text-[16px] mt-4">
               FAQ
             </Link>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/contact-us"} className="text-[16px] mt-4">
               Contact Us
             </Link>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/terms-of-service"} className="text-[16px] mt-4">
               Terms of Service
             </Link>
-            <Link href={"/"} className="text-[16px] mt-4">
+            <Link href={"/privacy-policy"} className="text-[16px] mt-4">
               Privacy Policy
             </Link>
           </div>
