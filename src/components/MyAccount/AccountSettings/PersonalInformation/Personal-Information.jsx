@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField,useMediaQuery } from "@mui/material";
-
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
@@ -11,12 +13,13 @@ const validationSchema = Yup.object({
   fullname: Yup.string()
     .min(8, "full name must be complete")
     .required("Date is required"),
-  dob: Yup.string().required("Date is required"),
+  dob: Yup.date().required("Date is required"),
   phone: Yup.number().min(11, "must be a valid number"),
   gender: Yup.string().required("Gender is Required"),
 });
 const PersonalInformation = ({ user }) => {
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(null);
   const isSmallScreen = useMediaQuery('(max-width: 640px)');
 
   return (
@@ -25,7 +28,7 @@ const PersonalInformation = ({ user }) => {
         initialValues={{
           email: "",
           fullname: "",
-          dob: "",
+          dob: selectedDate,
           phone: "",
           gender: "",
         }}
@@ -105,7 +108,37 @@ const PersonalInformation = ({ user }) => {
               </div>
 
               <div className="flex flex-col items-center col-span-1">
-                <TextField
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    className="w-full"
+                    name="dob"
+                    label="Date of birth"
+                    value={selectedDate}
+                    onChange={(newValue) => setSelectedDate(newValue)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth
+                        name="dob"
+                        
+                        id="dob"
+                        variant="outlined"
+                        margin="normal"  
+                        error={
+                          submitButtonClicked &&
+                          touched.dob &&
+                          Boolean(errors.dob)
+                        }
+                        helperText={
+                          submitButtonClicked && touched.dob && errors.dob
+                        } 
+
+                      />
+                      
+                    )}
+                  />
+                </LocalizationProvider>
+                {/* <TextField
                   fullWidth
                   id="dob"
                   name="dob"
@@ -123,7 +156,7 @@ const PersonalInformation = ({ user }) => {
                   }
                   size={isSmallScreen?'small':'medium'}
 
-                />
+                /> */}
               </div>
               <div className="flex flex-col items-center col-span-1">
                 <TextField
@@ -153,7 +186,9 @@ const PersonalInformation = ({ user }) => {
                 <button
                   className=" button bg-[#E3BB59] text-white p-1 sm:p-2 w-3/12 rounded-md border border-white hover:bg-white hover:text-[#E3BB59] hover:border-[#E3BB59] transition-all duration-300"
                   type="submit"
-                  onClick={() => setSubmitButtonClicked(true)}
+                  onClick={() => {
+                    console.log('submi')
+                    setSubmitButtonClicked(true)}}
                 >
                   Save
                 </button>

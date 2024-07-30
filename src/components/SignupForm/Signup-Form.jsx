@@ -33,7 +33,7 @@ const SignupForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn}) => {
         };
       }, []);
   return (
-    <div className='form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-20 rounded-xl h-[90vh] overflow-y-auto' >
+    <div className='form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-20 rounded-xl h-[90vh] overflow-y-scroll' >
         <div className='w-full flex flex-col items-end'><img className=" mt-1 mr-1 cursor-pointer w-6 h-6" onClick={handleBackdropClose} src={CROSS.image} alt={CROSS.name}/>
         </div>
       <h1 className='lato-700  text-[30px] md:text-[32px] xl:text-[40px] text-gray-800 mb-6 text-center'>

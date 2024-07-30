@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
           />
         </head>
       <body className={`${inter.className} lato`}>
-      <SmoothScrollerLayout /> 
+      {/* <SmoothScrollerLayout />  */}
         {children}</body>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
       </html>

@@ -1,12 +1,14 @@
+"use client"
 import React from 'react'
-import { HEART } from '../../../constants/icons' 
+import { HEART, HEART_FILLED } from '../../../constants/icons' 
 import { useRouter } from 'next/navigation'
-const SingleProduct = ({product,buttonClickHandler,buttonText}) => {
+const SingleProduct = ({product,buttonClickHandler,buttonText,favourite}) => {
   const router = useRouter();
   const productClickHandler = (id)=>{
     router.push(`/market-place/product-details/${id}`)
 
   } 
+  const [heartLogo,setHeartLogo] = React.useState(favourite?HEART_FILLED:HEART)
   return (
     <div className="flex flex-col items-center w-full cursor-pointer" 
     onClick={()=>productClickHandler(product.id)}
@@ -19,10 +21,20 @@ const SingleProduct = ({product,buttonClickHandler,buttonText}) => {
             alt={product.imageName}
           />
           <img
-            className="w-6 h-6 absolute right-3 top-3"
-            src={HEART.image}
-            alt={HEART.name}
-            
+            className="w-6 h-6 absolute right-3 top-3 cursor-pointer"
+            src={heartLogo.image}
+            alt={heartLogo.name}
+            onClick={(e) => {
+              e.stopPropagation();
+              // console.log('heart clicked');
+              if(heartLogo.name ==='heart'){
+                  setHeartLogo(HEART_FILLED)
+              }
+              else{
+                setHeartLogo(HEART)
+
+              }
+            }}
           />
         </div>
         <div className="flex flex-col w-full px-2">

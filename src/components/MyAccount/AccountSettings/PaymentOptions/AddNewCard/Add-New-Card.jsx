@@ -14,7 +14,7 @@ import { TextField, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@/components/Button/Button";
 const validationSchema = Yup.object({
   cardnumber: Yup.string().required("full name is required"),
-  expiredate: Yup.date().required("Must be a date").required("required"),
+  expiredate: Yup.date("Must be a date").required("required"),
   cvv: Yup.string().required("City is required"),
   nameoncard: Yup.string().required("Address is required"),
 });

@@ -73,7 +73,7 @@ setOtpVerified(false)
                 </button>
               </>
             )}
-            <img className="ml-4 w-6 h-6" src={cart.image} alt={cart.name} />
+            <Link className="w-auto flex flex-col items-center justify-center" href={'/cart'}><img className="ml-4 w-6 h-6 cursor-pointer" src={cart.image} alt={cart.name} /></Link>
           </div>
           <div className="relative flex flex-row items-center justify-between w-full  text-lg mt-2 sm:mt-0">
             
