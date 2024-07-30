@@ -15,7 +15,7 @@ import { MARKET_PLACE_PAGE, METAL_COIN, SLIDER_BG } from "../../../constants/con
 import SingleProduct from '../Products/SingleProduct';
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
-export default function RelatedPorducts({productType}) {
+export default function RelatedPorducts({productType,headingText}) {
     const isMediumScreen = useMediaQuery('(max-width: 780px)');
     const isSmallScreen = useMediaQuery('(max-width: 640px)');
     const isVerySmallScreen = useMediaQuery('(max-width: 640px)');
@@ -28,7 +28,7 @@ export default function RelatedPorducts({productType}) {
     <>
       <div className={`w-full   my-16 `}>
       <h1 className=' lato-700 text-[24px] md:text-[32px] xl:text-[40px] text-center mb-12'>
-        Related Products
+        {headingText?headingText:'Related Products'}
       </h1>
         <Swiper
           slidesPerView={isVerySmallScreen?1:isSmallScreen?2:isMediumScreen?3:4}

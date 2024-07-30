@@ -1,12 +1,12 @@
 import React from 'react'
-import { HEART } from '../../../constants/icons'
+import { HEART } from '../../../constants/icons' 
 import { useRouter } from 'next/navigation'
 const SingleProduct = ({product,buttonClickHandler,buttonText}) => {
   const router = useRouter();
   const productClickHandler = (id)=>{
     router.push(`/market-place/product-details/${id}`)
 
-  }
+  } 
   return (
     <div className="flex flex-col items-center w-full cursor-pointer" 
     onClick={()=>productClickHandler(product.id)}
@@ -22,6 +22,7 @@ const SingleProduct = ({product,buttonClickHandler,buttonText}) => {
             className="w-6 h-6 absolute right-3 top-3"
             src={HEART.image}
             alt={HEART.name}
+            
           />
         </div>
         <div className="flex flex-col w-full px-2">

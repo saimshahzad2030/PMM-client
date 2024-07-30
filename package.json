@@ -19,6 +19,7 @@
     "@studio-freight/lenis": "^1.0.42",
     "@studio-freight/tempus": "^0.0.44",
     "@tailwindcss/line-clamp": "^0.4.4",
+    "d3": "^7.9.0",
     "dayjs": "^1.11.12",
     "formik": "^2.4.6",
     "lenis": "^1.1.8",

@@ -104,7 +104,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-row items-center mt-4">
               {SOCIALS.map((social,index)=>(
-                <img className="w-6 h-6 mr-4" src={social.image} alt={social.name} key={index}/>
+                <img className="w-6 h-6 mr-4 cursor-pointer" src={social.image} alt={social.name} key={index}/>
               ))}
             </div>
           </div>

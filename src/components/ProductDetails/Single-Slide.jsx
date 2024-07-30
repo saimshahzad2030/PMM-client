@@ -26,8 +26,8 @@ export default function SingleSlide({imageName,imageUrl}) {
           modules={[Pagination, Navigation]}
           className="mySwiper"
         >
-             {[1,2,3,4].map((img)=>(
-                    <SwiperSlide>
+             {[1,2,3,4].map((img,index)=>(
+                    <SwiperSlide key={index}>
                     <div className="flex flex-col items-center justify-center w-full h-[90vh] md:h-[400px] lg:h-[500px] bg-[#F2F2F2]">
                       <img
                         className="w-6/12 h-auto "

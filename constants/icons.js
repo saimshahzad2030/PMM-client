@@ -35,3 +35,6 @@ export const ORDER_PROCESSING_TIME = { name: "ORDER PROCESSING TIME ", image: "/
 export const SHIPPING_FEES = { name: "SHIPPING FEES", image: "/assets/shipping/shipping-fees.svg" } 
 export const ALERT = { name: "alert icon", image: "/assets/alert.svg" } 
 export const UPLOAD_IMAGE = { name: "upload ", image: "/assets/upload-image.svg" } 
+export const USD = {name:'USD',image:'/assets/usd.svg'}
+export const EURO = {name:'euro',image:'/assets/euro.svg'}
+export const CAN_USD = {name:'canaddian usd',image:'/assets/can-usd.svg'}
