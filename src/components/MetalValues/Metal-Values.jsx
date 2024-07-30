@@ -1,13 +1,20 @@
 "use client"
 import React from 'react'
 import { METAL_VALUES } from '../../../constants/constants'
+import { useRouter } from 'next/navigation'
 
 const MetalValues = () => {
+  const router = useRouter()
+  const clickHandler = (metal)=>{
+   
+  const lowercaseMetal = metal.toLowerCase();
+    router.push(`/market-place/${lowercaseMetal}-spot-price`)
+  }
   return (
     <div className='pt-32 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-4  w-full py-4 '>
       {METAL_VALUES.map((metal,index)=>(
         
-          <div className=' flex flex-row items-center w-full justify-center' key={index} >
+          <div className='cursor-pointer flex flex-row items-center w-full justify-center' key={index} onClick={()=>{clickHandler(metal.name)}}>
             <div className='flex flex-row w-11/12 justify-evenly text-gray-600 text-[12px] md:text-[11px] lg:text-[14px] xl:text-[16px]
             '>
             <div className='grid grid-cols-4 w-full text-center'>

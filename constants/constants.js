@@ -25,7 +25,7 @@ export const METAL_VALUES = [
     status: "positive",
   },
   {
-    name: "Pladium",
+    name: "Palladium",
     price1: "$ 123.00",
     price2: "$149.00",
     rate: "8%",
