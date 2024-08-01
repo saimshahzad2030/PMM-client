@@ -11,7 +11,7 @@ import { CLIENT_REVIEWS } from "../../constants/constants";
 export default function Home() {
   return (
     <>
-      <div className=" h-auto w-full bg-[#E3BB59]">
+      <div className=" h-auto w-full bg-[#E3BB59] ">
         <Navbar />
       </div>
       <div className="container mx-auto">

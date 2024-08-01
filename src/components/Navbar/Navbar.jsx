@@ -56,7 +56,7 @@ setOtpVerified(false)
   return (
     <>
       <nav className=" fixed top-0 left-0  bg-[#E3BB59] h-auto w-full flex flex-row items-center justify-between text-white px-8 z-50">
-        <div className="   flex flex-col items-center w-full  py-4 pb-10">
+        <div className="  container mx-auto flex flex-col items-center w-full  py-4 pb-10">
           <div className="flex flex-row items-center w-full justify-end text-[14px] sm:text-lg">
             {userLoggedIn ? (
               <Link href={"/my-account"}>My Account</Link>
