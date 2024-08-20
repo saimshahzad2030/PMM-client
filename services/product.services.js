@@ -96,6 +96,27 @@ export const fetchProduct = async (id) => {
     }
   };
  
+export const fetchProductByType = async (type) => {
+  try {
+    const response = await fetch(
+      `${config.BASE_URL}single-product-by-type?type=${type}`,
+      {
+        method: "GET",  
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `bearer ${Cookies.get('token')}`
+        }, 
+
+      }
+    );
+    const data = await response.json();  
+    
+    return data
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   export const deleteProduct = async (id) => {
     try {
       const response = await fetch(

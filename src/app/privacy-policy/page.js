@@ -6,12 +6,16 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar"; 
 import PrivacyPolicy from "@/components/PrivacyPolicy/Privacy-Policy";
 import TermsOfService from "@/components/TermsOfService/Terms-Of-Service";
+import { Suspense } from "react";
 
 const PrivacyPolicypage = () => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
 
     </div>
     <div className="container mx-auto">

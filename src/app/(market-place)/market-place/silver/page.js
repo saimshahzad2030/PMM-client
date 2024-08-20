@@ -3,7 +3,7 @@ import Footer from "@/components/Footer/Footer";
 import Silver from "@/components/MarketPlace/Silver";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
-import React from "react";
+import React, { Suspense } from "react";
 import { cookies } from "next/headers";  
 import { fetchSpecificProducts } from "../../../../../services/product.services";
 import { fetchCartItems } from "../../../../../services/cart.services";
@@ -15,7 +15,10 @@ const SilverPage = async() => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-        <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />

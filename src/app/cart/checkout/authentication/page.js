@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import Copyright from "@/components/Copyright/Copyright";
 import Footer from "@/components/Footer/Footer"; 
@@ -10,7 +10,10 @@ const AuthenticationPage = () => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-        <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />

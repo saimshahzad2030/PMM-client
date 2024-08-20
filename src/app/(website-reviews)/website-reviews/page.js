@@ -10,7 +10,10 @@ const WebsiteReviewspage = async() => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
 
     </div>
     <div className="container mx-auto">

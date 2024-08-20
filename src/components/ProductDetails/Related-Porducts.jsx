@@ -43,7 +43,8 @@ export default function RelatedPorducts({ products, cartItems }) {
           modules={[Pagination, Navigation]}
           className="mySwiper"
         >
-          {productsList.map((rp) => (
+          {productsList.length>0?
+          productsList.map((rp) => (
             <SwiperSlide>
               <SingleProduct
                 productClickHandler={() => {
@@ -55,7 +56,8 @@ export default function RelatedPorducts({ products, cartItems }) {
                 setProducts={setProductsList}
               />
             </SwiperSlide>
-          ))}
+          )):
+          <h2>No Products to show yet</h2>}
         </Swiper>
       </div>
     </>

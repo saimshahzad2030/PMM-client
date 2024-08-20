@@ -4,7 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import Gold from "@/components/MarketPlace/Gold"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
-import React from "react";
+import React, { Suspense } from "react";
 import { autoLogin } from "../../../../../services/user-login";
 import { cookies } from 'next/headers';
 import { fetchFavourites } from "../../../../../services/favourites.services";
@@ -19,7 +19,10 @@ const FavouriteProductsPage = async() => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-        <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />

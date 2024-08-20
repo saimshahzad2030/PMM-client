@@ -3,11 +3,15 @@ import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";  
 import Shipping from "@/components/Shipping/Shipping";
+import { Suspense } from "react";
 export default function ShippingPage() {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-        <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />

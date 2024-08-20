@@ -10,7 +10,7 @@ import { CAN_USD, EURO, USD } from "../../../constants/icons";
 import { RARE_COINS, USA_BG } from "../../../constants/constants";
 import RelatedPorducts from "../ProductDetails/Related-Porducts";
 import AreaChart from "../AreaChart/Area-Chart";
-const SpotPrice = ({ metalName, recommended, metalHistory, spotPrice,color }) => {
+const SpotPrice = ({ metalName,  spotPrice,color,related,cartItems }) => {
   const [currency, setCurrency] = React.useState("usd");
 
   const handleChange = (event) => {
@@ -182,8 +182,8 @@ const SpotPrice = ({ metalName, recommended, metalHistory, spotPrice,color }) =>
                         View all rare coins
                       </Link>
                     </div>
-                    <RelatedPorducts productType={metalName} headingText={'Recommended for you'}/>
-    </div>
+                    <RelatedPorducts  products={related} cartItems={cartItems} />
+    </div> 
   );
 };
 

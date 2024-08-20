@@ -14,6 +14,7 @@ import { autoLogin } from "../../services/user-login";
 import { cookies } from 'next/headers';
 import { deleteAllCookies } from "../../utils/delete-all-cookies";
 import { fetchCartItems } from "../../services/cart.services";
+import { Suspense } from "react";
 export default async function Home() {
   const cookieStore = cookies();
   const myCookie = cookieStore.get('token')?.value;
@@ -24,7 +25,10 @@ export default async function Home() {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59] ">
-        <Navbar/>
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />

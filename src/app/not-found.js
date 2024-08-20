@@ -6,13 +6,16 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import NotFound from "@/components/NotFound/404-Not-Found";
 import Reviews from "@/components/Reviews/Reviews";
+import { Suspense } from "react";
 
 const NotFoundpage = () => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
 
+        <Navbar />
+</Suspense>
     </div>
     <div className="container mx-auto">
       <MetalValues/> 

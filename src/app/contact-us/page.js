@@ -5,12 +5,16 @@ import Faqs from "@/components/Faqs/Faqs";
 import Footer from "@/components/Footer/Footer"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar"; 
+import { Suspense } from "react";
 
 const ContactUspage = () => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
 
     </div>
     <div className="container mx-auto">

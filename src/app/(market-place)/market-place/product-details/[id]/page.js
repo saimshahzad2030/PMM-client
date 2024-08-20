@@ -5,7 +5,7 @@ import Rare from "@/components/MarketPlace/Rare-Collection";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import Product from "@/components/ProductDetails/Product"; 
-import React from "react";
+import React, { Suspense } from "react";
 import { MARKET_PLACE_PAGE } from "../../../../../../constants/constants";
 import { notFound } from "next/navigation";
 import { fetchProduct, fetchRelatedProducts } from "../../../../../../services/product.services";
@@ -32,7 +32,10 @@ const ProductDetailspage = async ({params}) => {
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-        <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+
+<Navbar />
+</Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />

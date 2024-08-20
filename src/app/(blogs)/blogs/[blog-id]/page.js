@@ -43,6 +43,7 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import { notFound } from 'next/navigation';
 import { ARTICLES } from "../../../../../constants/constants";
+import { Suspense } from "react";
 
 async function getBlogData(blogId) {
   const blog = ARTICLES.find((blog,index) => index == blogId);
@@ -63,7 +64,10 @@ const BlogsPage = async ({ params }) => {
   return (
     <>
       <div className="h-auto w-full bg-[#E3BB59]">
+      <Suspense fallback={<div>Loading...</div>}>
+
         <Navbar />
+</Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />
