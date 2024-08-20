@@ -12,7 +12,7 @@ const ProductDetails = ({details,highlights}) => {
 
          <ul className='list-disc list-inside  text-gray-700 pl-2   mt-4'>
                      {highlights.map((h)=>(
-                        <li>{h}</li>
+                        <li>{h.highlight}</li>
                      ))}
                 </ul>
         </div>

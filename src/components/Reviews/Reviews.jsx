@@ -6,8 +6,9 @@ import AllReviews from "./All-Reviews";
 import RatingComponent from "./Rating";
 import Feedback from "./Feedback";
 
-const Reviews = ({heading,text}) => {
-  const [submitANewFeedback, setSubmitANewFeedback] = React.useState(false);
+const Reviews = ({heading,text,reviews,total}) => {
+  const [feedbacks,setFeedbacks] = React.useState(reviews)
+  const [submitANewFeedback, setSubmitANewFeedback] = React.useState(false); 
   return (
   <>
       <div className="w-full flex flex-col items-center px-8">
@@ -24,7 +25,7 @@ const Reviews = ({heading,text}) => {
     {submitANewFeedback?
      
      <> 
-        <Feedback/>
+        <Feedback  setFeedbacks = {setFeedbacks}/>
          </>
     : 
        
@@ -39,7 +40,7 @@ const Reviews = ({heading,text}) => {
           borderAfter={"[#E3BB59]"}
           clickHandler={()=>{setSubmitANewFeedback(true)}}
         />
-        <AllReviews /> </>
+        <AllReviews reviews={feedbacks}  start = {feedbacks.length} end = {feedbacks.length + 4}   setFeedbacks = {setFeedbacks} total = {total}/> </>
     }
       </div>
       </div>

@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
 
 import Copyright from "@/components/Copyright/Copyright";
-import Footer from "@/components/Footer/Footer"; 
+import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
-import Navbar from "@/components/Navbar/Navbar";    
-import AccountSettings from '@/components/MyAccount/AccountSettings/Account-Settings';
-const AccountSettingsPage = () => {
+import Navbar from "@/components/Navbar/Navbar";
+import AccountSettings from "@/components/MyAccount/AccountSettings/Account-Settings";
+import { cookies } from "next/headers";
+import { autoLogin } from "../../../../../services/user-login";
+
+const AccountSettingsPage = async () => {
+  const cookieStore = cookies();
+  const userInfo = await autoLogin(cookieStore.get("token").value);
+  console.log(userInfo);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -17,18 +23,32 @@ const AccountSettingsPage = () => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <AccountSettings/>
+        <AccountSettings
+          name={`${userInfo.user.firstName} ${userInfo.user.lastName}`}
+          gender={
+            userInfo.user.gender
+          }
+          birthday={
+            userInfo.user.dateOfBirth
+          }
+          email={userInfo.user.email}
+          phone={userInfo.user.phone}
+          addresses = {userInfo.user.addresses}
+          cards = {userInfo.user.creditCards}
+          banks = {userInfo.user.bankAccounts}
+          wallets = {userInfo.user.digitalWallets}
+        />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
-      
+
       <div className="container mx-auto">
-      <Footer/>
+        <Footer />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <Copyright/>
+        <Copyright />
       </div>
-      </>
+    </>
   );
 };
 

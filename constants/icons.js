@@ -40,3 +40,5 @@ export const USD = {name:'USD',image:'/assets/usd.svg'}
 export const EURO = {name:'euro',image:'/assets/euro.svg'}
 export const CAN_USD = {name:'canaddian usd',image:'/assets/can-usd.svg'}
 export const ORDER_PLACED = {name:'verified',image:'/assets/order-placed.svg'}
+export const USER_DEFAULT_IMAGE= {image:"/assets/user-defualt-image.svg",name:"user"}
+export const DELETE_ICON = {image:"/assets/bin.svg",name:"Bin"}

@@ -10,12 +10,15 @@ import {
   TextField, 
 } from '@mui/material';
 import Link from 'next/link';
+import { sendOtp } from '../../../services/user-login';
 
+import {Snackbar,IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 const validationSchema = Yup.object({
    
   email: Yup.string().email('Invalid email format').required('Email is required'),
  });
-const ForgotPassword =({handleBackdropClose, setEmailEntered, setEmailVerified, setForgotPassword}) => {
+const ForgotPassword =({setEmail,handleBackdropClose, setEmailEntered, setEmailVerified, setForgotPassword,setOtpId}) => {
     const [submitButtonClicked,setSubmitButtonClicked] = useState(false) 
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -23,6 +26,37 @@ const ForgotPassword =({handleBackdropClose, setEmailEntered, setEmailVerified, 
           document.body.style.overflow = 'auto'; 
         };
       }, []);
+      const [responseMessage,setResponseMessage] = useState(null)
+    React.useEffect(() => {
+        document.body.style.overflow = 'hidden'; // Disable body scroll when form is open
+        return () => {
+          document.body.style.overflow = 'auto'; // Enable body scroll when form is closed
+        };
+      }, []);
+
+      const [open, setOpen] = React.useState(false);
+
+     
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+      const action = (
+        <>
+           
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </>
+      );
   return (
     <div className='form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-20 rounded-xl h-[90vh] overflow-y-auto' >
         <div className='w-full flex flex-col items-end'><img className=" mt-1 mr-1 cursor-pointer w-6 h-6" onClick={handleBackdropClose} src={CROSS.image} alt={CROSS.name}/>
@@ -36,10 +70,21 @@ const ForgotPassword =({handleBackdropClose, setEmailEntered, setEmailVerified, 
           email: '', 
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={async(values) => {
+          console.log(values)
+          const sendEmail = await sendOtp(values.email);
+          if(sendEmail.otpId){
+            setOtpId(sendEmail.otpId)
+            setEmail(values.email)
             setEmailEntered(true)
             setEmailVerified(true)
             setForgotPassword(false)
+          }
+            
+          else{ 
+            setOpen(true)
+            setResponseMessage(sendEmail.message)
+          }
         }}
         
       >
@@ -71,6 +116,14 @@ const ForgotPassword =({handleBackdropClose, setEmailEntered, setEmailVerified, 
               </div>
                
             </div>
+            <Snackbar
+         anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
           </Form>
         )}
       </Formik>

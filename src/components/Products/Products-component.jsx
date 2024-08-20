@@ -17,61 +17,68 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import { useRouter } from "next/navigation";
 import SingleProduct from "./SingleProduct";
 
-const Productscomponent = ({products,selectedMetal,selectedType}) => {
+const Productscomponent = ({products,selectedMetal,selectedType,cartItems}) => {
+  const [cartProducts, setCartProducts] = React.useState(cartItems);
+  const [productsList,setProductList] = React.useState(products)
   const router = useRouter()
   const productClickHandler=(id)=>{
     router.push(`/market-place/product-details/${id}`)
   }
   return (
     <div className="w-full flex flex-col-reverse sm:flex-row items-start justify-between ">
+        {products.length>0?
         <div className="w-full sm:w-9/12 flex flex-col items-center">
-          <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-12 md:gap-y-8">
-            {products.map((product, index) => (
-              <>
-                {index === Math.ceil(products.length/2) && (
-                  <div
-                    className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4"
-                    key={index}
-                  >
-                    <div className="flex flex-col items-center justify-center relative">
-                      <img
-                        className="w-full h-auto md:h-[300px] rounded-lg bg-black opacity-80"
-                        src={USA_BG.image}
-                        alt={USA_BG.name}
-                      />
-                      <div className="flex flex-col items-center absolute bg-black opacity-50 w-full h-full justify-center">
-                        <h3 className="lato-700 text-[24px] md:text-[32px] xl:text-[40px] text-center text-white">
-                          Collect rare coins
-                        </h3>
-                        <img
-                          className="w-7/12 h-auto opacity-90"
-                          src={RARE_COINS.image}
-                          alt={RARE_COINS.name}
-                        />
-                      </div>
-                      <Link
-                        href={"/market-place/rare-collection"}
-                        className="text-[12px] sm:text-[16px] text-white underline absolute right-2 bottom-2 sm:right-10 sm:bottom-10"
-                      >
-                        View all rare coins
-                      </Link>
-                    </div>
-                  </div>
-                )}
-
-                
-                <SingleProduct
-                  product={product}
+        <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-12 md:gap-y-8">
+          {productsList.map((product, index) => (
+            <>
+              {index === Math.ceil(products.length/2) && (
+                <div
+                  className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4"
                   key={index}
-                  productClickHandler={productClickHandler}
-                />
-              </>
-            ))}
-          </div>
-          <div className="w-full flex flex-row justify-center my-4">
-            <Pagination count={10} />
-          </div>
+                >
+                  <div className="flex flex-col items-center justify-center relative">
+                    <img
+                      className="w-full h-auto md:h-[300px] rounded-lg bg-black opacity-80"
+                      src={USA_BG.image}
+                      alt={USA_BG.name}
+                    />
+                    <div className="flex flex-col items-center absolute bg-black opacity-50 w-full h-full justify-center">
+                      <h3 className="lato-700 text-[24px] md:text-[32px] xl:text-[40px] text-center text-white">
+                        Collect rare coins
+                      </h3>
+                      <img
+                        className="w-7/12 h-auto opacity-90"
+                        src={RARE_COINS.image}
+                        alt={RARE_COINS.name}
+                      />
+                    </div>
+                    <Link
+                      href={"/market-place/rare-collection"}
+                      className="text-[12px] sm:text-[16px] text-white underline absolute right-2 bottom-2 sm:right-10 sm:bottom-10"
+                    >
+                      View all rare coins
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              
+              <SingleProduct
+                product={product}
+                key={index}
+                productClickHandler={productClickHandler}
+                setCartProducts={setCartProducts}
+                setProducts={setProductList}
+                cartItems={cartProducts}
+              />
+            </>
+          ))}
         </div>
+        <div className="w-full flex flex-row justify-center my-4">
+          <Pagination count={10} />
+        </div>
+      </div>:
+      <h1>{`No ${selectedMetal} Products to show`}</h1>}
         <div className="w-full sm:w-3/12 flex flex-col items-center h-full justify-between">
           <div className="flex flex-col items-center w-full ">
             <Accordion

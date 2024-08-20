@@ -7,7 +7,7 @@ const ProductSpecification = ({specification}) => {
      <ul className='list-disc list-inside  text-gray-700 pl-2   mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-4'>
 
     {specification.map((spec)=>(
-       <li className=''>{spec}</li>
+       <li className=''>{spec.specification}</li>
     ))}
 </ul>
        </div>

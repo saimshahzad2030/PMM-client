@@ -33,11 +33,12 @@ const AddressBook = ({ addresses }) => {
   return (
     <>
       {addressEditWindowOpen && (
-        <EditAddress editAddress={true} address={selectedAddress} cancelClickHandler={cancelClickHandler}/>
+        <EditAddress editAddress={true} address={selectedAddress} cancelClickHandler={cancelClickHandler}  setAllAddress={setAllAddress}/>
       )}
-      {newAddressWindowOpen && <EditAddress editAddress={false} cancelClickHandler={cancelClickHandler}/>}
+      {newAddressWindowOpen && <EditAddress editAddress={false} cancelClickHandler={cancelClickHandler} setAllAddress={setAllAddress}/>}
       {!addressEditWindowOpen && ! newAddressWindowOpen && (
         <Table
+        setAllAddress={setAllAddress}
           allAddress={allAddress}
           handleChangeDefaultShipping={handleChangeDefaultShipping}
           setAddressEditWindowOpen={setAddressEditWindowOpen}

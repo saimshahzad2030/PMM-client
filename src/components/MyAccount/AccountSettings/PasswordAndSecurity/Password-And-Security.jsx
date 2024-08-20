@@ -3,8 +3,9 @@ import React from "react";
 import { Backdrop } from "@mui/material";
 import AccountDeletetionConfirmation from "./Account-Deletetion-Confirmation";
 import ChangePassword from "./Change-Password";
-
-const PasswordAndSecurity = () => {
+import Cookies from "js-cookie";
+const PasswordAndSecurity = () => { 
+const id = Cookies.get('id')
   const [accountDeletionClicked, setAccountDeletionClicked] =
     React.useState(false);
   const [accountDeletionConfirmeed, setAccountDeletionConfirmed] =
@@ -90,6 +91,7 @@ const PasswordAndSecurity = () => {
       >
         {accountDeletionClicked && accountDeletionConfirmeed && (
           <AccountDeletetionConfirmation
+          id={id}
             handleBackdropClose={handleBackdropClose}
           />
         )}

@@ -7,7 +7,7 @@ import PersonalInformation from './PersonalInformation/Personal-Information'
 import AddressBook from './AddressBookSection/Address-Book'
 import PaymentOptions from './PaymentOptions/Payment-Options'
 import PasswordAndSecurity from './PasswordAndSecurity/Password-And-Security'
-const AccountSettings = () => {
+const AccountSettings = ({name,email,phone,birthday,gender,addresses,banks,cards,wallets}) => { 
   const [informationSelected,setInformationSelected] = React.useState(true)
   const [addressBookSelected,setAddressBookSelected] = React.useState(false)
   const [paymentOptionsSelected,setPaymentOptionsSelected] = React.useState(false)
@@ -83,9 +83,9 @@ const AccountSettings = () => {
         </button>
 
         </div>
-        {informationSelected && <PersonalInformation user={USER}/>}
-        {addressBookSelected && <AddressBook addresses = {ADDRESSES}/>}
-        {paymentOptionsSelected && <PaymentOptions/>}
+        {informationSelected && <PersonalInformation user={{email,gender,birthday,phone,name}}/>}
+        {addressBookSelected && <AddressBook addresses = {addresses}/>}
+        {paymentOptionsSelected && <PaymentOptions cards = {cards} banks = {banks} wallets = {wallets}/>}
         {passwordAndSecuritySelected && <PasswordAndSecurity/>}
       
     </div>

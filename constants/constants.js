@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export const METAL_COIN = {
   image: "/assets/metal-coin.png",
   name: "metal-coin",

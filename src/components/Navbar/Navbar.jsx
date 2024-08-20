@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+import React, { use, useEffect } from "react";
 import Link from "next/link";
 import style from "./Navbar.module.css";
 
-import { styled } from '@mui/system';
+import { styled } from "@mui/system";
 import Backdrop from "@mui/material/Backdrop";
 import {
   cart,
@@ -18,10 +18,40 @@ import SignupForm from "../SignupForm/Signup-Form";
 import ForgotPassword from "../ForgotPassword/Forgot-Password";
 import OtpVerification from "../OtpVerification/Otp-Verification";
 import ChangePassword from "../ChangePassword/Change-Password";
-const Navbar = () => {
+import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginSection } from "@/redux/reducers/loginSection";
+import { useSearchParams, usePathname } from "next/navigation";
+import { autoLogin } from "../../../services/user-login";
+const Navbar = ({ loggedIn }) => {
+  const [userLoggedIn, setUserLoggedIn] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [otpId, setOtpId] = React.useState(null);
+  const [email, setEmail] = React.useState(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = Cookies.get("token");
+      if (token) {
+        try {
+          const userData = await autoLogin(token);
+
+          if (userData?.user) {
+            setUserLoggedIn(true); 
+          }
+        } catch (error) {
+          console.error("Failed to auto-login:", error);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchUser();
+  }, []);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
-  const [userLoggedIn, setUserLoggedIn] = React.useState(false);
+  // const isLoginSectionOpen = useSelector((state) => state.loginSection);
   const [backdropopen, setBackdropOpen] = React.useState(false);
   const [creatingAccount, setCreatingAcccount] = React.useState(false);
   const [signingIn, setSigningIn] = React.useState(false);
@@ -30,55 +60,84 @@ const Navbar = () => {
   const [emailVerified, setEmailVerified] = React.useState(false);
   const [otpEntered, setOtpEntered] = React.useState(false);
   const [otpVerified, setOtpVerified] = React.useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("error") === "unauthorized") {
+      setBackdropOpen(true);
+      setCreatingAcccount(true);
+    }
+  }, [searchParams, pathname]);
   const handleBackdropClose = () => {
     setBackdropOpen(false);
-    setSigningIn(false)
-setCreatingAcccount(false)
-setForgotPassword(false)
-setEmailEntered(false)
-setEmailVerified(false)
-setOtpEntered(false)
-setOtpVerified(false)
+    setSigningIn(false);
+    setCreatingAcccount(false);
+    setForgotPassword(false);
+    setEmailEntered(false);
+    setEmailVerified(false);
+    setOtpEntered(false);
+    setOtpVerified(false);
   };
+  const dispatch = useDispatch();
   const handleBackdropOpen = () => {
     setBackdropOpen(true);
   };
-  const handleSignin = ()=>{
-    handleBackdropOpen()
-    setSigningIn(true)
-  }
+  const handleSignin = () => {
+    handleBackdropOpen();
+    setSigningIn(true);
+  };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
-  };  
+  };
+
   return (
     <>
       <nav className=" fixed top-0 left-0  bg-[#E3BB59] h-auto w-full flex flex-row items-center justify-between text-white px-8 z-50">
         <div className="  container mx-auto flex flex-col items-center w-full  py-4 pb-10">
-          <div className="flex flex-row items-center w-full justify-end text-[14px] sm:text-lg">
-            {userLoggedIn ? (
+          <div
+            className={`flex flex-row items-center w-full justify-end text-[14px] sm:text-lg `}
+          >
+            {loading && <p className="text-[#E3BB59]">dsad</p>}
+            {!loading && userLoggedIn && (
               <Link href={"/my-account"}>My Account</Link>
-            ) : (
+            )}
+            {!loading && !userLoggedIn && (
               <>
-                <button classname="cursor-pointer text-white"
-                onClick={handleSignin}>
-                  Signin</button>
+                <button
+                  className="cursor-pointer text-white"
+                  onClick={handleSignin}
+                >
+                  Signin
+                </button>
                 &nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;
-                <button classname="cursor-pointer text-white"
-                onClick={()=>{handleBackdropOpen()
-                  setCreatingAcccount(true)}}>
+                <button
+                  className="cursor-pointer text-white"
+                  onClick={() => {
+                    handleBackdropOpen();
+                    setCreatingAcccount(true);
+                  }}
+                >
                   Create Account
                 </button>
               </>
             )}
-            <Link className="w-auto flex flex-col items-center justify-center" href={'/cart'}><img className="ml-4 w-6 h-6 cursor-pointer" src={cart.image} alt={cart.name} /></Link>
+            <Link
+              className="w-auto flex flex-col items-center justify-center"
+              href={"/cart"}
+            >
+              <img
+                className="ml-4 w-6 h-6 cursor-pointer"
+                src={cart.image}
+                alt={cart.name}
+              />
+            </Link>
           </div>
           <div className="relative flex flex-row items-center justify-between w-full  text-lg mt-2 sm:mt-0">
-            
-            <Link href={"/"} className=" text-[40px] absolute    left-0">PMM</Link>
- 
+            <Link href={"/"} className=" text-[40px] absolute    left-0">
+              PMM
+            </Link>
 
             <div className="flex flex-row items-center justify-end w-full">
               <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12">
@@ -183,16 +242,54 @@ setOtpVerified(false)
       </nav>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={backdropopen} 
+        open={backdropopen}
       >
-      <div className="relative flex flex-col items-center w-full">
-         {signingIn && <LoginForm handleBackdropClose={handleBackdropClose} setSigningIn={setSigningIn} setCreatingAcccount={setCreatingAcccount}  setForgotPassword={setForgotPassword} setUserLoggedIn={setUserLoggedIn}/>}
-      {creatingAccount && <SignupForm handleBackdropClose={handleBackdropClose} setSigningIn={setSigningIn} setCreatingAcccount={setCreatingAcccount}/>}
-      {forgotPassword && <ForgotPassword handleBackdropClose={handleBackdropClose} setEmailEntered={setEmailEntered} setEmailVerified={setEmailVerified} setForgotPassword={setForgotPassword}/>}
-      {emailVerified && <OtpVerification  handleBackdropClose={handleBackdropClose} setOtpEntered={setOtpEntered} setOtpVerified={setOtpVerified}  setEmailVerified={setEmailVerified} email={'sadsa@gmail.com'}/>}
-      {otpVerified && <ChangePassword  handleBackdropClose={handleBackdropClose}  />}
-      </div>
-
+        <div className="relative flex flex-col items-center w-full">
+          {signingIn && (
+            <LoginForm
+              handleBackdropClose={handleBackdropClose}
+              setSigningIn={setSigningIn}
+              setCreatingAcccount={setCreatingAcccount}
+              setForgotPassword={setForgotPassword}
+              setUserLoggedIn={setUserLoggedIn}
+            />
+          )}
+          {creatingAccount && (
+            <SignupForm
+              handleBackdropClose={handleBackdropClose}
+              setSigningIn={setSigningIn}
+              setCreatingAcccount={setCreatingAcccount}
+            />
+          )}
+          {forgotPassword && (
+            <ForgotPassword
+              setOtpId={setOtpId}
+              handleBackdropClose={handleBackdropClose}
+              setEmailEntered={setEmailEntered}
+              setEmailVerified={setEmailVerified}
+              setForgotPassword={setForgotPassword}
+              setEmail={setEmail}
+            />
+          )}
+          {emailVerified && (
+            <OtpVerification 
+              otpId={otpId}
+              handleBackdropClose={handleBackdropClose}
+              setOtpEntered={setOtpEntered}
+              setOtpVerified={setOtpVerified}
+              setEmailVerified={setEmailVerified}
+              email={email} 
+            />
+          )}
+          {otpVerified && (
+            <ChangePassword
+              handleBackdropClose={handleBackdropClose}
+              setSigningIn={setSigningIn}
+              setOtpVerified={setOtpVerified}
+              email={email}
+            />
+          )}
+        </div>
       </Backdrop>
     </>
   );

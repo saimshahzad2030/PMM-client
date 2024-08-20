@@ -4,8 +4,13 @@ import Rare from "@/components/MarketPlace/Rare-Collection";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
+import { cookies } from "next/headers";  
+import { fetchSpecificProducts } from "../../../../../services/product.services";
 
-const SilverPage = () => {
+const SilverPage = async() => {
+ 
+  const cookieStore = cookies(); 
+  const silverProducts = await fetchSpecificProducts("rare",0,40,cookieStore.get('token').value)
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -17,7 +22,7 @@ const SilverPage = () => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <Rare/>
+        <Rare products = {silverProducts.products}/>
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
       <div className="container mx-auto">

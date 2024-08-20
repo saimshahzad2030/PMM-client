@@ -1,15 +1,14 @@
 "use client"
 import React from 'react'
-import RouteComponent from '../RouteComponent/Route-Component' 
-import { USER } from '../../../constants/constants'
+import RouteComponent from '../RouteComponent/Route-Component'  
 import UserSection from './User-Section'
 
-const MyAccount = () => {
+const MyAccount = ({name,email,phone,birthday,gender,image}) => { 
   return (
     <>
     <div className='w-full flex flex-col items-center px-8 mb-12'>
     <RouteComponent parentRoute={'Home >'} mainRoute={'My Account'}/>
-    <UserSection User={USER}/>
+    <UserSection User={{image,name}}/>
     <div className='grid grid-cols-2 sm:grid-cols-4 w-full py-4'>
       <div className='flex flex-col items-start w-full'>
         <h3 className='text-gray-600 mt-4'>Name</h3>
@@ -19,11 +18,11 @@ const MyAccount = () => {
         <h3 className='text-gray-600 mt-4'>Phone Number</h3>
       </div>
       <div className='flex flex-col items-start w-full'>
-        <p className='mt-4'>{USER.name}</p>
-        <p className='mt-4'>{USER.gender}</p>
-        <p className='mt-4'>{USER.birthday}</p>
-        <p className='mt-4'>{USER.email}</p>
-        <p className='mt-4'>{USER.phone}</p>
+        <p className='mt-4 capitalize'>{name}</p>
+        <p className='mt-4'>{gender?gender:'not specified yet'}</p>
+        <p className='mt-4'>{birthday?birthday.split('T')[0]:'not specified'}</p>
+        <p className='mt-4'>{email}</p>
+        <p className='mt-4'>{phone?phone:'not specified yet'}</p>
         
       </div>
     </div>

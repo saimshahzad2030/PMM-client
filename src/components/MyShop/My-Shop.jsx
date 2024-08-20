@@ -9,8 +9,14 @@ import Shippings from "./Shippings";
 import { Backdrop } from "@mui/material";
 import { ALERT } from "../../../constants/icons";
 import { useRouter } from "next/navigation";
-const MyShop = () => {
+import { updateShipmentArrangement } from "../../../services/shipments.services";
+const MyShop = ({myProducts,authenticationRequired,url,image,name,shipments}) => {
   const router = useRouter()
+  if(authenticationRequired == true){
+    router.push(url)
+  }
+  
+  const [myShipments, setMyShipments] = React.useState(shipments);
   const [productListing, setProductListing] = React.useState(true);
   const [arrangeShipping, setArrangeShipping] = React.useState(false);
   const [shipping, setShipping] = React.useState(false);
@@ -19,6 +25,7 @@ const MyShop = () => {
     const [arrangeForPickUp,setArrangeForPickUp] = React.useState(false)
     const [arrangeForDropOff,setArrangeForDropOff] = React.useState(false)
     const [backdropopen, setBackdropOpen] = React.useState(false);
+    const [products,setProducts] = React.useState(myProducts)
     const handleBackdropClose = () => {
       setBackdropOpen(false);
     };
@@ -28,10 +35,25 @@ const MyShop = () => {
     const addNewProduct = ()=>{
       router.push('/my-account/my-shop/new-product-listing')
     }
+
+    const formatDateTime = (isoDate) => {
+      const date = new Date(isoDate);
+      return date.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+      });
+    };
+
+    console.log(myShipments,"MY SHIPMENTS")
   return (
-    <div className="w-full flex flex-col items-start px-8 my-12">
+    <div className="w-full flex flex-col items-start px-8 mb-12">
       <RouteComponent parentRoute={"Home > "} mainRoute={" My shop"} />
-      <UserSection User={USER} />
+      <UserSection User={{image,name}} />
       {!shippingSelectedForArrangement && <div className="flex flex-row w-full bg-[#F2F2F2] my-4">
         <button
           className={` text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px]  button w-4/12 border border-t-0 border-r-0 border-l-0 ${
@@ -87,10 +109,11 @@ const MyShop = () => {
             </div>
           </div>
 
-          {My_SHOP_ITEMS.map((mp, index) => (
+          {products.map((mp, index) => (
             <SingleProduct
               product={mp}
               buttonText={"Remove Listing"}
+              setProducts={setProducts}
               //   productClickHandler={productClickHandler}
             />
           ))}
@@ -110,14 +133,14 @@ const MyShop = () => {
                 </tr>
               </thead>
               <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
-                {SHIPMENTS.map((shipment, index) => (
+                {myShipments.map((shipment, index) => (
                   <tr
-                    key={index}
+                    key={shipment.id}
                     className="border border-t-0 border-l-0 border-r-0 border-b-gray-600"
                   >
                     <td className={` py-4  min-w-[120px] sm:min-w-[200px] `}>
                       <div className="flex flex-col items-start w-full text-start">
-                        <p>{shipment.description.slice(0, 14)}</p>
+                        {/* <p>{shipment.description.slice(0, 14)}</p> */}
                         <p className="text-gray-400 text-[12px]">
                           {shipment.quantity}
                         </p>
@@ -129,7 +152,7 @@ const MyShop = () => {
                       <div className="flex flex-col items-start w-full text-start">
                         <p>{shipment.price}</p>
                         <p className="text-gray-400 text-[12px]">
-                          Method of payment
+                          {shipment.paymentMethod}
                         </p>
                       </div>
                     </td>
@@ -137,11 +160,11 @@ const MyShop = () => {
                       className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
                     >
                       <div className="flex flex-col items-start w-full text-start">
-                        <p>{shipment.shipmentStatus}</p>
+                        <p>{shipment.Shippings.arrangementStatus == "NOT_ARRANGED"?"To Arrange":`To ${shipment.Shippings.arrangementStatus}`}</p>
                         <p className="text-gray-400 text-[12px]">
-                          {shipment.shipmentStatus === "to arrange"
-                            ? `Parcel pickup on ${shipment.shippingTypeDate}`
-                            : `Parcel drop off on ${shipment.shippingTypeDate}`}
+                          {shipment.Shippings.arrangementStatus == "PICK_UP"
+                            ? `Parcel pickup on ${formatDateTime(shipment.orderExpectedDate)}`
+                            : `Parcel drop off on ${formatDateTime(shipment.orderExpectedDate)}`}
                         </p>
                       </div>
                     </td>
@@ -158,7 +181,7 @@ const MyShop = () => {
                     <td
                       className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}
                     >
-                      {shipment.shipmentStatus === "to arrange" && (
+                      {shipment.Shippings.arrangementStatus == "NOT_ARRANGED" && (
                         <button
                           className=" button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-full hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
                           onClick={() => {
@@ -184,9 +207,10 @@ const MyShop = () => {
 
       {shipping && (
         <Shippings
-          shipments={SHIPMENTS.filter((s) => {
-            return s.status !== "completed";
-          })}
+          shipmentsList={myShipments.filter((s) => {
+            return s.Shippings.status !== "COMPLETED";
+          })} 
+          formatDateTime={formatDateTime}
         />
       )}
       {shippingSelectedForArrangement && (
@@ -196,7 +220,7 @@ const MyShop = () => {
           className={` text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px]  button w-4/12 border border-t-0 border-r-0 border-l-0 border-b-[#E3BB59] text-[#E3BB59] border-b-2 py-2 text-center `}
           onClick={() => {
             setArrangeShipping(true);
-            setShippingSelectedForArrangement(false)
+            setShippingSelectedForArrangement(null)
           }}
         >
           {`< Arrange Shipping`}
@@ -208,33 +232,31 @@ const MyShop = () => {
          <div className="flex flex-row items-start justify-between w-full border border-[#F7E99E] bg-[#fffced] p-4">
             <div className="flex flex-col items-start w-6/12  text-[10px] sm:text-[14px] text-gray-800">
               <p>
-                {shippingSelectedForArrangement.description}.{" "}
+                {shippingSelectedForArrangement.messageForSeller}.{" "}
                 <span>Quantity: {shippingSelectedForArrangement.quantity}</span>
               </p>
               <p className="lato-700 text-[19px] sm:text-[24px] my-2 text-gray-800">
                 {shippingSelectedForArrangement.price}
               </p>
               <p className=" text-[10px] sm:text-[14px] text-gray-800">
-                Receiver: {shippingSelectedForArrangement.reciever.name}
+                Receiver: {shippingSelectedForArrangement.reciever.firstName}
               </p>
               <p className=" text-[10px] sm:text-[14px] text-gray-400 ">
-                {shippingSelectedForArrangement.reciever.contact}
+                {shippingSelectedForArrangement.reciever.phone}
               </p>
               <p className=" text-[10px] sm:text-[14px] text-gray-400 ">
-                {shippingSelectedForArrangement.reciever.country},{" "}
-                {shippingSelectedForArrangement.reciever.state},{" "}
-                {shippingSelectedForArrangement.reciever.city}
+              Pakistan, Kpk,{" "}
+              Khi
               </p>
               <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">
-                Sender: {shippingSelectedForArrangement.sender.name}
+                Sender: {shippingSelectedForArrangement.sender.firstName}
               </p>
               <p className=" text-[10px] sm:text-[14px] text-gray-400 ">
-                {shippingSelectedForArrangement.sender.contact}
+                {shippingSelectedForArrangement.sender.phone}
               </p>
               <p className=" text-[10px] sm:text-[14px] text-gray-400 ">
-                {shippingSelectedForArrangement.sender.country},{" "}
-                {shippingSelectedForArrangement.sender.state},{" "}
-                {shippingSelectedForArrangement.reciever.city}
+              Pakistan, Kpk,{" "}
+              Khi
               </p>
               <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">
                 Order placed in:{" "}
@@ -242,7 +264,7 @@ const MyShop = () => {
               </p>
               <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">
                 Order expected arrival:{" "}
-                {shippingSelectedForArrangement.orderExpectedArrival}
+                {shippingSelectedForArrangement.orderExpectedDate}
               </p>
             </div>
             <div className="flex flex-col flex-end w-6/12 text-end min-h-full justify-between">
@@ -305,6 +327,7 @@ const MyShop = () => {
                 <button
                   className=" button border bg-white border-[#E3BB59] text-[#E3BB59] p-2 w-4/12 hover:text-white hover:bg-[#E3BB59] hover:border-[#E3BB59] transition-all duration-300 rounded-md"
                   onClick={() => {
+                    
                     setArrangeForDropOff(false)
                     setArrangeForPickUp(false)
                     handleBackdropClose()
@@ -314,12 +337,47 @@ const MyShop = () => {
                 </button>
                 <button
                   className="ml-4 button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-4/12 hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
-                  onClick={() => {
-                    setArrangeForDropOff(false)
+                  onClick={async() => {
+                    if(arrangeForPickUp){
+                      const updatedShipments = await updateShipmentArrangement("PICK_UP",shippingSelectedForArrangement.id)
+                      console.log(updatedShipments)
+                      if(updatedShipments.updatedShipment){
+                        setArrangeForDropOff(false)
+                        setArrangeForPickUp(false)
+                        // setMyShipments(prevData =>
+                        //   prevData.map(item =>
+                        //     item.id === shippingSelectedForArrangement.id ? { ...item, arrangementStatus: "PICK_UP" } : item
+                        //   )
+                        // );
+                        // setMyShipments(prevState => {
+                        //   return prevState.map(shipment => {
+                        //     // Check if this is the shipment we want to update
+                        //     if (shipment.id === shippingSelectedForArrangement.id) {
+                        //       return {
+                        //         ...shipment,
+                        //         Shippings: {
+                        //           ...shipment.Shippings, 
+                        //           [arrangementStatus
+                        //           ]: "PICK_UP", // Update the specific key
+                        //         },
+                        //       };
+                        //     }
+                        //     return shipment; // Return the original shipment object if no update is needed
+                        //   });
+                        // });
+                        handleBackdropClose()
+                      }
+                    }
+                    else if(arrangeForDropOff){
+                      const updatedShipments = await updateShipmentArrangement("DROP_OFF",shippingSelectedForArrangement.id)
+                      if(updatedShipments.updatedShipment){
+                        setArrangeForDropOff(false)
                     setArrangeForPickUp(false)
                     handleBackdropClose()
+                      }
 
-
+                    }
+                    
                   }}
                 >
                   Confirm

@@ -5,6 +5,9 @@ import {
   PROTECTED,
   VISA,
 } from "../../../../../../constants/icons";
+
+import {Snackbar,IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close'
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -12,18 +15,43 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@/components/Button/Button";
+import { addCard } from "../../../../../../services/card.services";
 const validationSchema = Yup.object({
   cardnumber: Yup.string().required("full name is required"),
-  expiredate: Yup.date("Must be a date").required("required"),
+  expirydate: Yup.date("Must be a date").required("required"),
   cvv: Yup.string().required("City is required"),
   nameoncard: Yup.string().required("Address is required"),
 });
-const AddNewCard = ({ handleBackdropClose }) => {
-  const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false);
-  const [deliveryType, setDeliveryType] = React.useState("home");
+const AddNewCard = ({ handleBackdropClose,setCardList }) => {
+  const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false); 
   const [selectedDate, setSelectedDate] = React.useState(null);
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const theme = useTheme(); 
+
+  const [responseMessage,setResponseMessage] = React.useState(null) 
+
+    const [open, setOpen] = React.useState(false);
+
+   
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpen(false);
+    };
+    const action = (
+      <>
+         
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleClose}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </>
+    );
   return (
     <div className="form-container flex flex-col items-center w-11/12 sm:w-8/12 bg-white p-4 sm:p-8 rounded-sm h-[90vh] overflow-y-auto">
       <div className="w-full flex flex-col items-end">
@@ -72,11 +100,33 @@ const AddNewCard = ({ handleBackdropClose }) => {
           nameoncard: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={async (values) => {
+          const formattedValues = {
+            ...values,
+            expirydate: values.expirydate ? values.expirydate.toISOString() : null, // Convert to ISO string or desired format
+          }; 
+          const newCard = await addCard( formattedValues.cardnumber,formattedValues.nameoncard,formattedValues.expirydate,formattedValues.cvv)
+          console.log(newCard) 
+          if(newCard.newCreditCard){
+            setCardList((prevItems) =>[...prevItems,newCard.newCreditCard ])
+            handleBackdropClose()        ;
+            values.cvv= "";
+            values.expirydate="";
+            values.cardnumber= "";
+            values.nameoncard= "";
+            formattedValues.cvv= "";
+            formattedValues.expirydate="";
+            formattedValues.cardnumber= "";
+            formattedValues.nameoncard= "";
+            
+          }
+          else{
+            setResponseMessage(newCard.message);
+            setOpen(true)
+          }
         }}
       >
-        {({ errors, touched, handleChange, handleBlur, values }) => (
+        {({ errors, touched, handleChange, handleBlur, values,setFieldValue }) => (
           <Form className="flex flex-col items-center md:flex-row md:items-start justify-between w-full  my-2">
             <div className="w-full  grid grid-cols-2 gap-4">
               <div className="flex flex-col items-center w-full   col-span-2 ">
@@ -107,7 +157,11 @@ const AddNewCard = ({ handleBackdropClose }) => {
                     name="expirydate"
                     label="Expiry Date"
                     value={selectedDate}
-                    onChange={(newValue) => setSelectedDate(newValue)}
+                    onChange={(newValue) => {
+                      setFieldValue("expirydate", newValue)
+                      setSelectedDate(newValue)}
+                     }
+                    
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -131,6 +185,8 @@ const AddNewCard = ({ handleBackdropClose }) => {
                     )}
                   />
                 </LocalizationProvider>
+                <p className="text-red-700 text-[11px] w-full text-start">{submitButtonClicked && touched.expirydate && errors.expirydate}</p>
+                 
               </div>
               <div className="flex flex-col items-center w-full  col-span-2 md:col-span-1  ">
               <TextField
@@ -174,16 +230,8 @@ const AddNewCard = ({ handleBackdropClose }) => {
                 />
               </div>
               <div className="w-full col-span-2 flex flex-row items-center justify-end" >
-                <Button
-                  others={'p-1 sm:p-2  border rounded-md w-3/12 mr-4'}
-                  text={'Cancel'}
-                  textColor={'gray-800'} 
-                  border={'border-gray-800'}
-                  borderAfter={'[#E3BB59]'}
-                  
-                />
-                {/* <button className="" type="submit">dsad</button> */}
-                 
+              <button className="p-1 sm:p-2  border rounded-md w-3/12 mr-4 text-gray-800" onClick={()=>handleBackdropClose()}>Cancel</button>
+                
                  <button className="p-1 sm:p-2 w-3/12 button bg-[#E3BB59] text-white  border rounded-md border-[#E3BB59] hover:border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white transition-all duration-300" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
                  Save
                 </button>
@@ -192,6 +240,14 @@ const AddNewCard = ({ handleBackdropClose }) => {
           </Form>
         )}
       </Formik>
+      <Snackbar
+         anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
     </div>
   );
 };

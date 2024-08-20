@@ -3,8 +3,10 @@ import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import Reviews from "@/components/Reviews/Reviews";
-
-const WebsiteReviewspage = () => {
+import { fetchWebFeedbacks } from "../../../../services/website-feedback";
+import { Suspense } from "react";
+const WebsiteReviewspage = async() => {
+  const reviews = await fetchWebFeedbacks(0,6);  
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -17,9 +19,14 @@ const WebsiteReviewspage = () => {
       </div>
     <div className="w-full h-[1px] bg-gray-400"></div>
     <div className="container mx-auto">
-     <Reviews heading={'Share your thoughts and experiences.'}
+    <Suspense fallback={<div>loading</div>}> 
+    <Reviews heading={'Share your thoughts and experiences.'}
      text={'Your reviews are invaluable in helping others make informed decisions.'}
+     reviews={reviews.websiteFeedbacks}
+     total = {reviews.totalReviews}
      /> 
+        </Suspense>
+     
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
       

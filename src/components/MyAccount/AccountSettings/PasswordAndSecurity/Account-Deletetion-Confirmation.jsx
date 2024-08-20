@@ -1,12 +1,16 @@
 "use client"
+import Cookies from "js-cookie";
 import React from "react";
+import { deleteUser } from "../../../../../services/user-login";
 
-const AccountDeletetionConfirmation = ({ handleBackdropClose }) => {
+const AccountDeletetionConfirmation = ({ handleBackdropClose,id }) => { 
   return (
     <div className="form-container flex flex-col items-center w-11/12 sm:w-8/12 bg-white p-4 sm:p-8 rounded-sm h-[90vh] overflow-y-auto">
       <div className="w-full flex flex-col items-end">
         <button
-          onClick={() => {
+          onClick={async() => {
+            const deletedUser = await deleteUser(id);
+            console.log(deletedUser)
             handleBackdropClose();
           }}
           className="text-black"

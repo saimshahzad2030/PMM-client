@@ -41,8 +41,8 @@ const OrderActivites = ({activities}) => {
             <img className='w-12 h-12' src={ORDER_DELIVERED.image} alt={ORDER_DELIVERED.name} />
               </div>
             <div className='flex flex-col items-start ml-2 w-full'>
-                <p className='text-[12px] sm:text-[16px]'>{activity.activityName}</p>
-                <p className='text-gray-400 text-[10px] sm:text-[14px]'>{activity.activityDate}</p>
+                <p className='text-[12px] sm:text-[16px]'>{activity.notificationText}</p>
+                <p className='text-gray-400 text-[10px] sm:text-[14px]'>{activity.notificationTime}</p>
             </div>
           </div>
       ))}

@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrollerLayout from "@/components/SmoothScroller/SmoothScroller";
+import { Providers } from "@/redux/provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -10,7 +11,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <html lang="en">
+      <Providers>
+        <html lang="en">
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -33,5 +35,6 @@ export default function RootLayout({ children }) {
         {children}</body>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
       </html>
+      </Providers>
   );
 }

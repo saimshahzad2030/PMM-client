@@ -5,8 +5,17 @@ import Gold from "@/components/MarketPlace/Gold";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
+import { autoLogin } from "../../../../../services/user-login";
+import { cookies } from 'next/headers';
+import { fetchFavourites } from "../../../../../services/favourites.services";
+import { fetchCartItems } from "../../../../../services/cart.services";
 
-const FavouriteProductsPage = () => {
+const FavouriteProductsPage = async() => {
+  const cookieStore = cookies(); 
+
+  const favourites = await fetchFavourites(cookieStore.get('token').value)
+  const cartItems = await fetchCartItems(cookieStore.get('token').value)  
+  console.log(cartItems.cartItems)
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -18,7 +27,7 @@ const FavouriteProductsPage = () => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <Favourites/>
+        <Favourites favourites = {favourites.favourites} cartItems = {cartItems.cartItems?cartItems.cartItems:[]}/>
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
       <div className="container mx-auto">

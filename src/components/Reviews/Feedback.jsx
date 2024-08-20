@@ -7,15 +7,24 @@ import CloseIcon from '@mui/icons-material/Close';
 import Snackbar from '@mui/material/Snackbar';
 import RatingComponent from './Rating';
 import { useMediaQuery, useTheme } from '@mui/material';
-const Feedback = () => {
+import { addFeedback } from '../../../services/website-feedback';
+import Cookies from 'js-cookie';
+const Feedback = ({setFeedbacks}) => { 
     const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
     const [feedback,setFeedback] = React.useState('')
     const [rating,setRating] = React.useState(null)
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         console.log('Rating:', rating);
         console.log('Feedback:', feedback);
+        const response = await addFeedback(feedback,rating,Cookies.get('token'));
+        console.log(response)
+        if (response && response.data) {
+          // Assuming response.data contains the new feedback
+          setFeedbacks(prevFeedbacks => [...prevFeedbacks, response.data.feedback
+          ]);
+      }
         handleClick()
       };
 

@@ -1,9 +1,23 @@
 "use client"
 import React from 'react'
-import { VERIFIED,BELL } from '../../../constants/icons'
+import { VERIFIED,BELL, USER_DEFAULT_IMAGE } from '../../../constants/icons'
 import { useRouter } from 'next/navigation'
+import { editProfilePic } from '../../../services/user-login' 
 const UserSection = ({User}) => {
+  const [user,setUser] = React.useState(User) 
   const router = useRouter();
+  const handleProfileImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;  
+    const changeProfile = await editProfilePic(file)
+    if(changeProfile.updatedUser){
+      setUser((prevUser) => ({
+            ...prevUser,
+            image: changeProfile.imageUrl,
+          }));
+    } 
+     
+  };
   return (
     <>
     <span className='w-full text-center bg-[#F2F2F2] text-[#E3BB59] mb-12 py-2'>My Account</span>
@@ -13,14 +27,14 @@ const UserSection = ({User}) => {
                   <div className="w-20 h-20 md:w-24 md:h-24 lg:w-[88px] lg:h-[88px] rounded-full overflow-hidden">
                     <img
                       className="w-full h-full object-cover"
-                      src={User.image}
-                      alt={User.name}
+                      src={user.image?user.image:USER_DEFAULT_IMAGE.image}
+                      alt={user.name}
                     />
                   </div>
                   <div className="flex flex-col items-start ml-4">
                     <div className="flex flex-row items-center">
-                      <p className="lato-700 text-[16px] md:text-[14px] lg:text-[16px] 2xl:text-[20px]">
-                        {User.name}
+                      <p className="lato-700 text-[16px] md:text-[14px] lg:text-[16px] 2xl:text-[20px] capitalize">
+                        {user.name}
                       </p>
                       <img
                         className="w-3 h-3 md:w-4 md:h-4 ml-2"
@@ -31,9 +45,18 @@ const UserSection = ({User}) => {
                     <span className="text-[12px] md:text-[14px]">
                       Verified
                     </span>
-                    <span className="text-[12px] md:text-[14px] underline text-[#2176BD]  cursor-pointer">
+                    {/* <span className="text-[12px] md:text-[14px] underline text-[#2176BD]  cursor-pointer">
                       Edit profile
-                    </span>
+                    </span> */}
+                    <label className="text-[12px] md:text-[14px] underline text-[#2176BD] cursor-pointer">
+                Edit profile
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleProfileImageUpload}
+                />
+              </label>
                   </div>
                 </div>
                 <div className="flex flex-row items-center mt-4 md:mt-0">

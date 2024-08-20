@@ -11,8 +11,14 @@ import { Backdrop } from "@mui/material";
 import AddNewBank from "./AddNewBank/Add-New-Bank";
 import AddNewCard from "./AddNewCard/Add-New-Card";
 import AddNewWallet from "./AddNewWallet/Add-New-Wallet";
-const PaymentOptions = () => {
+import { removeDigitalCard } from "../../../../../services/wallet.service";
+import { removeCard } from "../../../../../services/card.services";
+import { removeBank } from "../../../../../services/bank.services";
+const PaymentOptions = ({cards,banks,wallets}) => {
   const [backdropopen, setBackdropOpen] = React.useState(false);
+  const [cardList,setCardList] = React.useState(cards)
+  const [bankList,setBankList] = React.useState(banks)
+  const [walletList,setWalletList] = React.useState(wallets)
   const handleBackdropClose = () => {
     setBackdropOpen(false);
   };
@@ -46,36 +52,42 @@ const PaymentOptions = () => {
         <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
           <table className="table-auto w-full  mb-4 ">
             <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
-              {MY_CREDIT_CARDS.map((card, index) => (
+              {
+              cardList.length>0
+              ?cardList.map((card, index) => (
                 <tr key={index}>
                   <td
                     className={` py-4  text-start min-w-[120px] sm:min-w-[200px] `}
                   >
-                    {card.cardName}
+                    {card.cardNumber}
                   </td>
                   <td
                     className={` py-4  text-start min-w-[140px] sm:min-w-[200px] pr-8`}
                   >
-                    {card.fullName}
+                    {card.cvv}
                   </td>
                   <td
                     className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
                   >
-                    {card.accountNumber}
+                    {card.nameOnCard}
                   </td>
                   <td
                     className={` py-4  text-start min-w-[160px] sm:min-w-[200px] hidden md:block`}
                   ></td>
 
                   <td className={` py-4  text-start  `}>
-                    <Button
-                      text={"delete"}
-                      textColor={"red-700"}
-                      others={"underline text-end"}
-                    />
+                  <button className="text-red-700 underline text-end" onClick={async()=>{ 
+                      const deleteWallet = await removeCard(card.id); 
+                      if(deleteWallet.message=== "Card Deleted succesfully"){ 
+                        setCardList((prevItems) => prevItems.filter(item => item.id !== card.id)) ;
+                      }
+                    }}>delete</button>
                   </td>
                 </tr>
-              ))}
+              ))
+              :
+            <p className="text-gray-500">No Banks added yet</p>}
+
             </tbody>
           </table>
         </div>
@@ -102,36 +114,39 @@ const PaymentOptions = () => {
         <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
           <table className="table-auto w-full  mb-4 ">
             <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
-              {MY_BANK_ACCOUNTS.map((bank, index) => (
+              {bankList.length>0 ? bankList.map((bank, index) => (
                 <tr key={index}>
                   <td
                     className={` py-4  text-start min-w-[120px] sm:min-w-[200px] `}
-                  >
+                  > 
                     {bank.bankName}
                   </td>
                   <td
                     className={` py-4  text-start min-w-[140px] sm:min-w-[200px] pr-8`}
                   >
-                    {bank.fullName}
+                    {bank.accountName}
                   </td>
                   <td
                     className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
                   >
-                    {bank.accountNumber}
+                    {bank.accountNo}
                   </td>
                   <td
                     className={` py-4  text-start min-w-[160px] sm:min-w-[200px] hidden md:block`}
                   ></td>
 
                   <td className={` py-4  text-start  `}>
-                    <Button
-                      text={"delete"}
-                      textColor={"red-700"}
-                      others={"underline text-end"}
-                    />
+                  <button className="text-red-700 underline text-end" onClick={async()=>{ 
+                      const deleteBank = await removeBank(bank.id); 
+                      if(deleteBank.message=== "Bank Deleted succesfully"){ 
+                        setBankList((prevItems) => prevItems.filter(item => item.id !== bank.id)) ;
+                      }
+                    }}>delete</button>
                   </td>
                 </tr>
-              ))}
+              ))
+             :
+            <p className="text-gray-500">No Banks added yet</p>}
             </tbody>
           </table>
         </div>
@@ -158,7 +173,8 @@ const PaymentOptions = () => {
         <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
           <table className="table-auto w-full  mb-4 ">
             <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
-              {MY_DIGITAL_WALLETS.map((wallet, index) => (
+              {walletList.length>0?
+              walletList.map((wallet, index) => (
                 <tr key={index}>
                   <td
                     className={` py-4  text-start min-w-[100px]  sm:min-w-[200px] w-3/12 `}
@@ -179,14 +195,17 @@ const PaymentOptions = () => {
                   ></td>
 
                   <td className={` py-4  text-start  `}>
-                    <Button
-                      text={"delete"}
-                      textColor={"red-700"}
-                      others={"underline text-end"}
-                    />
+                    
+                    <button className="text-red-700 underline text-end" onClick={async()=>{ 
+                      const deleteWallet = await removeDigitalCard(wallet.id); 
+                      if(deleteWallet.message=== "Wallet Deleted succesfully"){ 
+                        setWalletList((prevItems) => prevItems.filter(item => item.id !== wallet.id)) ;
+                      }
+                    }}>delete</button>
                   </td>
                 </tr>
-              ))}
+              )):
+            <p className="text-gray-500">No cards added yet</p>}
             </tbody>
           </table>
         </div>
@@ -199,6 +218,7 @@ const PaymentOptions = () => {
           {addNewBank && (
             <AddNewBank
               handleBackdropClose={handleBackdropClose}
+              setBankList = {setBankList}
               // setSigningIn={setSigningIn}
               // setCreatingAcccount={setCreatingAcccount}
               // setForgotPassword={setForgotPassword}
@@ -208,6 +228,7 @@ const PaymentOptions = () => {
           {addNewCard && (
             <AddNewCard
               handleBackdropClose={handleBackdropClose}
+              setCardList = {setCardList}
               // setSigningIn={setSigningIn}
               // setCreatingAcccount={setCreatingAcccount}
               // setForgotPassword={setForgotPassword}
@@ -217,6 +238,7 @@ const PaymentOptions = () => {
           {addNewWallet && (
             <AddNewWallet
               handleBackdropClose={handleBackdropClose}
+              setWalletList={setWalletList} 
               // setSigningIn={setSigningIn}
               // setCreatingAcccount={setCreatingAcccount}
               // setForgotPassword={setForgotPassword}

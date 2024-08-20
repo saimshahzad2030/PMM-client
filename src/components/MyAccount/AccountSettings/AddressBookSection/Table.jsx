@@ -1,13 +1,16 @@
 import React from "react";
 import styles from "./Address-Book.module.css";
 import Button from "@/components/Button/Button";
+import { updateShippingAddress } from "../../../../../services/address.services";
 const Table = ({
+  setAllAddress,
   allAddress,
   handleChangeDefaultShipping,
   setNewAddressWindowOpen,
   setAddressEditWindowOpen,
   setSelectedAddress
 }) => {
+  console.log(allAddress)
   return (
     <div className="flex flex-col items-start w-full px-4 my-8">
       <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
@@ -23,7 +26,7 @@ const Table = ({
             {allAddress.map((address, index) => (
               <tr key={address.id}>
                 <td className={` py-4  text-start min-w-[120px] sm:min-w-[200px] `}>
-                  {address.name}
+                  {address.fullName}
                 </td>
                 <td className={` py-4  text-start min-w-[140px] sm:min-w-[200px] pr-8`}>
                   {address.address}
@@ -32,25 +35,43 @@ const Table = ({
                   {address.phone}
                 </td>
                 <td
-                  className={` py-4  text-start text-gray-400 min-w-[150px] sm:min-w-[200px]`}
+                  className={` py-4  text-start text-gray-400 min-w-[150px] sm:min-w-[200px] lowercase`}
                 >
-                  {address.addressType}
+                  {address.addressType} address
                 </td>
                 <td className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}>
-                  {address.defaultShippingAddress ? (
+                  {address.shippingAddressType ==="DEFAULT" ? (
                     <span
-                      onClick={() => {
-                        handleChangeDefaultShipping(index);
+                      onClick={ async() => {
+                        const updateAddress = await updateShippingAddress(address.id)
+                        setAllAddress((prevItems) =>
+                          prevItems.map((item) =>
+                            item.id === address.id
+                              ?  updateAddress.newAddress
+                              : item
+                          )
+                        );
+                        console.log(updateAddress.newAddress,"updateAddress.newAddress")
+                        console.log(address.id,"address.id")
                       }}
                       className="cursor-pointer"
                     >
-                      Default Shipping Address{" "}
+                      Default Shipping Address
                       <span className="text-blue-600 underline">Change</span>{" "}
                     </span>
                   ) : (
                     <span
-                      onClick={() => {
-                        handleChangeDefaultShipping(index);
+                      onClick={async() => {
+                        const updateAddress = await updateShippingAddress(address.id)
+                        setAllAddress((prevItems) =>
+                          prevItems.map((item) =>
+                            item.id === address.id
+                              ?  updateAddress.newAddress
+                              : item
+                          )
+                        );
+                        console.log(updateAddress.newAddress,"updateAddress.newAddress")
+                        console.log(address.id,"address.id")
                       }}
                       className="text-blue-600 underline cursor-pointer"
                     >

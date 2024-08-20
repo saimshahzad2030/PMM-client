@@ -4,21 +4,33 @@
 import React from "react"; 
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup"; 
+ 
+import CloseIcon from '@mui/icons-material/Close'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 import Checkbox from '@mui/material/Checkbox';
 import Link from "next/link";
 import {
-  
+  Snackbar,
   TextField, 
   IconButton,
     InputAdornment,  useTheme, useMediaQuery
 } from '@mui/material';
-import Button from "@/components/Button/Button";
+import Button from "@/components/Button/Button"; 
+import { changePassword } from "../../../../../services/user-login";
 const validationSchema = Yup.object({
-  oldpassword: Yup.string().required("full name is required"),
-  newpassword: Yup.date().required("Must be a date").required("required"), 
-  newpassword2: Yup.string().required("Address is required"),
+  oldpassword: Yup.string().required("Password is required"),
+  newpassword:Yup.string()
+  .min(8, "Password must be at least 8 characters")
+  .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+  .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+  .matches(/[0-9]/, "Password must contain at least one number")
+  .matches(
+    /[@$!%*?&#]/,
+    "Password must contain at least one special character"
+  )
+  .required("Password is required"), 
+  newpassword2: Yup.string().oneOf([Yup.ref('newpassword'), null], 'Passwords must match')
 });
 const ChangePassword = ({ handleBackdropClose }) => {
     const [oldPasswordVisibility,setOldPasswordVisibility] = React.useState(false)
@@ -37,6 +49,32 @@ const ChangePassword = ({ handleBackdropClose }) => {
   const togglePasswordVisibility3 = () => {
     setNewPasswordVisibility2(!newPasswordVisibility2);
   };
+
+  const [responseMessage,setResponseMessage] = React.useState(null) 
+
+    const [open, setOpen] = React.useState(false);
+
+   
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpen(false);
+    };
+    const action = (
+      <>
+         
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleClose}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </>
+    );
   return (
     <div className="form-container flex flex-col items-center w-11/12 sm:w-8/12 bg-white p-4 sm:p-8 rounded-sm h-[90vh] overflow-y-auto">
       <div className="w-full flex flex-col items-end">
@@ -60,8 +98,26 @@ const ChangePassword = ({ handleBackdropClose }) => {
             newpassword2: "", 
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={async(values) => {
+          const updatePassword = await changePassword(values.oldpassword,values.newpassword)
+          if(updatePassword.message == "Password Succesfully updated"){
+
+            values.oldpassword="";
+            values.newpassword2="";
+            values.newpassword="";
+            setOpen(true)
+            setResponseMessage(updatePassword.message)
+            setTimeout(() => {
+              handleBackdropClose();
+          }, 1500);
+            
+          }
+          else{
+            setOpen(true)
+
+            setResponseMessage(updatePassword.message)
+
+          }
         }}
       >
         {({ errors, touched, handleChange, handleBlur, values }) => (
@@ -169,9 +225,18 @@ const ChangePassword = ({ handleBackdropClose }) => {
                 </button>
               </div>
             </div>
+            
           </Form>
         )}
       </Formik>
+      <Snackbar
+         anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
     </div>
   );
 };

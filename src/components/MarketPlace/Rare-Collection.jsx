@@ -8,7 +8,7 @@ import {
  
 import JoinNowSection from "../JoinNowSection/Join-Now-Section"; 
 import Productscomponent from "../Products/Products-component";
-const Rare = () => {
+const Rare = ({products}) => {
    
   return (
     <div className="flex flex-col items-center w-full px-8 mt-4 mb-12">
@@ -17,7 +17,7 @@ const Rare = () => {
         parentRoute={`Home > Market Place >`}
       />
       <Productscomponent
-      products={MARKET_PLACE_PAGE}
+      products={products}
       selectedMetal={'rare'}
       />
       <JoinNowSection

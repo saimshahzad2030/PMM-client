@@ -6,8 +6,9 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";      
 import Cart from '@/components/Cart/Cart';
 import Checkout from '@/components/Cart/Checkout';
+import { autoLogin } from '../../../../services/user-login';
 
-const CheckoutPage = () => {
+const CheckoutPage = () => { 
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

@@ -1,20 +1,42 @@
 "use client";
 import React from "react";
 import RouteComponent from "../RouteComponent/Route-Component";
-import { Backdrop } from "@mui/material";
-import { ALERT, CROSS, DROPDOWN, UPLOAD_IMAGE } from "../../../constants/icons";
+
+import {Snackbar} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import {
+  Backdrop,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import {
+  ALERT,
+  CROSS,
+  DELETE_ICON,
+  DROPDOWN,
+  UPLOAD_IMAGE,
+} from "../../../constants/icons";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField, IconButton, InputAdornment, Input } from "@mui/material";
+import { ImagesearchRoller } from "@mui/icons-material";
+import { addProduct } from "../../../services/product.services";
 const validationSchema = Yup.object({
   grade: Yup.string(),
   thickness: Yup.string(),
   metalcontent: Yup.string(),
   diameter: Yup.string(),
   purity: Yup.string(),
-  productname: Yup.string().required("Product Name is required"),
-  Category: Yup.string().required("Product Category is required"),
+  name: Yup.string().required("Product Name is required"),
+  type: Yup.string().required("Product Category is required"),
+  model: Yup.string("Must be a string"),
+  available: Yup.number("Must be a Number").required("Required"),
+  price: Yup.number("Must be a Number").required("Required"),
+  productDetails: Yup.string("Must be a string").required("Required"),
+  productHighlights: Yup.array().of(Yup.string()),
 });
 const AddNewProduct = () => {
   const router = useRouter();
@@ -25,9 +47,12 @@ const AddNewProduct = () => {
   const [editCategory, setEditCategory] = React.useState("");
   const [imagesUpload, setImagesUpload] = React.useState(0);
   const [videosUpload, setVideosUpload] = React.useState(0);
-  const [selectedImages, setSelectedImages] = React.useState([]); 
+  const [selectedImages, setSelectedImages] = React.useState([]);
   const [selectedVideos, setSelectedVideos] = React.useState([]);
-  const handleFileChange = (event) => {
+  const [imageError, setImageError] = React.useState(null);
+  const [videoError, setVideoError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const handleFileChange = (event, setFieldValue) => {
     const files = Array.from(event.target.files);
     const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
 
@@ -38,16 +63,21 @@ const AddNewProduct = () => {
     // Update the selected files and images upload count
     setSelectedImages([...selectedImages, ...newFiles]);
     setImagesUpload(imagesUpload + newFiles.length);
+    console.log(newFiles);
+    setFieldValue("images", [...selectedImages, ...newFiles]);
   };
-  const handleVideoChange = (event) => {
+  const handleVideoChange = (event, setFieldValue) => {
     const files = Array.from(event.target.files);
-    const validVideoTypes = ['video/mp4', 'video/webm', 'video/ogg'];
+    const validVideoTypes = ["video/mp4", "video/webm", "video/ogg"];
 
-    const newFiles = files.filter(file => validVideoTypes.includes(file.type));
+    const newFiles = files.filter((file) =>
+      validVideoTypes.includes(file.type)
+    );
 
     // Update the selected files and videos upload count
     setSelectedVideos([...selectedVideos, ...newFiles]);
     setVideosUpload(videosUpload + newFiles.length);
+    setFieldValue("videos", [...selectedImages, ...newFiles]);
   };
   const handleBackdropClose = () => {
     setBackdropOpen(false);
@@ -58,6 +88,26 @@ const AddNewProduct = () => {
   const goBack = () => {
     router.back();
   };
+  const [highlights, setHighlights] = React.useState([""]);
+
+  const addHighlightField = () => {
+    if (highlights.length < 5) {
+      setHighlights([...highlights, ""]);
+    }
+  };
+
+  const removeHighlightField = (index) => {
+    const newHighlights = highlights.filter((_, i) => i !== index);
+    setHighlights(newHighlights);
+  };
+
+  const handleHighlightChange = (index, value, setFieldValue) => {
+    const newHighlights = [...highlights];
+    newHighlights[index] = value;
+    setHighlights(newHighlights);
+    // Update Formik's values
+    setFieldValue("productHighlights", newHighlights);
+  };
   const handleFileUpload = () => {
     if (selectedImages.length > 0) {
       // Process the file upload here (e.g., send to server)
@@ -66,6 +116,31 @@ const AddNewProduct = () => {
       console.log("No files selected.");
     }
   };
+  const [responseMessage,setResponseMessage] = React.useState(null)
+  
+    const [open, setOpen] = React.useState(false);
+
+   
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpen(false);
+    };
+    const action = (
+      <>
+         
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleClose}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </>
+    );
   return (
     <div className="w-full flex flex-col items-start px-8  mb-12">
       <RouteComponent
@@ -89,42 +164,257 @@ const AddNewProduct = () => {
           metalcontent: "",
           diameter: "",
           purity: "",
-          productname: "",
-          Category: "",
+          name: "",
+          type: "",
+          model: "",
+          available: "",
+          price: "",
+          productDetails: "",
+          images: [],
+          videos: [],
+
+          productHighlights: highlights,
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          handleBackdropClose();
+        onSubmit={async (values) => {
+          values.images = selectedImages;
+          values.videos = selectedVideos;
+          values.productHighlights = highlights;
+          if (values.images.length < 4) {
+            setImageError("At least 4 images pls");
+            return;
+          }
+          if (values.videos.length < 1) {
+            setVideoError("At least one Video pls");
+            return;
+          }
+          setVideoError(null);
+          setImageError(null);
+
+          const addNewProduct = await addProduct(values, setLoading);
+          if(addNewProduct.newProduct){
+            
+          setOpen(true)
+          
+          setResponseMessage(`${addNewProduct.message}. Redirecting you to your products section....`) 
+          setTimeout(()=>{
+            router.push('/my-account/my-shop')
+          },3000)
+          }
+          else{
+            
+          setOpen(true)
+          
+          setResponseMessage(addNewProduct.message) 
+          }
         }}
       >
-        {({ errors, touched, handleChange, handleBlur, values }) => (
+        {({
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          values,
+          setFieldValue,
+        }) => (
           <Form className="w-full flex flex-col items-start ">
             <div className="w-full border border-gray-300 rounded-md flex flex-col items-start py-6 px-2 sm:px-4 md:px-12 my-4">
               <h2>Product Details</h2>
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
                   fullWidth
-                  id="productname"
-                  name="productname"
+                  id="name"
+                  name="name"
                   label="Product Name"
                   type={"text"}
-                  placeholder="Brand Name + Product Type + Key Features (Materials, Size, Model)"
-                  value={values.grade}
+                  placeholder="Product Name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked && touched.name && Boolean(errors.name)
+                  }
+                  helperText={
+                    submitButtonClicked && touched.name && errors.name
+                  }
+                />
+              </div>
+              <div className="flex flex-col items-center w-full mt-4">
+                <FormControl
+                  fullWidth
+                  error={
+                    submitButtonClicked && touched.type && Boolean(errors.type)
+                  }
+                  // size={isSmallScreen ? "small" : "medium"}
+                >
+                  <InputLabel id="type-label">Metal Type</InputLabel>
+                  <Select
+                    labelId="type-label"
+                    id="type"
+                    name="type"
+                    value={values.type}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    label="Product Type"
+                  >
+                    <MenuItem value="gold">Gold</MenuItem>
+                    <MenuItem value="silver">Silver</MenuItem>
+                    <MenuItem value="platinum">Platinum</MenuItem>
+                    <MenuItem value="palladium">Palladium</MenuItem>
+                    <MenuItem value="rare">Rare</MenuItem>
+                  </Select>
+                  {submitButtonClicked &&
+                    touched.type &&
+                    Boolean(errors.type) && (
+                      <div style={{ color: "red", fontSize: "12px" }}>
+                        {errors.type}
+                      </div>
+                    )}
+                </FormControl>
+              </div>
+
+              <div className="flex flex-col items-center w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="model"
+                  name="model"
+                  label="model"
+                  type={"text"}
+                  placeholder="Model"
+                  value={values.model}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={
                     submitButtonClicked &&
-                    touched.productname &&
-                    Boolean(errors.productname)
+                    touched.model &&
+                    Boolean(errors.model)
                   }
                   helperText={
-                    submitButtonClicked &&
-                    touched.productname &&
-                    errors.productname
+                    submitButtonClicked && touched.model && errors.model
                   }
                 />
               </div>
-              <div
+              <div className="flex flex-col items-center w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="available"
+                  name="available"
+                  label="Available"
+                  type={"text"}
+                  placeholder="Available"
+                  value={values.available}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.available &&
+                    Boolean(errors.available)
+                  }
+                  helperText={
+                    submitButtonClicked && touched.available && errors.available
+                  }
+                />
+              </div>
+
+              <div className="flex flex-col items-center w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="price"
+                  name="price"
+                  label="price"
+                  type={"text"}
+                  placeholder="price"
+                  value={values.price}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.price &&
+                    Boolean(errors.price)
+                  }
+                  helperText={
+                    submitButtonClicked && touched.price && errors.price
+                  }
+                />
+              </div>
+              <div className="flex flex-col items-center w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="productDetails"
+                  name="productDetails"
+                  label="Product Details"
+                  type={"text"}
+                  placeholder="Product Details"
+                  value={values.productDetails}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.productDetails &&
+                    Boolean(errors.productDetails)
+                  }
+                  helperText={
+                    submitButtonClicked &&
+                    touched.productDetails &&
+                    errors.productDetails
+                  }
+                  multiline
+                  minRows={1}
+                />
+              </div>
+
+              <div className="flex flex-col items-center w-full mt-4">
+                {highlights.map((highlight, index) => (
+                  <div key={index} className="flex items-center w-full mt-2">
+                    <TextField
+                      fullWidth
+                      label={`Product Highlight ${index + 1}`}
+                      value={highlight}
+                      onChange={(e) =>
+                        handleHighlightChange(
+                          index,
+                          e.target.value,
+                          setFieldValue
+                        )
+                      }
+                      error={
+                        submitButtonClicked &&
+                        touched.productHighlights &&
+                        Boolean(errors.productHighlights)
+                      }
+                      helperText={
+                        submitButtonClicked &&
+                        touched.productHighlights &&
+                        errors.productHighlights
+                      }
+                    />
+                    {index > 0 && (
+                      <IconButton
+                        onClick={() => removeHighlightField(index)}
+                        className="ml-2"
+                      >
+                        <span>
+                          <img
+                            className="w-8 h-auto"
+                            src={DELETE_ICON.image}
+                            alt={DELETE_ICON.name}
+                          />
+                        </span>
+                      </IconButton>
+                    )}
+                  </div>
+                ))}
+                {highlights.length < 5 && (
+                  <button
+                    type="button"
+                    onClick={addHighlightField}
+                    className="mt-2 text-blue-500"
+                  >
+                    Add Another Highlight
+                  </button>
+                )}
+              </div>
+              {/* <div
                 className="cursor-pointer flex flex-row items-center justify-between w-full mt-4 px-4  h-14 border border-gray-300 rounded-md "
                 onClick={() => handleBackdropOpen()}
               >
@@ -134,48 +424,61 @@ const AddNewProduct = () => {
                   src={DROPDOWN.image}
                   alt={DROPDOWN.name}
                 />
-              </div> 
-                <div className="flex flex-col md:flex-row items-start w-full mt-4">
-                  <input
-                    type="file"
-                    id="file-input"
-                    onChange={handleFileChange}
-                    className="hidden"
-                    accept="image/*,application/pdf" // Adjust the file types as needed
-                  />
-                  <label className="text-gray-600 w-auto">Product Images</label>
-                  <div className="w-full flex flex-row items-center mt-4 md:mt-0">
-                    <label
-                      htmlFor={imagesUpload >8 ? "" : "file-input"}
-                      className="ml-2 md:ml-4 cursor-pointer flex flex-col items-center justify-center p-2 px-1 sm:p-4 border border-gray-300 rounded-sm text-gray-500"
-                    >
-                      <img
-                        className="w-6 h-auto "
-                        src={UPLOAD_IMAGE.image}
-                        alt={UPLOAD_IMAGE.name}
-                      />
-                      <p className="text-center text-[12px] sm:text-[16px]">Add image</p>
-                      <p className="text-center text-[12px] sm:text-[16px]">{`(${imagesUpload}/9)`}</p>
-                    </label>
-                    <ul className="  list-outside list-disc list-inside  text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-1 sm:ml-4">
-                      <li>Size: 3:4 Image</li>
-                      <li>File size: Maximum of 25mb</li>
-                      <li>Format: Lorem impsum</li>
-                    </ul>
-                  </div>
-                </div> 
+              </div>  */}
+              <div className="flex flex-col md:flex-row items-start w-full mt-4">
+                <input
+                  type="file"
+                  id="file-input"
+                  onChange={(e) => handleFileChange(e, setFieldValue)}
+                  className="hidden"
+                  accept="image/*,application/pdf" // Adjust the file types as needed
+                />
+                <label className="text-gray-600 w-auto">Product Images</label>
+                <div className="w-full flex flex-row items-center mt-4 md:mt-0">
+                  <label
+                    htmlFor={imagesUpload > 8 ? "" : "file-input"}
+                    className="ml-2 md:ml-4 cursor-pointer flex flex-col items-center justify-center p-2 px-1 sm:p-4 border border-gray-300 rounded-sm text-gray-500"
+                  >
+                    <img
+                      className="w-6 h-auto "
+                      src={UPLOAD_IMAGE.image}
+                      alt={UPLOAD_IMAGE.name}
+                    />
+                    <p className="text-center text-[12px] sm:text-[16px]">
+                      Add image
+                    </p>
+                    <p className="text-center text-[12px] sm:text-[16px]">{`(${imagesUpload}/9)`}</p>
+                  </label>
+                  <ul className="  list-outside list-disc list-inside  text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-1 sm:ml-4">
+                    <li>Size: 3:4 Image</li>
+                    <li>File size: Maximum of 25mb</li>
+                    <li>Format: Lorem impsum</li>
+                    {imageError && (
+                      <li className="text-red-600 font-bold">{imageError}</li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-9 w-full gap-2">
                 {selectedImages.length > 0 && (
                   <>
                     {selectedImages.slice(0, 9).map((file, index) => (
-                      <div key={index} className="p-2 flex flex-col items-end  col-span-1 ">
+                      <div
+                        key={index}
+                        className="p-2 flex flex-col items-end  col-span-1 "
+                      >
                         <img
                           className="w-4  h-auto object-cover   rounded-sm mb-2 cursor-pointer"
                           src={CROSS.image}
                           alt={CROSS.name}
-                          onClick={(index)=>{
-                            setImagesUpload(imagesUpload-1)
-                            setSelectedImages(selectedImages.filter((image,indexOfImage)=>{ indexOfImage !== index}))
+                          onClick={() => {
+                            setImagesUpload(imagesUpload - 1);
+                            setSelectedImages(
+                              selectedImages.filter(
+                                (image, indexOfImage) => indexOfImage != index
+                              )
+                            );
                           }}
                         />
                         <img
@@ -189,19 +492,18 @@ const AddNewProduct = () => {
                 )}
               </div>
               <div className="flex flex-col md:flex-row items-start w-full mt-4">
-                <div className="flex flex-col md:flex-row items-start w-full">
+                <div className="flex flex-col md:flex-row items-start w-full mt-12">
                   <input
                     type="file"
                     id="video-input"
-                    onChange={handleVideoChange}
+                    onChange={(e) => handleVideoChange(e, setFieldValue)}
                     className="hidden"
-                    accept="video/*"  
+                    accept="video/*"
                   />
                   <label className="text-gray-600 w-auto">Product Videos</label>
                   <div className="w-full flex flex-row items-center mt-4 md:mt-0">
-
                     <label
-                      htmlFor={imagesUpload >8 ? "" : "video-input"}
+                      htmlFor={imagesUpload > 8 ? "" : "video-input"}
                       className="ml-2 sm:ml-4 cursor-pointer flex flex-col items-center justify-center p-4 border border-gray-300 rounded-sm text-gray-500"
                     >
                       <img
@@ -209,46 +511,52 @@ const AddNewProduct = () => {
                         src={UPLOAD_IMAGE.image}
                         alt={UPLOAD_IMAGE.name}
                       />
-                      <p className="text-[12px] sm:text-[16px] text-center">Add Video</p>
+                      <p className="text-[12px] sm:text-[16px] text-center">
+                        Add Video
+                      </p>
                       <p className="text-[12px] sm:text-[16px]">{`(${videosUpload}/9)`}</p>
                     </label>
                     <ul className="  list-outside list-disc list-inside text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-2 sm:ml-4">
                       <li>Size: 3:4 Image</li>
                       <li>File size: Maximum of 25mb</li>
                       <li>Format: Lorem impsum</li>
+                      {videoError && (
+                        <li className="text-red-600 font-bold">{videoError}</li>
+                      )}
                     </ul>
                   </div>
                 </div>
-                {/* <button
-        onClick={handleFileUpload}
-        className="mt-4 px-4 py-2 bg-green-500 text-white rounded-md"
-      >
-        Upload
-      </button> */}
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-9 w-full gap-2">
-              {selectedVideos.length > 0 && (
-        <div className="mt-2 text-gray-700 flex flex-wrap">
-          {selectedVideos.slice(0, 9).map((file, index) => (
-            <div key={index} className="p-2 flex flex-col items-end col-span-1">
-              <img
-                className="w-4 h-auto object-cover rounded-sm mb-2 cursor-pointer"
-                src={CROSS.image}
-                alt={CROSS.name}
-                onClick={(index)=>{
-                  setVideosUpload(videosUpload-1)
-                  setSelectedVideos(selectedVideos.filter((image,indexOfImage)=>{ indexOfImage !== index}))
-                }}
-              />
-              <video
-                src={URL.createObjectURL(file)}
-                alt={file.name}
-                className="w-full h-auto object-cover rounded-sm" 
-              />
-            </div>
-          ))}
-        </div>
-      )}
+                {selectedVideos.length > 0 && (
+                  <div className="mt-2 text-gray-700 flex flex-wrap">
+                    {selectedVideos.slice(0, 9).map((file, index) => (
+                      <div
+                        key={index}
+                        className="p-2 flex flex-col items-end col-span-1"
+                      >
+                        <img
+                          className="w-4 h-auto object-cover rounded-sm mb-2 cursor-pointer"
+                          src={CROSS.image}
+                          alt={CROSS.name}
+                          onClick={(index) => {
+                            setVideosUpload(videosUpload - 1);
+                            setSelectedVideos(
+                              selectedVideos.filter((image, indexOfImage) => {
+                                indexOfImage !== index;
+                              })
+                            );
+                          }}
+                        />
+                        <video
+                          src={URL.createObjectURL(file)}
+                          alt={file.name}
+                          className="w-full h-auto object-cover rounded-sm"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -346,7 +654,7 @@ const AddNewProduct = () => {
                     name="purity"
                     label="Purity"
                     type={"text"}
-                    value={values.thickness}
+                    value={values.purity}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={
@@ -388,14 +696,23 @@ const AddNewProduct = () => {
                   setSubmitButtonClicked(true);
                 }}
               >
-                Save and Publish
+                {loading ? "Loading.." : "Save and Publish"}
               </button>
             </div>
+            <Snackbar
+         anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
           </Form>
+          
         )}
       </Formik>
 
-      <Backdrop
+      {/* <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={backdropopen}
       >
@@ -445,9 +762,11 @@ const AddNewProduct = () => {
                 </button>
               </div>
             </div>
+            
           )}
+            
         </div>
-      </Backdrop>
+      </Backdrop> */}
     </div>
   );
 };

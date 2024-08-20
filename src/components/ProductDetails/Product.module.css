@@ -1,0 +1,4 @@
+.hideScrollbar {
+    scrollbar-width: 1px; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  }

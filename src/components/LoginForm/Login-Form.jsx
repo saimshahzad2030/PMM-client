@@ -9,6 +9,9 @@ import {
   TextField, 
 } from '@mui/material';
 import Link from 'next/link';
+import { login } from '../../../services/user-login';
+import {Snackbar,IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const validationSchema = Yup.object({ 
   email: Yup.string().email('Invalid email format').required('Email is required'),
@@ -19,12 +22,37 @@ const validationSchema = Yup.object({
   });
 const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setForgotPassword, setUserLoggedIn}) => {
     const [submitButtonClicked,setSubmitButtonClicked] = useState(false)
+    const [responseMessage,setResponseMessage] = useState(null)
     React.useEffect(() => {
         document.body.style.overflow = 'hidden'; // Disable body scroll when form is open
         return () => {
           document.body.style.overflow = 'auto'; // Enable body scroll when form is closed
         };
       }, []);
+
+      const [open, setOpen] = React.useState(false);
+
+     
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+      const action = (
+        <>
+           
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </>
+      );
   return (
     <div className='form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-16 rounded-xl h-[90vh] overflow-y-auto' >
         <div className='w-full flex flex-col items-end'><img className=" mt-1 mr-2 cursor-pointer w-6 h-6" onClick={handleBackdropClose} src={CROSS.image} alt={CROSS.name}/>
@@ -39,10 +67,23 @@ const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setFor
           password: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          handleBackdropClose()
-          console.log(values);
-          setUserLoggedIn(true)
+        onSubmit={async(values) => {
+          
+          // handleBackdropClose() 
+          const userLogin = await login(values.email,values.password);
+          console.log(userLogin)
+          setOpen(true);
+            setResponseMessage(userLogin?.message)
+            console.log(userLogin?.message)
+          if(userLogin.updatedUser){
+            
+            setUserLoggedIn(true);
+            setTimeout(()=>{
+              setSigningIn(false)
+              handleBackdropClose()
+            },1500)
+          }
+       
         }}
         
       >
@@ -98,9 +139,18 @@ const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setFor
                  <p className='text-black  text-[10px] sm:text-[14px] w-full text-center'>New to Precious Metal Market? &nbsp;&nbsp;&nbsp; <span className='cursor-pointer text-blue-600'  onClick={()=>{setCreatingAcccount(true);setSigningIn(false)}}>Create an Account</span></p>
               </div>
             </div>
+          
           </Form>
         )}
       </Formik>
+      <Snackbar
+         anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
     </div>
   );
 };

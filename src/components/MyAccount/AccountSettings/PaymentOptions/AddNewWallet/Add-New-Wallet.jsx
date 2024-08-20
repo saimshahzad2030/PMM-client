@@ -5,6 +5,8 @@ import {
   PROTECTED,
   VISA,
 } from "../../../../../../constants/icons";
+import {Snackbar,IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close'
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -13,14 +15,41 @@ import * as Yup from "yup";
 import { TextField, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@/components/Button/Button";
 import { Email } from "@mui/icons-material";
+import { addDigitalCard } from "../../../../../../services/wallet.service";
 const validationSchema = Yup.object({
   walletname: Yup.string().required("full name is required"),
-  accountname: Yup.date().required("Must be a date").required("required"), 
+  accountname: Yup.number("must be a number").required("can't be empty") , 
   email: Yup.string().email('Invalid email format').required('Email is required'),
  
 });
-const AddNewWallet = ({ handleBackdropClose }) => {
+const AddNewWallet = ({ handleBackdropClose,setWalletList }) => {
   const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false); 
+  const [responseMessage,setResponseMessage] = React.useState(null)
+ 
+
+      const [open, setOpen] = React.useState(false);
+
+     
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+      const action = (
+        <>
+           
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </>
+      );
   return (
     <div className="form-container flex flex-col items-center w-11/12 sm:w-8/12 bg-white p-4 sm:p-8 rounded-sm h-[90vh] overflow-y-auto">
       <div className="w-full flex flex-col items-end">
@@ -51,13 +80,7 @@ const AddNewWallet = ({ handleBackdropClose }) => {
         <h4 className="text-start w-full text-gray-400 lato-700">
         Account Details
         </h4>
-        <div className="flex flex-row items-center justify-end  ">
-          {/* <img
-            className="w-12 h-auto "
-            src={AMERICAN_EXPRESS.image}
-            alt={AMERICAN_EXPRESS.name}
-          />
-          <img className="w-12 h-auto " src={VISA.image} alt={VISA.name} /> */}
+        <div className="flex flex-row items-center justify-end  "> 
         </div>
       </div>
 
@@ -68,8 +91,21 @@ const AddNewWallet = ({ handleBackdropClose }) => {
           walletname: "", 
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={async(values) => {
           console.log(values);
+          // setSubmitButtonClicked(true)
+          const newCard = await addDigitalCard(values.accountname,values.walletname,values.email)
+          if(newCard.newDigitalWallet){
+            setWalletList((prevItems) =>[...prevItems,newCard.newDigitalWallet ])
+            handleBackdropClose()        
+            values.walletname = ""
+            values.email = ""
+            values.accountname = ""
+          }
+          else{
+            setResponseMessage(newCard.message);
+            setOpen(true)
+          } 
         }}
       >
         {({ errors, touched, handleChange, handleBlur, values }) => (
@@ -80,7 +116,7 @@ const AddNewWallet = ({ handleBackdropClose }) => {
                   fullWidth
                   id="accountname"
                   name="accountname"
-                  label="Account Number"
+                  label="Account Name"
                   type="text"
                   value={values.accountname}
                   onChange={handleChange}
@@ -139,17 +175,9 @@ const AddNewWallet = ({ handleBackdropClose }) => {
                 />
               </div>
               <div className="w-full col-span-2 flex flex-row items-center justify-end" >
-                <Button
-                  others={'p-1 sm:p-2  border rounded-md w-3/12 mr-4'}
-                  text={'Cancel'}
-                  textColor={'gray-800'} 
-                  border={'border-gray-800'}
-                  borderAfter={'[#E3BB59]'}
-                  
-                />
-                {/* <button className="" type="submit">dsad</button> */}
                  
-                 <button className="p-1 sm:p-2 w-3/12 button bg-[#E3BB59] text-white  border rounded-md border-[#E3BB59] hover:border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white transition-all duration-300" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
+                 <button className="p-1 sm:p-2  border rounded-md w-3/12 mr-4 text-gray-800" onClick={()=>handleBackdropClose()}>Cancel</button>
+                 <button className="p-1 sm:p-2 w-3/12 button bg-[#E3BB59] text-white  border rounded-md border-[#E3BB59] hover:border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white transition-all duration-300" type="submit"  onClick={()=>{setSubmitButtonClicked(true)}}>
                  Save
                 </button>
               </div>
@@ -157,6 +185,14 @@ const AddNewWallet = ({ handleBackdropClose }) => {
           </Form>
         )}
       </Formik>
+      <Snackbar
+         anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
     </div>
   );
 };

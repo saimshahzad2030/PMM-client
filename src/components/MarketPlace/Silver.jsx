@@ -8,7 +8,7 @@ import {
  
 import JoinNowSection from "../JoinNowSection/Join-Now-Section"; 
 import Productscomponent from "../Products/Products-component";
-const Silver = () => {
+const Silver = ({products,cartItems}) => {
    
   return (
     <div className="flex flex-col items-center w-full px-8 mt-4 mb-12">
@@ -17,8 +17,9 @@ const Silver = () => {
         parentRoute={`Home > Market Place >`}
       />
       <Productscomponent
-      products={MARKET_PLACE_PAGE}
+      products={products}
       selectedMetal={'silver'}
+      cartItems={cartItems}
       />
       <JoinNowSection
  

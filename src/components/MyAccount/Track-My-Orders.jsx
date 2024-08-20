@@ -6,15 +6,18 @@ import { SHIPMENTS, USER } from "../../../constants/constants";
 import ShipmentTrack from "./Shipment-Track";
 import OrderActivites from "./Order-Activites";
 
-const TrackMyOrders = () => {
+const TrackMyOrders = ({orders,image,name}) => {
   const [shippingSelected, setShippingSelected] = React.useState(true);
+  const [shippings,setShippings] = React.useState(orders.filter((s) => { 
+      return s.Shippings.status !== "COMPLETED"; 
+  }))
   return (
     <div className="flex flex-col items-center px-8 w-full">
       <RouteComponent
         parentRoute={"Home > My Account >"}
         mainRoute={" Track My Orders"}
       />
-      <UserSection User={USER} />
+      <UserSection User={{image,name}} />
       <div className="flex flex-row w-full bg-[#F2F2F2] my-4">
         <button
           className={`button w-6/12 border border-t-0 border-r-0 border-l-0 ${
@@ -24,6 +27,9 @@ const TrackMyOrders = () => {
           } py-2 text-center `}
           onClick={() => {
             setShippingSelected(true);
+            setShippings(orders.filter((s) => { 
+              return s.Shippings.status !== "COMPLETED"; 
+          }))
           }}
         >
           Shipping
@@ -36,41 +42,42 @@ const TrackMyOrders = () => {
           } py-2 text-center `}
           onClick={() => {
             setShippingSelected(false);
+            setShippings(orders.filter((s) => { 
+              return s.Shippings.status === "COMPLETED"; 
+          }))
           }}
         >
           Completed
         </button>
       </div>
-      {SHIPMENTS.filter((s) => {
-        if (shippingSelected) {
-          return s.status !== "completed";
-        } else {
-          return s.status === "completed";
-        }
-      }).map((shipment) => (
+      {shippings.length>0?
+      <>
+      {shippings.map((shipment) => (
         <div className="w-full border border-[#E4E7E9]  pt-4 flex flex-col items-center my-4">
           <div className="w-full px-4">
             <div className="flex flex-row items-start justify-between w-full border border-[#F7E99E] bg-[#fffced] p-4">
               <div className="flex flex-col items-start w-6/12  text-[10px] sm:text-[14px] text-gray-800">
                 <p>
-                  {shipment.description}.{" "}
+                  {shipment.messageForSeller}.{" "}
                   <span >Quantity: {shipment.quantity}</span>
                 </p>
                 <p className="lato-700 text-[19px] sm:text-[24px] my-2 text-gray-800">{shipment.price}</p>
-                <p className=" text-[10px] sm:text-[14px] text-gray-800">Receiver: {shipment.reciever.name}</p>
-                <p className=" text-[10px] sm:text-[14px] text-gray-400 ">{shipment.reciever.contact}</p>
+                <p className=" text-[10px] sm:text-[14px] text-gray-800">Receiver: {shipment.reciever.firstName}</p>
+                <p className=" text-[10px] sm:text-[14px] text-gray-400 ">{shipment.reciever.phone}</p>
                 <p className=" text-[10px] sm:text-[14px] text-gray-400 ">
-                  {shipment.reciever.country}, {shipment.reciever.state},{" "}
-                  {shipment.reciever.city}
+                Pakistan, Kpk,{" "}
+                Khi
                 </p>
-                <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">Sender: {shipment.sender.name}</p>
-                <p className=" text-[10px] sm:text-[14px] text-gray-400 ">{shipment.sender.contact}</p>
+                <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">Sender: {shipment.sender.firstName}</p>
+                <p className=" text-[10px] sm:text-[14px] text-gray-400 ">{shipment.sender.phone}</p>
                 <p className=" text-[10px] sm:text-[14px] text-gray-400 ">
-                  {shipment.sender.country}, {shipment.sender.state},{" "}
-                  {shipment.reciever.city}
+                  {/* {shipment.sender.country}, {shipment.sender.state},{" "}
+                  {shipment.reciever.city} */}
+                  Pakistan, Kpk,{" "}
+                  Khi
                 </p>
-                <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">Order placed in: {shipment.orderPlacedDate}</p>
-                <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">Order expected arrival: {shipment.orderExpectedArrival}</p>
+                <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">Order placed in: {shipment?.orderPlacedDate}</p>
+                <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">Order expected arrival: {shipment?.orderExpectedDate}</p>
               </div>
               <div className="flex flex-col flex-end w-auto text-end">
                 <p className="text-[12px] sm:text-20px text-gray-400">Standard Shipping</p>
@@ -80,6 +87,7 @@ const TrackMyOrders = () => {
           </div>
           <div className="w-full flex flex-col items-center mt-4">
             <ShipmentTrack
+            shippingStatus = {shipment.Shippings.shippingUpdate}
               orderPlaced={shipment.orderPlaced}
               orderPacked={shipment.orderPacked}
               onTheRoad={shipment.onTheRoad}
@@ -89,10 +97,12 @@ const TrackMyOrders = () => {
                 shipment.verificationPorcessCompleted
               }
             />
-            <OrderActivites activities={shipment.orderActivities} />
+            <OrderActivites activities={shipment.Shippings.ShippingNotifications} />
           </div>
         </div>
-      ))}
+      ))}</>
+    :<p className="text-gray-700 my-4">
+      {shippingSelected?"You don't have any orders to show":"None of your order has completed yet"}</p>}
     </div>
   );
 };
