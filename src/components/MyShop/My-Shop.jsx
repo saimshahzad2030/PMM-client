@@ -15,7 +15,7 @@ const MyShop = ({myProducts,authenticationRequired,url,image,name,shipments}) =>
   if(authenticationRequired == true){
     router.push(url)
   }
-  
+  const [cartProducts,setCartProducts] = React.useState([])
   const [myShipments, setMyShipments] = React.useState(shipments);
   const [productListing, setProductListing] = React.useState(true);
   const [arrangeShipping, setArrangeShipping] = React.useState(false);
@@ -115,96 +115,99 @@ const MyShop = ({myProducts,authenticationRequired,url,image,name,shipments}) =>
               product={mp}
               buttonText={"Remove Listing"}
               setProducts={setProducts}
+              cartItems={cartProducts}
+              setCartProducts={setCartProducts}
               //   productClickHandler={productClickHandler}
             />
           ))}
         </div>
       )}
-      {arrangeShipping && (
+      {arrangeShipping && myShipments.length > 0 ?(
         <div className="flex flex-col items-start w-full px-4 my-8">
-          <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
-            <table className="table-auto w-full  mb-4 ">
-              <thead className="text-[12px] sm:[text-14px] md:text-[12px] lato-700">
-                <tr>
-                  <th className={`text-start text-gray-400 `}>Product</th>
-                  <th className={`text-start text-gray-400 `}>Total price</th>
-                  <th className={`text-start text-gray-400 `}>Status</th>
-                  <th className={`text-start text-gray-400 `}>Logistics</th>
-                  <th className={`text-start text-gray-400 `}>Action</th>
-                </tr>
-              </thead>
-              <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
-                {myShipments.map((shipment, index) => (
-                  <tr
-                    key={shipment.id}
-                    className="border border-t-0 border-l-0 border-r-0 border-b-gray-600"
+        <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
+          <table className="table-auto w-full  mb-4 ">
+            <thead className="text-[12px] sm:[text-14px] md:text-[12px] lato-700">
+              <tr>
+                <th className={`text-start text-gray-400 `}>Product</th>
+                <th className={`text-start text-gray-400 `}>Total price</th>
+                <th className={`text-start text-gray-400 `}>Status</th>
+                <th className={`text-start text-gray-400 `}>Logistics</th>
+                <th className={`text-start text-gray-400 `}>Action</th>
+              </tr>
+            </thead>
+            <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
+              {myShipments.map((shipment, index) => (
+                <tr
+                  key={shipment.id}
+                  className="border border-t-0 border-l-0 border-r-0 border-b-gray-600"
+                >
+                  <td className={` py-4  min-w-[120px] sm:min-w-[200px] `}>
+                    <div className="flex flex-col items-start w-full text-start">
+                      {/* <p>{shipment.description.slice(0, 14)}</p> */}
+                      <p className="text-gray-400 text-[12px]">
+                        {shipment.quantity}
+                      </p>
+                    </div>
+                  </td>
+                  <td
+                    className={` py-4 flex   min-w-[120px] sm:min-w-[200px] `}
                   >
-                    <td className={` py-4  min-w-[120px] sm:min-w-[200px] `}>
-                      <div className="flex flex-col items-start w-full text-start">
-                        {/* <p>{shipment.description.slice(0, 14)}</p> */}
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.quantity}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4 flex   min-w-[120px] sm:min-w-[200px] `}
-                    >
-                      <div className="flex flex-col items-start w-full text-start">
-                        <p>{shipment.price}</p>
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.paymentMethod}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
-                    >
-                      <div className="flex flex-col items-start w-full text-start">
-                        <p>{shipment.Shippings.arrangementStatus == "NOT_ARRANGED"?"To Arrange":`To ${shipment.Shippings.arrangementStatus}`}</p>
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.Shippings.arrangementStatus == "PICK_UP"
-                            ? `Parcel pickup on ${formatDateTime(shipment.orderExpectedDate)}`
-                            : `Parcel drop off on ${formatDateTime(shipment.orderExpectedDate)}`}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4  text-start  min-w-[150px] sm:min-w-[200px]`}
-                    >
-                      <div className="flex flex-col items-start w-full text-start">
-                        <p>Standard shipping</p>
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.id}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}
-                    >
-                      {shipment.Shippings.arrangementStatus == "NOT_ARRANGED" && (
-                        <button
-                          className=" button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-full hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
-                          onClick={() => {
-                            setShippingSelectedForArrangement(shipment);
-                            setShipping(false)
-                            setProductListing(false)
-                            setArrangeShipping(false)
-                          }}
-                        >
-                          Arrange Shipment
-                        </button>
-                      )}
-                    </td>
+                    <div className="flex flex-col items-start w-full text-start">
+                      <p>{shipment.price}</p>
+                      <p className="text-gray-400 text-[12px]">
+                        {shipment.paymentMethod}
+                      </p>
+                    </div>
+                  </td>
+                  <td
+                    className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
+                  >
+                    <div className="flex flex-col items-start w-full text-start">
+                      <p>{shipment.Shippings.arrangementStatus == "NOT_ARRANGED"?"To Arrange":`To ${shipment.Shippings.arrangementStatus}`}</p>
+                      <p className="text-gray-400 text-[12px]">
+                        {shipment.Shippings.arrangementStatus == "PICK_UP"
+                          ? `Parcel pickup on ${formatDateTime(shipment.orderExpectedDate)}`
+                          : `Parcel drop off on ${formatDateTime(shipment.orderExpectedDate)}`}
+                      </p>
+                    </div>
+                  </td>
+                  <td
+                    className={` py-4  text-start  min-w-[150px] sm:min-w-[200px]`}
+                  >
+                    <div className="flex flex-col items-start w-full text-start">
+                      <p>Standard shipping</p>
+                      <p className="text-gray-400 text-[12px]">
+                        {shipment.id}
+                      </p>
+                    </div>
+                  </td>
+                  <td
+                    className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}
+                  >
+                    {shipment.Shippings.arrangementStatus == "NOT_ARRANGED" && (
+                      <button
+                        className=" button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-full hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
+                        onClick={() => {
+                          setShippingSelectedForArrangement(shipment);
+                          setShipping(false)
+                          setProductListing(false)
+                          setArrangeShipping(false)
+                        }}
+                      >
+                        Arrange Shipment
+                      </button>
+                    )}
+                  </td>
 
-                     
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                   
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      )}
+      </div>
+      ):
+      <h2 className="text-center">No Shipments to show</h2>}
 
       {shipping && (
         <Shippings
