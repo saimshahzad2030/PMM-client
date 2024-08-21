@@ -13,6 +13,7 @@ import { Suspense } from "react";
 export default async function Home() { 
   const reviews = await fetchWebFeedbacks(0,4);
   const products = await fetchProducts();    
+ 
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59] ">
