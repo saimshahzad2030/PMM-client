@@ -8,7 +8,7 @@ import {
  
 import JoinNowSection from "../JoinNowSection/Join-Now-Section"; 
 import Productscomponent from "../Products/Products-component";
-const MarketPlacePage = ({products}) => {
+const MarketPlacePage = ({products,cartItems}) => {
    
   return (
     <div className="flex flex-col items-center w-full px-8 mt-4 mb-12">
@@ -19,7 +19,7 @@ const MarketPlacePage = ({products}) => {
       <Productscomponent
       products={products}
       selectedMetal={'dsad'}
-      
+      cartItems={cartItems}
       />
       <JoinNowSection
     

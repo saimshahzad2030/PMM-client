@@ -23,7 +23,7 @@ const MarketPLace = async() => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <MarketPlacePage products = {products?.products} />
+        <MarketPlacePage products = {products?.products}  cartItems = {products?.cartItems?products.cartItems:[]}/>
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
       <div className="container mx-auto">
