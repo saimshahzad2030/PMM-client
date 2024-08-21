@@ -110,7 +110,8 @@ const MyShop = ({myProducts,authenticationRequired,url,image,name,shipments}) =>
           </div>
 
           {products.map((mp, index) => (
-            <SingleProduct
+            <SingleProduct 
+            key={mp.id}
               product={mp}
               buttonText={"Remove Listing"}
               setProducts={setProducts}
