@@ -33,17 +33,15 @@ const MyShoppage = async () => {
       </div>
 
       <div className="w-full h-[1px] bg-gray-400"></div>
-      <div className="container mx-auto">
-        <Suspense fallback={<div>Loading...</div>}>
+      <div className="container mx-auto"> 
         <MyShop
           image={myProducts.user.imageUrl}
           name={`${myProducts.user.firstName} ${myProducts.user.lastName}`}
           myProducts={myProducts.user.products}
           authenticationRequired={sellerDetails.authenticationRequired}
-          url={sellerDetails.url}
+          url={sellerDetails?.url}
           shipments = {shipments.shipments}
-        />
-        </Suspense>
+        /> 
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
 

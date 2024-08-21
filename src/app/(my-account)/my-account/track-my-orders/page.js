@@ -13,6 +13,8 @@ const TrackMyOrdersPage = async() => {
   const cookieStore = cookies(); 
   const orders = await fetchOrders(cookieStore.get('token').value)
   const userInfo = await autoLogin(cookieStore.get('token').value) 
+  console.log(orders)
+  console.log(userInfo)
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -26,9 +28,10 @@ const TrackMyOrdersPage = async() => {
       </div>
 
       <div className="w-full h-[1px] bg-gray-400"></div>
-      <div className="container mx-auto">
+      <div className="container mx-auto"> 
         <TrackMyOrders orders= {orders.orders}  image={userInfo.user.imageUrl} name={`${userInfo.user.firstName} ${userInfo.user.lastName}`} />
-      </div>
+    
+           </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
       
       <div className="container mx-auto">
