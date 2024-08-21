@@ -191,21 +191,17 @@ const Navbar = ({ loggedIn }) => {
               {isMenuOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
                   <div className="flex flex-col items-center space-y-4">
-                    <p>
+                     
                       <Link href={"/market-place/gold"}>Gold</Link>
-                    </p>
-                    <p>
+                   
                       <Link href={"/market-place/silver"}>Silver</Link>
-                    </p>
-                    <p>
+                   
                       <Link href={"/market-place/platinum"}>Platinum</Link>
-                    </p>
-                    <p>
+                   
                       <Link href={"/market-place/palladium"}>Pladium</Link>
-                    </p>
-                    <p>
+                    
                       <Link href={"/"}>Sell</Link>
-                    </p>
+                    
                     <button
                       className="absolute top-4 right-4 text-2xl"
                       onClick={toggleMenu}
@@ -216,25 +212,21 @@ const Navbar = ({ loggedIn }) => {
                 </div>
               )}
               <div className=" hidden lg:flex flex-row items-center ml-12">
-                <p>
+                 
                   <Link href={"/market-place/gold"}>Gold</Link>
                   &nbsp;&nbsp;|&nbsp;&nbsp;
-                </p>
-                <p>
+                
                   <Link href={"/market-place/silver"}>Silver</Link>
                   &nbsp;&nbsp;|&nbsp;&nbsp;
-                </p>
-                <p>
+                
                   <Link href={"/market-place/platinum"}>Platinum</Link>
                   &nbsp;&nbsp;|&nbsp;&nbsp;
-                </p>
-                <p>
+                 
                   <Link href={"/market-place/palladium"}>Pladium</Link>
                   &nbsp;&nbsp;|&nbsp;&nbsp;
-                </p>
-                <p>
+               
                   <Link href={"/"}>Sell</Link>
-                </p>
+               
               </div>
             </div>
           </div>

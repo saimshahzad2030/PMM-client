@@ -8,14 +8,15 @@ import React, { Suspense } from "react";
 import { MARKET_PLACE_PAGE, METAL_VALUES } from "../../../../../constants/constants";
 import SpotPrice from "@/components/SpotPrice/Spot-Price";
 import { cookies } from "next/headers";
-import { fetchProductByType } from "../../../../../services/product.services";
-import { fetchCartItems } from "../../../../../services/cart.services";
+import { fetchProductByType } from "../../../../../services/product.services"; 
+import { fetchUserDetails } from "../../../../../services/user-login";
 
-const GoldSpotPricePage = async() => {
-  const cookieStore = cookies();
-  const myCookie = cookieStore.get('token')?.value;
+const GoldSpotPricePage = async() => { 
+  const cookieStore = cookies();  
+
   const productData = await fetchProductByType("gold") 
-  const cartItems = await fetchCartItems(myCookie) 
+  const cartItems = await fetchUserDetails(cookieStore.get('token').value,false,false,false,false,true,false,false,false,false,false)
+
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -35,7 +36,7 @@ const GoldSpotPricePage = async() => {
           spotPrice={METAL_VALUES[0]}
           metalName={"gold"}
           related = {productData?.relatedProducts}
-          cartItems ={cartItems?.cartItems?cartItems.cartItems:[]}
+          cartItems ={cartItems.user.cart?cartItems.user.cart:[]}
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

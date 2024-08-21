@@ -6,11 +6,14 @@ import Navbar from "@/components/Navbar/Navbar";
 import React, { Suspense } from "react";
 import { cookies } from "next/headers";  
 import { fetchSpecificProducts } from "../../../../../services/product.services";
+import { fetchUserDetails } from "../../../../../services/user-login";
 
 const SilverPage = async() => {
  
   const cookieStore = cookies(); 
   const silverProducts = await fetchSpecificProducts("rare",0,40,cookieStore.get('token').value)
+  const cartItems = await fetchUserDetails(cookieStore.get('token').value,false,false,false,false,true,false,false,false,false,false)
+
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -25,7 +28,10 @@ const SilverPage = async() => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <Rare products = {silverProducts.products}/>
+        <Rare products = {silverProducts.products} 
+        
+        cartItems ={cartItems.user.cart?cartItems.user.cart:[]}
+        />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
       <div className="container mx-auto">

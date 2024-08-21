@@ -12,20 +12,26 @@ import { addToCart, removeFromCart } from "../../../services/cart.services";
 import { IconButton } from "@mui/material";
 import { Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import Loader from "../Loader/Loader";
 const SingleProduct = ({
+
   product,
   buttonText,
   setProducts,
-  cartItems,
-  setCartProducts,
+  // cartItems,
+  // setCartProducts,
 }) => {
+
   const router = useRouter();
   const userId = Cookies.get("id");
+  
+  
+  const [cartItems, setCartProducts] = React.useState(product.cart?product.cart:[]);
   const [loading, setLoading] = React.useState(false);
   const productClickHandler = (id) => {
     router.push(`/market-place/product-details/${id}`);
   };
-
+  console.log(product.cart)
   const [heartLogo, setHeartLogo] = React.useState(
     product.favourites.some(
       (favourite) => favourite.userId == Cookies.get("id")
@@ -195,10 +201,10 @@ const SingleProduct = ({
                 }}
               >
                 {loading
-                  ? "loading"
+                  ? <Loader/>
                   : buttonText
                   ? buttonText
-                  : cartItems.some((cart) => {
+                  : cartItems?.some((cart) => {
                       return cart.productId == product.id;
                     })
                   ? "Remove from Cart"

@@ -65,11 +65,7 @@ const Productscomponent = ({products,selectedMetal,selectedType,cartItems}) => {
               
               <SingleProduct
                 product={product}
-                key={index}
-                productClickHandler={productClickHandler}
-                setCartProducts={setCartProducts}
-                setProducts={setProductList}
-                cartItems={cartProducts}
+                key={index} 
               />
             </>
           ))}

@@ -20,14 +20,15 @@ import { fetchCartItems } from "../../../../../../services/cart.services";
 // }
 import { cookies } from "next/headers";
 import { fetchWebFeedbacks } from "../../../../../../services/website-feedback";
+import { fetchUserDetails } from "../../../../../../services/user-login";
 const ProductDetailspage = async ({params}) => {
   const cookieStore = cookies(); 
 
   const productId = params.id; 
   const productData = await fetchProduct(productId) 
   
-  // const reviews = await fetchWebFeedbacks(0,4); 
-  const cartItems = await fetchCartItems(cookieStore.get('token').value) 
+  const cartItems = await fetchUserDetails(cookieStore.get('token').value,false,false,false,false,true,false,false,false,false,false)
+
  
   return (
     <>
@@ -43,7 +44,9 @@ const ProductDetailspage = async ({params}) => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto"> 
-        <Product cartItems={cartItems.cartItems} product = {productData.product} related={productData?.relatedProducts} reviews = {productData?.productReview}/>
+        <Product 
+          cartItems ={cartItems.user.cart?cartItems.user.cart:[]}
+          product = {productData.product} related={productData?.relatedProducts} reviews = {productData?.productReview}/>
         
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

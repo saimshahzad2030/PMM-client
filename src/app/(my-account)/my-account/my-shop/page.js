@@ -10,16 +10,16 @@ import { cookies } from "next/headers";
 import {
   autoLogin,
   fetchSellerDetails,
+  fetchUserDetails,
 } from "../../../../../services/user-login";
 import { fetchShipments } from "../../../../../services/shipments.services";
 const MyShoppage = async () => {
   const cookieStore = cookies();
-  const myProducts = await autoLogin(cookieStore.get("token").value);
+  const shippingDetails = await fetchUserDetails(cookieStore.get("token").value,true,false,false,false,false,false,false,false,false,true); 
+ 
   const sellerDetails = await fetchSellerDetails(
     cookieStore.get("token").value
-  );
-  const shipments = await fetchShipments(cookieStore.get("token").value);
-  console.log(shipments);
+  );  
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -35,12 +35,12 @@ const MyShoppage = async () => {
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto"> 
         <MyShop
-          image={myProducts.user.imageUrl}
-          name={`${myProducts.user.firstName} ${myProducts.user.lastName}`}
-          myProducts={myProducts.user.products}
+          image={shippingDetails.user.imageUrl}
+          name={`${shippingDetails.user.firstName} ${shippingDetails.user.lastName}`}
+          myProducts={shippingDetails.user.products}
           authenticationRequired={sellerDetails.authenticationRequired}
           url={sellerDetails?.url}
-          shipments = {shipments.shipments}
+          shipments = {shippingDetails.user.senderOrders}
         /> 
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

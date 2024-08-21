@@ -8,10 +8,11 @@ import styles from "./Cart.module.css";
 import { Checkbox, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import { addOrder } from "../../../services/order.services";
+import Loader from "../Loader/Loader";
 const Checkout = () => {
   const router = useRouter();
   const cartData = useSelector((state) => state.userCart); 
-
+  const [loading,setLoading] = React.useState(false)
   const [orderData, setOrderData] = React.useState(
     cartData.map((group) =>
       group.map((g) => ({
@@ -327,7 +328,7 @@ const Checkout = () => {
                   // Pass each object to the API
                   const finalOrders = await Promise.all(
                     flattenedOrders.map(async (order) => {
-                      const addNew = await addOrder(order);
+                      const addNew = await addOrder(order,setLoading);
                       return addNew;
                     })
                   );
@@ -339,7 +340,8 @@ const Checkout = () => {
                   console.log(finalOrders)
                 }}
               >
-                Place Order
+                {loading?<Loader/>:"Place Order"}
+                
               </button>
             </div>
           </div>

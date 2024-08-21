@@ -6,7 +6,6 @@ import Link from "next/link";
 import SingleProduct from "../Products/SingleProduct";
 import { useRouter } from "next/navigation";
 const MarketPlace = ({ products, cartItems }) => {
-  const [cartProducts, setCartProducts] = React.useState(cartItems);
   const [productsList, setProductsList] = React.useState(products);
   
   const router = useRouter();
@@ -28,8 +27,8 @@ console.log(productsList)
           <SingleProduct
             product={mp}
             productClickHandler={productClickHandler}
-            cartItems={cartProducts}
-            setCartProducts={setCartProducts}
+            // cartItems={cartProducts[index]}
+            // setCartProducts={setCartProducts}
             setProducts={setProductsList}
           />
         ))}

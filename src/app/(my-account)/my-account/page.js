@@ -5,13 +5,14 @@ import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import MyAccount from "@/components/MyAccount/My-Account";
-import { autoLogin } from "../../../../services/user-login";
+import { autoLogin, fetchUserDetails } from "../../../../services/user-login";
 import { cookies } from "next/headers";
 
 const MyAccountPage = async () => {
   const cookieStore = cookies();
-  const userInfo = await autoLogin(cookieStore.get("token").value);
-  console.log(userInfo);
+  // token, products, addresses, notifications, favourites, cart, creditCards, digitalWallets, bankAccounts, recieverOrders, senderOrders
+  const userInfo = await fetchUserDetails(cookieStore.get("token").value,false,false,false,false,false,false,false,false,false,false,false); 
+ 
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

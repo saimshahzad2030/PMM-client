@@ -265,12 +265,12 @@ const MyShop = ({
           <div className="w-full px-4">
             <div className="flex flex-row items-start justify-between w-full border border-[#F7E99E] bg-[#fffced] p-4">
               <div className="flex flex-col items-start w-6/12  text-[10px] sm:text-[14px] text-gray-800">
-                <p>
+                <div>
                   {shippingSelectedForArrangement.messageForSeller}.{" "}
                   <span>
                     Quantity: {shippingSelectedForArrangement.quantity}
                   </span>
-                </p>
+                </div>
                 <p className="lato-700 text-[19px] sm:text-[24px] my-2 text-gray-800">
                   {shippingSelectedForArrangement.price}
                 </p>

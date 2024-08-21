@@ -6,12 +6,13 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";   
 import Notifications from '@/components/MyAccount/Notifications';
 import { cookies } from 'next/headers';
-import { autoLogin } from '../../../../../services/user-login';
+import { autoLogin, fetchUserDetails } from '../../../../../services/user-login';
 const NotificationsPage = async() => {
   
  
   const cookieStore = cookies(); 
-  const notifications = await autoLogin(cookieStore.get('token').value) 
+  const notifications = await fetchUserDetails(cookieStore.get("token").value,false,false,false,false,false,false,false,false,true,false); 
+ 
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -26,7 +27,7 @@ const NotificationsPage = async() => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <Notifications image = {notifications.user.imageUrl} name = {`${notifications.user.firstName} ${notifications.user.lastName}`} notifications = {notifications.user.notifications}/>
+        <Notifications image = {notifications.user.imageUrl} name = {`${notifications.user.firstName} ${notifications.user.lastName}`} notifications = {notifications.user.recieverOrders[0].Shippings.ShippingNotifications}/>
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
       

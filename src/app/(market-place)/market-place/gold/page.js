@@ -8,13 +8,13 @@ import React, { Suspense } from "react";
 import { cookies } from "next/headers"; 
 import { fetchSpecificProducts } from "../../../../../services/product.services";
 import { fetchCartItems } from "../../../../../services/cart.services";
+import { fetchUserDetails } from "../../../../../services/user-login";
 
 const GoldPage = async() => {
-  const cookieStore = cookies(); 
-  const goldProducts = await fetchSpecificProducts("gold",0,40,cookieStore.get('token').value)
-  const cartItems = await fetchCartItems(cookieStore.get('token').value)  
-  console.log(cartItems.cartItems)
-  console.log(goldProducts)
+  const cookieStore = cookies();  
+  const goldProducts = await fetchSpecificProducts("gold",0,40,cookieStore.get('token').value)  
+    const cartItems = await fetchUserDetails(cookieStore.get('token').value,false,false,false,false,true,false,false,false,false,false)
+ 
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -29,7 +29,7 @@ const GoldPage = async() => {
 
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
-        <Gold cartItems={cartItems.cartItems} products = {goldProducts.products}/>
+        <Gold cartItems={cartItems.user.cart} products = {goldProducts.products}/>
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
       <div className="container mx-auto">

@@ -6,22 +6,13 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import SecureEscrowService from "@/components/SecureEscrowService/Secure-Escrow-Service";
 import WhyPreciousMarket from "@/components/WhyPreciousMarket/Why-Precious-Market";
-import SimpleSlider from "@/components/Slider/Slider-Component";
-import { CLIENT_REVIEWS } from "../../constants/constants";
+import SimpleSlider from "@/components/Slider/Slider-Component"; 
 import { fetchWebFeedbacks } from "../../services/website-feedback";
-import { fetchProducts } from "../../services/product.services";
-import { autoLogin } from "../../services/user-login";
-import { cookies } from 'next/headers';
-import { deleteAllCookies } from "../../utils/delete-all-cookies";
-import { fetchCartItems } from "../../services/cart.services";
+import { fetchProducts } from "../../services/product.services"; 
 import { Suspense } from "react";
-export default async function Home() {
-  const cookieStore = cookies();
-  const myCookie = cookieStore.get('token')?.value;
+export default async function Home() { 
   const reviews = await fetchWebFeedbacks(0,4);
-  const products = await fetchProducts();   
-  const cartItems = await fetchCartItems(myCookie) 
-  console.log(cartItems)
+  const products = await fetchProducts();    
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59] ">
@@ -37,7 +28,7 @@ export default async function Home() {
       <div className="container mx-auto">
         <SimpleSlider />
         <SecureEscrowService />
-        <MarketPlace products = {products?.products} cartItems = {cartItems?.cartItems?cartItems.cartItems:[]}/> 
+        <MarketPlace products = {products?.products} cartItems = {products.products}/> 
         <CustomerReviews
           heading={"Customer Reviews"}
           text={

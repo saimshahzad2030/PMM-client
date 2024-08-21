@@ -47,7 +47,7 @@ import Cookies from "js-cookie";
   };
  
 
-  export const addOrder = async(payload)=>{
+  export const addOrder = async(payload,setLoading)=>{
      
   //     "": 2,
   //     "": "",
@@ -59,6 +59,7 @@ import Cookies from "js-cookie";
  
   // }
     try { 
+      setLoading(true)
       const response = await fetch(
         `${config.BASE_URL}order`,
         {
@@ -82,9 +83,13 @@ import Cookies from "js-cookie";
           })
         }
       );
+      setLoading(false)
+
       const data = await response.json(); 
       return data
     } catch (error) {
+      setLoading(false)
+
       console.log(error);
     }
   };

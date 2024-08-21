@@ -10,12 +10,14 @@ import SpotPrice from "@/components/SpotPrice/Spot-Price";
 import { cookies } from "next/headers";
 import { fetchCartItems } from "../../../../../services/cart.services";
 import { fetchProductByType } from "../../../../../services/product.services";
+import { fetchUserDetails } from "../../../../../services/user-login";
 
 const PlatinumSpotPricePage = async() => {
   const cookieStore = cookies();
   const myCookie = cookieStore.get('token')?.value;
   const productData = await fetchProductByType("platinum") 
-  const cartItems = await fetchCartItems(myCookie) 
+  const cartItems = await fetchUserDetails(cookieStore.get('token').value,false,false,false,false,true,false,false,false,false,false)
+console.log(productData)
 
   return (
     <>
@@ -36,7 +38,8 @@ const PlatinumSpotPricePage = async() => {
           spotPrice={METAL_VALUES[2]}
           metalName={"platinum"}
           related = {productData?.relatedProducts}
-          cartItems ={cartItems?.cartItems?cartItems.cartItems:[]}
+          cartItems ={cartItems.user.cart?cartItems.user.cart:[]}
+
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

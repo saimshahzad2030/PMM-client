@@ -31,7 +31,7 @@ export default function RelatedPorducts({ products, cartItems }) {
   return (
     <>
       <div className={`w-full   my-16 `}>
-        <h1 className=" lato-700 text-[24px] md:text-[32px] xl:text-[40px] text-center mb-12">
+        <h1 className={` lato-700 text-[24px] md:text-[32px] xl:text-[40px] text-center ${productsList.length>0?"mb-12":"mb-3"}`}>
           {"Related Products"}
         </h1>
         <Swiper
@@ -57,7 +57,7 @@ export default function RelatedPorducts({ products, cartItems }) {
               />
             </SwiperSlide>
           )):
-          <h2>No Products to show yet</h2>}
+          <h2 className="text-gray-700 w-full text-center mb-8">No Products to show yet</h2>}
         </Swiper>
       </div>
     </>

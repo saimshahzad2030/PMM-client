@@ -189,36 +189,29 @@ const TermsOfService = () => {
         you of any changes by posting the new Terms within the App. Your
         continued use of the App after such changes constitutes your acceptance
         of the new Terms.
-      </p> 
+      </p>
 
       <h3 className="lato-700 mt-4">Cancellations and Refunds</h3>
       <p>
         Order Cancellations: You can cancel your order within a specified time
         frame, as detailed in the App, without incurring charges. Orders
         canceled after this period may incur a cancellation fee.
-      </p> 
+      </p>
 
       <h3 className="lato-700 mt-4">Contact Us</h3>
       <p>
-      If you have any questions or concerns about these Terms, please contact us at:
-      </p> 
- 
-      <p className=" mt-4">
-      [Your Company Name]
+        If you have any questions or concerns about these Terms, please contact
+        us at:
       </p>
-      <p>
-       
-[Your Contact Information]
+
+      <p className=" mt-4">[Your Company Name]</p>
+      <p>[Your Contact Information]</p>
+      <p>[Your Address]</p>
+      <p>[Your Email Address]</p>
+      <p>[Your Phone Number]</p>
+      <p className="my-4 ">
+        Copyright &copy; {new Date().getFullYear()} Precious Metal Market, Inc.
       </p>
-      <p>
-[Your Address]</p>
-<p>
-[Your Email Address]</p>
-<p>
-[Your Phone Number]</p>
-<p className="my-4 ">
-  Copyright &copy; {new Date().getFullYear()} Precious Metal Market, Inc.
-</p>
       <JoinNowSection />
     </div>
   );
