@@ -14,6 +14,7 @@ import {   TextField,
     InputAdornment } from "@mui/material";
 import Link from "next/link";
 import { signup } from "../../../services/user-signup"; 
+import Loader from "../Loader/Loader";
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
@@ -49,6 +50,7 @@ const SignupForm = ({
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [pass1Visibility,setPass1Visibility] = React.useState(false)
     const [pass2Visibility,setPass2Visibility] = React.useState(false)
+    const [loading,setLoading] = React.useState(false)
   React.useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable body scroll when form is open
     return () => {
@@ -116,7 +118,8 @@ const SignupForm = ({
             values.email,
             values.password,
             values.firstName,
-            values.lastName
+            values.lastName,
+            setLoading
           );
           if(userSignup.user){
             setOpen(true);
@@ -280,7 +283,7 @@ const SignupForm = ({
                   type="submit"
                   onClick={() => setSubmitButtonClicked(true)}
                 >
-                  Submit
+                  {loading?<Loader/>:'Sign Up'}
                 </button>
               </div>
               <div className="flex flex-col items-center col-span-2">

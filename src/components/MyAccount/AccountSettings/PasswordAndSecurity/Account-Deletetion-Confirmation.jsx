@@ -2,15 +2,16 @@
 import Cookies from "js-cookie";
 import React from "react";
 import { deleteUser } from "../../../../../services/user-login";
+import Loader from "@/components/Loader/Loader";
 
 const AccountDeletetionConfirmation = ({ handleBackdropClose,id }) => { 
+  const [loading,setLoading] = React.useState(false)
   return (
     <div className="form-container flex flex-col items-center w-11/12 sm:w-8/12 bg-white p-4 sm:p-8 rounded-sm h-[90vh] overflow-y-auto">
       <div className="w-full flex flex-col items-end">
         <button
-          onClick={async() => {
-            const deletedUser = await deleteUser(id);
-            console.log(deletedUser)
+          onClick={() => {
+        
             handleBackdropClose();
           }}
           className="text-black"
@@ -33,12 +34,17 @@ const AccountDeletetionConfirmation = ({ handleBackdropClose,id }) => {
       <div className="flex flex-row items-center justify-center mt-4 sm:mt-12">
         <button
           className=" mr-2 button p-1 px-2 text-[14px] sm:text-[16px] sm:p-2 bg-white text-[#E3BB59] border border-[#E3BB59] hover:text-white hover:border-[#E3BB59] hover:bg-[#E3BB59] transition-all duration-300 rounded-md w-auto  sm:w-[150px]"
-          onClick={() => setAccountDeletionClicked(true)}
+          onClick={() => handleBackdropClose()}
         >
-          Delete
+          Cancel
         </button>
-        <button className=" ml-2 button p-1 px-2 text-[14px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md w-auto  sm:w-[150px]">
-          Delete Account
+        <button className=" ml-2 button p-1 px-2 text-[14px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md w-auto  sm:w-[150px]"
+        onClick={async()=>{
+          const deletedUser = await deleteUser(id,setLoading);
+          console.log(deletedUser)
+        }}
+        >
+          {loading?<Loader/>:'Delete Account'}
         </button>
       </div>
     </div>

@@ -11,6 +11,7 @@ import {
   deleteAddress,
   updateAddress,
 } from "../../../../../services/address.services";
+import Loader from "@/components/Loader/Loader";
 const validationSchema = Yup.object({
   fullname: Yup.string().required("full name is required"),
   phone: Yup.string().required("Phone is required"),
@@ -35,6 +36,7 @@ const EditAddress = ({
   const [responseMessage, setResponseMessage] = React.useState(null);
 
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -80,7 +82,8 @@ const EditAddress = ({
               values.city,
               values.state,
               values.deliverytype,
-              "DEFAULT"
+              "DEFAULT",
+              setLoading
             );
             if (true && updatedAddress.newAddress) {
               setAllAddress((prevItems) =>
@@ -114,7 +117,9 @@ const EditAddress = ({
               Number(values.postalcode),
               values.city,
               values.state,
-              values.deliverytype
+              values.deliverytype,
+      setLoading
+
             );
             if (true && newAddress.newAddress) {
               setAllAddress((prevAddress) => [
@@ -327,7 +332,7 @@ const EditAddress = ({
                   {editAddress ? (
                     <button className="underline w-[30%] p-1 sm:p-2 rounded-md  text-red-700"
                     onClick={async()=>{
-                      const response = await deleteAddress(address.id) 
+                      const response = await deleteAddress(address.id,setLoading) 
                       setAllAddress((prevItems) => prevItems.filter(item => item.id !== address.id)) ;
                       cancelClickHandler()
 
@@ -355,7 +360,7 @@ Delete
                     }}
                   />
                   <button type="submit" className="border p-1 sm:p-2 w-[30%] rounded-md bg-[#E3BB59] text-white hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300">
-                    Save
+                    {loading?<Loader/>:' Save'}
                   </button>
                    
                 </div>

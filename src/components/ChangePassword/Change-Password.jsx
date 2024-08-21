@@ -18,6 +18,7 @@ import { changePassOnForget } from '../../../services/user-login';
 
 import {Snackbar,IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import Loader from '../Loader/Loader';
 const validationSchema = Yup.object({
    
     password: Yup.string().min(8, 'Password must be at least 8 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
@@ -33,7 +34,7 @@ const validationSchema = Yup.object({
 const ChangePassword =({email,handleBackdropClose,setSigningIn,setOtpVerified}) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-
+  const [loading,setLoading] = React.useState(false)
     const [submitButtonClicked,setSubmitButtonClicked] = useState(false) 
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -93,7 +94,7 @@ const ChangePassword =({email,handleBackdropClose,setSigningIn,setOtpVerified}) 
         validationSchema={validationSchema}
         onSubmit={async(values) => {
           console.log(values)
-          const changePass = await changePassOnForget(email,values.password);
+          const changePass = await changePassOnForget(email,values.password,setLoading);
           if(changePass.message == "Password Succesfully changed"){
             setOpen(true);
             setResponseMessage(changePass.message + ". Redirecting you to login page")
@@ -185,7 +186,7 @@ const ChangePassword =({email,handleBackdropClose,setSigningIn,setOtpVerified}) 
               </div>
               <div className='flex flex-col items-center col-span-2'>
                 <button className=" button bg-[#E3BB59] text-white p-2 w-full" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
-                  Update Password
+                  {loading?<Loader/>:'Update Password'}
                 </button>
               </div>
                

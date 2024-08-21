@@ -40,6 +40,7 @@ const AccountSettingsPage = async () => {
           cards = {userInfo.user.creditCards}
           banks = {userInfo.user.bankAccounts}
           wallets = {userInfo.user.digitalWallets}
+          image={userInfo.user?.imageUrl}
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

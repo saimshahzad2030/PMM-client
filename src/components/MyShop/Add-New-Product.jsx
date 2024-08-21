@@ -24,6 +24,7 @@ import * as Yup from "yup";
 import { TextField, IconButton, InputAdornment, Input } from "@mui/material";
 import { ImagesearchRoller } from "@mui/icons-material";
 import { addProduct } from "../../../services/product.services";
+import Loader from "../Loader/Loader";
 const validationSchema = Yup.object({
   grade: Yup.string(),
   thickness: Yup.string(),
@@ -43,6 +44,7 @@ const AddNewProduct = () => {
   const [selectedFile, setSelectedFile] = React.useState(null);
   const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false);
   const [arrangeForDropOff, setArrangeForDropOff] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [backdropopen, setBackdropOpen] = React.useState(false);
   const [editCategory, setEditCategory] = React.useState("");
   const [imagesUpload, setImagesUpload] = React.useState(0);
@@ -50,8 +52,7 @@ const AddNewProduct = () => {
   const [selectedImages, setSelectedImages] = React.useState([]);
   const [selectedVideos, setSelectedVideos] = React.useState([]);
   const [imageError, setImageError] = React.useState(null);
-  const [videoError, setVideoError] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [videoError, setVideoError] = React.useState(null); 
   const handleFileChange = (event, setFieldValue) => {
     const files = Array.from(event.target.files);
     const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -425,7 +426,113 @@ const AddNewProduct = () => {
                   alt={DROPDOWN.name}
                 />
               </div>  */}
-              <div className="flex flex-col md:flex-row items-start w-full mt-4">
+              
+               <h2>Specification</h2>
+               <div className="flex flex-col items-center col-span-1 w-full mt-4">
+                  <TextField
+                    fullWidth
+                    id="grade"
+                    name="grade"
+                    label="Grade"
+                    type={"text"}
+                    value={values.grade}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                      submitButtonClicked &&
+                      touched.grade &&
+                      Boolean(errors.grade)
+                    }
+                    helperText={
+                      submitButtonClicked && touched.grade && errors.grade
+                    }
+                  />
+                </div>
+                <div className="flex flex-col items-center col-span-1 w-full mt-4">
+                  <TextField
+                    fullWidth
+                    id="diameter"
+                    name="diameter"
+                    label="Diameter"
+                    type={"text"}
+                    value={values.diameter}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                      submitButtonClicked &&
+                      touched.diameter &&
+                      Boolean(errors.diameter)
+                    }
+                    helperText={
+                      submitButtonClicked && touched.diameter && errors.diameter
+                    }
+                  />
+                </div>
+                <div className="flex flex-col items-center w-full mt-4">
+                  <TextField
+                    fullWidth
+                    id="thickness"
+                    name="thickness"
+                    label="Thickness"
+                    type={"text"}
+                    value={values.thickness}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                      submitButtonClicked &&
+                      touched.thickness &&
+                      Boolean(errors.thickness)
+                    }
+                    helperText={
+                      submitButtonClicked &&
+                      touched.thickness &&
+                      errors.thickness
+                    }
+                  />
+                </div>
+                <div className="flex flex-col items-center w-full mt-4">
+                  <TextField
+                    fullWidth
+                    id="metalcontent"
+                    name="metalcontent"
+                    label="Metal Content"
+                    type={"text"}
+                    value={values.metalcontent}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                      submitButtonClicked &&
+                      touched.metalcontent &&
+                      Boolean(errors.metalcontent)
+                    }
+                    helperText={
+                      submitButtonClicked &&
+                      touched.metalcontent &&
+                      errors.metalcontent
+                    }
+                  />
+                </div>
+                <div className="flex flex-col items-center w-full mt-4">
+                  <TextField
+                    fullWidth
+                    id="purity"
+                    name="purity"
+                    label="Purity"
+                    type={"text"}
+                    value={values.purity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                      submitButtonClicked &&
+                      touched.purity &&
+                      Boolean(errors.purity)
+                    }
+                    helperText={
+                      submitButtonClicked && touched.purity && errors.purity
+                    }
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row items-start w-full mt-4">
                 <input
                   type="file"
                   id="file-input"
@@ -516,7 +623,7 @@ const AddNewProduct = () => {
                       </p>
                       <p className="text-[12px] sm:text-[16px]">{`(${videosUpload}/9)`}</p>
                     </label>
-                    <ul className="  list-outside list-disc list-inside text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-2 sm:ml-4">
+                    <ul className="   list-disc list-inside text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-2 sm:ml-4">
                       <li>Size: 3:4 Image</li>
                       <li>File size: Maximum of 25mb</li>
                       <li>Format: Lorem impsum</li>
@@ -560,115 +667,7 @@ const AddNewProduct = () => {
               </div>
             </div>
 
-            <div className="w-full border border-gray-300 rounded-md flex flex-col items-start py-6 px-2 sm:px-6 md:px-12 my-4">
-              <h2>Specification</h2>
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-                <div className="flex flex-col items-center col-span-1 w-full">
-                  <TextField
-                    fullWidth
-                    id="grade"
-                    name="grade"
-                    label="Grade"
-                    type={"text"}
-                    value={values.grade}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.grade &&
-                      Boolean(errors.grade)
-                    }
-                    helperText={
-                      submitButtonClicked && touched.grade && errors.grade
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center col-span-1 w-full">
-                  <TextField
-                    fullWidth
-                    id="diameter"
-                    name="diameter"
-                    label="Diameter"
-                    type={"text"}
-                    value={values.diameter}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.diameter &&
-                      Boolean(errors.diameter)
-                    }
-                    helperText={
-                      submitButtonClicked && touched.diameter && errors.diameter
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center ">
-                  <TextField
-                    fullWidth
-                    id="thickness"
-                    name="thickness"
-                    label="Thickness"
-                    type={"text"}
-                    value={values.thickness}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.thickness &&
-                      Boolean(errors.thickness)
-                    }
-                    helperText={
-                      submitButtonClicked &&
-                      touched.thickness &&
-                      errors.thickness
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center ">
-                  <TextField
-                    fullWidth
-                    id="metalcontent"
-                    name="metalcontent"
-                    label="Metal Content"
-                    type={"text"}
-                    value={values.metalcontent}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.metalcontent &&
-                      Boolean(errors.metalcontent)
-                    }
-                    helperText={
-                      submitButtonClicked &&
-                      touched.metalcontent &&
-                      errors.metalcontent
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center ">
-                  <TextField
-                    fullWidth
-                    id="purity"
-                    name="purity"
-                    label="Purity"
-                    type={"text"}
-                    value={values.purity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.purity &&
-                      Boolean(errors.purity)
-                    }
-                    helperText={
-                      submitButtonClicked && touched.purity && errors.purity
-                    }
-                  />
-                </div>
-              </div>
-            </div>
+            
 
             {/* <div className='flex flex-col items-center '>
                 <button className=" button bg-[#E3BB59] text-white p-2 w-full" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
@@ -696,7 +695,7 @@ const AddNewProduct = () => {
                   setSubmitButtonClicked(true);
                 }}
               >
-                {loading ? "Loading.." : "Save and Publish"}
+                {loading ? <Loader/>: "Save and Publish"}
               </button>
             </div>
             <Snackbar

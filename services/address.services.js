@@ -9,8 +9,12 @@ export const addNewAddress = async (
     city,
     state,
     addressType,
+    setLoading
+
 ) => {
     try {
+      setLoading(true)
+
       const response = await fetch(
         `${config.BASE_URL}address`,
         {
@@ -32,8 +36,12 @@ export const addNewAddress = async (
         }
       );
       const data = await response.json(); 
+      setLoading(false)
+
       return data
     } catch (error) {
+      setLoading(false)
+      
       console.log(error);
     }
   };
@@ -49,9 +57,11 @@ export const updateAddress = async (
     city,
     state,
     addressType,
-    shippingAddressType
+    shippingAddressType,
+    setLoading
 ) => {
     try {
+      setLoading(true)
       const response = await fetch(
         `${config.BASE_URL}address`,
         {
@@ -75,8 +85,11 @@ export const updateAddress = async (
         }
       );
       const data = await response.json(); 
+      setLoading(false)
+
       return data
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };
@@ -84,9 +97,14 @@ export const updateAddress = async (
 
   
 export const deleteAddress = async ( 
-    id 
+    id ,
+    setLoading
 ) => {
     try {
+      setLoading(true)
+
+      setLoading(true)
+
       const response = await fetch(
         `${config.BASE_URL}address?id=${id}`,
         {
@@ -100,8 +118,12 @@ export const deleteAddress = async (
         }
       );
       const data = await response.json(); 
+      setLoading(false)
+
       return data
     } catch (error) {
+      setLoading(false)
+
       console.log(error);
     }
   };

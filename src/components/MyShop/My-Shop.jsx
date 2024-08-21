@@ -101,7 +101,7 @@ const MyShop = ({myProducts,authenticationRequired,url,image,name,shipments}) =>
       {productListing && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-4 w-full gap-y-12 md:gap-y-8  px-4">
           <div className="flex flex-col items-center w-full h-[300px] sm:h-auto">
-            <div className="w-11/12 h-full relative flex flex-col items-center justify-center bg-gray-200">
+            <div className="w-11/12 h-full relative flex flex-col items-center justify-center bg-gray-200 min-h-[250px]">
               <div className=" cursor-pointer bg-gray-300 rounded-full w-[100px] h-[100px] flex flex-col items-center justify-center" onClick={()=>{addNewProduct()}}>
                 <p className="text-white lato-700 text-[40px]">+</p>
               </div>

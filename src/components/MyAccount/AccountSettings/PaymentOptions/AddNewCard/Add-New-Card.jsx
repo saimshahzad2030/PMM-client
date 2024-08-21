@@ -16,6 +16,7 @@ import * as Yup from "yup";
 import { TextField, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@/components/Button/Button";
 import { addCard } from "../../../../../../services/card.services";
+import Loader from "@/components/Loader/Loader";
 const validationSchema = Yup.object({
   cardnumber: Yup.string().required("full name is required"),
   expirydate: Yup.date("Must be a date").required("required"),
@@ -24,6 +25,7 @@ const validationSchema = Yup.object({
 });
 const AddNewCard = ({ handleBackdropClose,setCardList }) => {
   const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false); 
+  const [loading, setLoading] = React.useState(false); 
   const [selectedDate, setSelectedDate] = React.useState(null);
   const theme = useTheme(); 
 
@@ -105,7 +107,7 @@ const AddNewCard = ({ handleBackdropClose,setCardList }) => {
             ...values,
             expirydate: values.expirydate ? values.expirydate.toISOString() : null, // Convert to ISO string or desired format
           }; 
-          const newCard = await addCard( formattedValues.cardnumber,formattedValues.nameoncard,formattedValues.expirydate,formattedValues.cvv)
+          const newCard = await addCard( formattedValues.cardnumber,formattedValues.nameoncard,formattedValues.expirydate,formattedValues.cvv,setLoading)
           console.log(newCard) 
           if(newCard.newCreditCard){
             setCardList((prevItems) =>[...prevItems,newCard.newCreditCard ])
@@ -233,7 +235,7 @@ const AddNewCard = ({ handleBackdropClose,setCardList }) => {
               <button className="p-1 sm:p-2  border rounded-md w-3/12 mr-4 text-gray-800" onClick={()=>handleBackdropClose()}>Cancel</button>
                 
                  <button className="p-1 sm:p-2 w-3/12 button bg-[#E3BB59] text-white  border rounded-md border-[#E3BB59] hover:border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white transition-all duration-300" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
-                 Save
+                 {loading?<Loader/>:'Save'}
                 </button>
               </div>
             </div>

@@ -1,35 +1,28 @@
-import { config } from "../config/config"; 
- import Cookies from "js-cookie";
+import { config } from "../config/config";
+import Cookies from "js-cookie";
+ 
 
-export const updateInfo = async ( email,
-    fullName,
-    dateOfBirth,
-    phone,
-    gender,
-    setLoading
+export const addQuery = async (
+    email,phone,query,setLoading
 ) => {
     try {
       setLoading(true)
       const response = await fetch(
-        `${config.BASE_URL}user-info`,
+        `${config.BASE_URL}query`,
         {
-          method: "PATCH",  
+          method: "POST",  
           headers: {
             "Content-Type": "application/json",
             "Authorization": `bearer ${Cookies.get('token')}`
 
           }, 
           body: JSON.stringify({
-            email,
-    fullName,
-    dateOfBirth,
-    phone,
-    gender
+            email,phone,query
           }),
         }
       );
-      const data = await response.json(); 
-      setLoading(false)
+      const data = await response.json();
+      setLoading(false) 
       return data
     } catch (error) {
       setLoading(false)
@@ -37,5 +30,4 @@ export const updateInfo = async ( email,
     }
   };
   
-  
-  
+   

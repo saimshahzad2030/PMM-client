@@ -16,6 +16,7 @@ import { TextField, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@/components/Button/Button";
 import { Email } from "@mui/icons-material";
 import { addDigitalCard } from "../../../../../../services/wallet.service";
+import Loader from "@/components/Loader/Loader";
 const validationSchema = Yup.object({
   walletname: Yup.string().required("full name is required"),
   accountname: Yup.number("must be a number").required("can't be empty") , 
@@ -24,6 +25,7 @@ const validationSchema = Yup.object({
 });
 const AddNewWallet = ({ handleBackdropClose,setWalletList }) => {
   const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false); 
+  const [loading, setLoading] = React.useState(false); 
   const [responseMessage,setResponseMessage] = React.useState(null)
  
 
@@ -94,7 +96,7 @@ const AddNewWallet = ({ handleBackdropClose,setWalletList }) => {
         onSubmit={async(values) => {
           console.log(values);
           // setSubmitButtonClicked(true)
-          const newCard = await addDigitalCard(values.accountname,values.walletname,values.email)
+          const newCard = await addDigitalCard(values.accountname,values.walletname,values.email,setLoading)
           if(newCard.newDigitalWallet){
             setWalletList((prevItems) =>[...prevItems,newCard.newDigitalWallet ])
             handleBackdropClose()        
@@ -178,7 +180,8 @@ const AddNewWallet = ({ handleBackdropClose,setWalletList }) => {
                  
                  <button className="p-1 sm:p-2  border rounded-md w-3/12 mr-4 text-gray-800" onClick={()=>handleBackdropClose()}>Cancel</button>
                  <button className="p-1 sm:p-2 w-3/12 button bg-[#E3BB59] text-white  border rounded-md border-[#E3BB59] hover:border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white transition-all duration-300" type="submit"  onClick={()=>{setSubmitButtonClicked(true)}}>
-                 Save
+                 {loading?<Loader/>:'Save'}
+
                 </button>
               </div>
             </div>

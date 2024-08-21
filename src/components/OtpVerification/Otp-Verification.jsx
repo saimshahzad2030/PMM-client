@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { CROSS } from '../../../constants/icons';
 import { sendOtp, verifyOtp } from "../../../services/user-login";
+import Loader from "../Loader/Loader";
 
 const OtpVerification = ({ handleBackdropClose, setOtpEntered, setOtpVerified, email, setEmailVerified,otpId }) => {
   const [finalotp, setFinalOtp] = useState("");
@@ -152,7 +153,7 @@ const OtpVerification = ({ handleBackdropClose, setOtpEntered, setOtpVerified, e
             }}
             disabled={loading} 
           >
-            Continue
+            {loading?<Loader/>:'Continue'}
           </button>
         </div>
       </div>

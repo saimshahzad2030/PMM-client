@@ -7,7 +7,7 @@ import PersonalInformation from './PersonalInformation/Personal-Information'
 import AddressBook from './AddressBookSection/Address-Book'
 import PaymentOptions from './PaymentOptions/Payment-Options'
 import PasswordAndSecurity from './PasswordAndSecurity/Password-And-Security'
-const AccountSettings = ({name,email,phone,birthday,gender,addresses,banks,cards,wallets}) => { 
+const AccountSettings = ({image,name,email,phone,birthday,gender,addresses,banks,cards,wallets}) => { 
   const [informationSelected,setInformationSelected] = React.useState(true)
   const [addressBookSelected,setAddressBookSelected] = React.useState(false)
   const [paymentOptionsSelected,setPaymentOptionsSelected] = React.useState(false)
@@ -15,7 +15,7 @@ const AccountSettings = ({name,email,phone,birthday,gender,addresses,banks,cards
   return (
     <div className='flex flex-col items-center w-full px-8 overflow-x-hidden'>
       <RouteComponent mainRoute={'Account Settings '} parentRoute={'Home > My Account > '}/>
-      <UserSection User={USER}/>
+      <UserSection User={{name,image}}/>
       <div className="flex flex-row w-full bg-[#F2F2F2] my-4">
         <button
           className={` text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px]  button w-3/12 border border-t-0 border-r-0 border-l-0 ${

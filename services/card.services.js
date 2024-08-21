@@ -3,9 +3,10 @@ import Cookies from "js-cookie";
  
 
 export const addCard = async (
-    cardNumber,nameOnCard,expiryDate,cvv
+    cardNumber,nameOnCard,expiryDate,cvv,setLoading
 ) => {
     try {
+      setLoading(true)
       const response = await fetch(
         `${config.BASE_URL}credit-card`,
         {
@@ -20,9 +21,11 @@ export const addCard = async (
           }),
         }
       );
-      const data = await response.json(); 
+      const data = await response.json();
+      setLoading(false) 
       return data
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };

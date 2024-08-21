@@ -3,9 +3,10 @@ import Cookies from "js-cookie";
  
 
 export const addDigitalCard = async (
-    accountNumber,walletName,email
+    accountNumber,walletName,email,setLoading
 ) => {
     try {
+      setLoading(true)
       const response = await fetch(
         `${config.BASE_URL}digital-wallet`,
         {
@@ -21,8 +22,10 @@ export const addDigitalCard = async (
         }
       );
       const data = await response.json(); 
+      setLoading(false)
       return data
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };

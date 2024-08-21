@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import Button from "@/components/Button/Button"; 
 import { changePassword } from "../../../../../services/user-login";
+import Loader from "@/components/Loader/Loader";
 const validationSchema = Yup.object({
   oldpassword: Yup.string().required("Password is required"),
   newpassword:Yup.string()
@@ -37,6 +38,7 @@ const ChangePassword = ({ handleBackdropClose }) => {
     const [newPasswordVisibility,setNewPasswordVisibility] = React.useState(false)
     const [newPasswordVisibility2,setNewPasswordVisibility2] = React.useState(false)
   const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -99,7 +101,7 @@ const ChangePassword = ({ handleBackdropClose }) => {
         }}
         validationSchema={validationSchema}
         onSubmit={async(values) => {
-          const updatePassword = await changePassword(values.oldpassword,values.newpassword)
+          const updatePassword = await changePassword(values.oldpassword,values.newpassword,setLoading)
           if(updatePassword.message == "Password Succesfully updated"){
 
             values.oldpassword="";
@@ -221,7 +223,7 @@ const ChangePassword = ({ handleBackdropClose }) => {
              
                  
                  <button className="p-1 sm:p-2 w-full button bg-[#E3BB59] text-white  border rounded-md border-[#E3BB59] hover:border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white transition-all duration-300" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
-                 Update
+                 {loading?<Loader/>:'Update'}
                 </button>
               </div>
             </div>

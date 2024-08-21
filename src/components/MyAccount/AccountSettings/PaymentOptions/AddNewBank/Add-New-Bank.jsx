@@ -16,6 +16,7 @@ import * as Yup from "yup";
 import { TextField, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@/components/Button/Button";
 import { addBank } from "../../../../../../services/bank.services";
+import Loader from "@/components/Loader/Loader";
 const validationSchema = Yup.object({
   accountnumber: Yup.number("must be a number").required("Account No. is required").integer("must be a number"),
   accountname: Yup.string("must be a string").required("required"), 
@@ -23,6 +24,7 @@ const validationSchema = Yup.object({
 });
 const AddNewBank = ({ handleBackdropClose,setBankList }) => {
   const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false); 
+  const [loading, setLoading] = React.useState(false); 
   const theme = useTheme();
   const [responseMessage,setResponseMessage] = React.useState(null)
  
@@ -91,7 +93,7 @@ const AddNewBank = ({ handleBackdropClose,setBankList }) => {
         }}
         validationSchema={validationSchema}
         onSubmit={async(values) => {
-          const newBank = await addBank(values.bankname,values.accountname,values.accountnumber)
+          const newBank = await addBank(values.bankname,values.accountname,values.accountnumber,setLoading)
           if(newBank.message== "New Bank Added"){
             setBankList((prevItems) =>[...prevItems,newBank.newBankAccount ]) 
             values.accountname = ""
@@ -175,7 +177,7 @@ const AddNewBank = ({ handleBackdropClose,setBankList }) => {
                 <button className="p-1 sm:p-2  border rounded-md w-3/12 mr-4 text-gray-800" onClick={()=>handleBackdropClose()}>Cancel</button>
                  
                  <button className="p-1 sm:p-2 w-3/12 button bg-[#E3BB59] text-white  border rounded-md border-[#E3BB59] hover:border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white transition-all duration-300" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
-                 Save
+                 {loading?<Loader/>:'Save'}
                 </button>
               </div>
             </div>

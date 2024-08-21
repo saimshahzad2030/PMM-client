@@ -6,8 +6,13 @@ import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar"; 
 import { Suspense } from "react";
+import { autoLogin } from "../../../services/user-login";
+import { cookies } from "next/headers";
 
-const ContactUspage = () => {
+const ContactUspage = async() => {
+  const cookie = cookies()
+
+  const fetchUser = await autoLogin(cookie.get('token').value)
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -23,7 +28,7 @@ const ContactUspage = () => {
       </div>
     <div className="w-full h-[1px] bg-gray-400"></div>
     <div className="container mx-auto">
-     <ContactUs/>
+     <ContactUs email={fetchUser?.user?.email} phone={fetchUser?.user?.phone}/>
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
       

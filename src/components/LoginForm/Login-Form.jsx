@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { login } from '../../../services/user-login';
 import {Snackbar,IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import Loader from '../Loader/Loader';
 const validationSchema = Yup.object({ 
   email: Yup.string().email('Invalid email format').required('Email is required'),
   password: Yup.string().min(8, 'Password must be at least 8 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
@@ -21,7 +21,8 @@ const validationSchema = Yup.object({
   .matches(/[@$!%*?&#]/, 'Password must contain at least one special character').required('Password is required'),
   });
 const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setForgotPassword, setUserLoggedIn}) => {
-    const [submitButtonClicked,setSubmitButtonClicked] = useState(false)
+  const [loading,setLoading] = React.useState(false)  
+  const [submitButtonClicked,setSubmitButtonClicked] = useState(false)
     const [responseMessage,setResponseMessage] = useState(null)
     React.useEffect(() => {
         document.body.style.overflow = 'hidden'; // Disable body scroll when form is open
@@ -70,7 +71,7 @@ const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setFor
         onSubmit={async(values) => {
           
           // handleBackdropClose() 
-          const userLogin = await login(values.email,values.password);
+          const userLogin = await login(values.email,values.password,setLoading);
           console.log(userLogin)
           setOpen(true);
             setResponseMessage(userLogin?.message)
@@ -132,7 +133,7 @@ const LoginForm = ({handleBackdropClose,setCreatingAcccount,setSigningIn, setFor
               </div>
               <div className='flex flex-col items-center col-span-2'>
                 <button className=" button bg-[#E3BB59] text-white p-2 w-full" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
-                  Submit
+                  {loading?<Loader/>:`Login`}
                 </button>
               </div>
               <div className='flex flex-col items-center col-span-2'>

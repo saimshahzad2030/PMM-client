@@ -2,8 +2,9 @@
 import { config } from "../config/config";
 
 import Cookies from 'js-cookie';
-export const login = async (email, password) => {
+export const login = async (email, password,setLoading) => {
   try {
+    setLoading(true)
     const response = await fetch(
       `${config.BASE_URL}user/login`,
       {
@@ -24,9 +25,13 @@ export const login = async (email, password) => {
       Cookies.set('id',data.updatedUser.id)
        
     }
+    setLoading(false)
+
     return data
 
   } catch (error) {
+    setLoading(false)
+
     console.log(error,'error');
   }
 };
@@ -55,8 +60,9 @@ export const autoLogin = async (token) => {
 };
 
 
-export const deleteUser = async (id) => {
+export const deleteUser = async (id,setLoading) => {
   try {  
+    setLoading(true)
     const response = await fetch(
       `${config.BASE_URL}user?id=${id}`,
       {
@@ -69,9 +75,13 @@ export const deleteUser = async (id) => {
       }
     );
     const data = await response.json(); 
+    setLoading(false)
+
     return data
     
   } catch (error) {
+    setLoading(false)
+
     console.log(error,'error');
   }
 };
@@ -103,8 +113,9 @@ export const editProfilePic = async (file) => {
 };
 
 
-export const changePassword = async ( oldPassword,newPassword ) => {
+export const changePassword = async ( oldPassword,newPassword,setLoading ) => {
   try {  
+    setLoading(true)
     const response = await fetch(
       `${config.BASE_URL}user`,
       {
@@ -119,9 +130,11 @@ export const changePassword = async ( oldPassword,newPassword ) => {
       }
     );
     const data = await response.json(); 
+    setLoading(false)
     return data
     
   } catch (error) {
+    setLoading(false)
     console.log(error,'error');
   }
 };
@@ -200,8 +213,9 @@ export const verifyOtp = async ( otp ,otpId,setLoading ) => {
 };
 
 
-export const changePassOnForget = async ( email,password) => {
+export const changePassOnForget = async ( email,password,setLoading) => {
   try {  
+    setLoading(true)
     const response = await fetch(
       `${config.BASE_URL}user/otp`,
       {
@@ -216,9 +230,13 @@ export const changePassOnForget = async ( email,password) => {
       }
     );
     const data = await response.json(); 
+    setLoading(false)
+
     return data
     
   } catch (error) {
+    setLoading(false)
+
     console.log(error,'error');
   }
 };

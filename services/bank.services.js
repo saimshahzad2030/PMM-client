@@ -3,9 +3,10 @@ import Cookies from "js-cookie";
  
 
 export const addBank = async (
-    bankName,accountName,accountNo
+    bankName,accountName,accountNo,setLoading
 ) => {
     try {
+      setLoading(true)
       const response = await fetch(
         `${config.BASE_URL}bank-account`,
         {
@@ -20,9 +21,12 @@ export const addBank = async (
           }),
         }
       );
-      const data = await response.json(); 
+      const data = await response.json();
+      setLoading(false) 
       return data
     } catch (error) {
+      setLoading(false) 
+
       console.log(error);
     }
   };

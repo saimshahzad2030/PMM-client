@@ -2,37 +2,73 @@
 import React from 'react'
 import RouteComponent from '../RouteComponent/Route-Component'
 import JoinNowSection from '../JoinNowSection/Join-Now-Section'
+
+import {Snackbar,IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { 
     TextField, useTheme,useMediaQuery
   } from '@mui/material'; 
+import { addQuery } from '../../../services/query.services';
+import Loader from '../Loader/Loader'; 
   const validationSchema = Yup.object({ 
     email: Yup.string().email('Invalid email format').required('Email is required'),
-    phone: Yup.string().max(11,'only 11 digits allowed').required('phone is required'),
-    firstname: Yup.string().required('firstname is required'),
-    lastname: Yup.string().required('lastname is required'),
+    phone: Yup.string().max(11,'only 11 digits allowed').required('phone is required'), 
     query: Yup.string().required('Enter your concern'),
   })
-const ContactUs = () => {
+const ContactUs = ({email,phone}) => {
     const theme = useTheme()
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const [submitButtonClicked,setSubmitButtonClicked] = React.useState(false)
+    const [loading,setLoading] = React.useState(false)
+    const [responseMessage,setResponseMessage] = React.useState(null)
+   
+
+      const [open, setOpen] = React.useState(false);
+
+     
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+      const action = (
+        <>
+           
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </>
+      );
   return (
     <div className="px-8 w-full flex flex-col items-center mb-12">
     <RouteComponent parentRoute={"Home >"} mainRoute={"Contact us"} />
     <Formik
         initialValues={{
-          email: '',
-          lastname: '',
-          firstname: '',
+          email: email, 
           query: '',
-          phone: '',
+          phone: phone,
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={async(values) => {
           // handleBackdropClose()
+          const addNew = await addQuery(values.email,values.phone,values.query,setLoading)
+          if(addNew.newQuery){
+            setOpen(true)
+            setResponseMessage(addNew.message)
+            values.query = ""
+            values.phone = "" 
+          }
           console.log(values);
+          console.log(addNew);
           // setUserLoggedIn(true)
         }}
         
@@ -40,32 +76,7 @@ const ContactUs = () => {
         {({ errors, touched, handleChange, handleBlur, values }) => (
           <Form className='w-full sm:w-8/12 md:w-7/12 lg:w-6/12 flex flex-col items-center my-8'>
             <div className='grid grid-cols-2 w-full gap-y-2 gap-x-2'>
-            <div className='flex flex-col items-center col-span-2 sm:col-span-1'>
-                <TextField
-                  fullWidth
-                  id="firstname"
-                  name="firstname"
-                  label="First name"
-                  value={values.firstname}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={submitButtonClicked &&touched.firstname && Boolean(errors.firstname)}
-                  helperText={submitButtonClicked &&touched.firstname && errors.firstname}
-                />
-              </div>
-              <div className='flex flex-col items-center col-span-2 sm:col-span-1'>
-                <TextField
-                  fullWidth
-                  id="lastname"
-                  name="lastname"
-                  label="Last name"
-                  value={values.lastname}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={submitButtonClicked &&touched.lastname && Boolean(errors.lastname)}
-                  helperText={submitButtonClicked &&touched.lastname && errors.lastname}
-                />
-              </div>
+           
               <div className='flex flex-col items-center col-span-2 sm:col-span-1'>
                 <TextField
                   fullWidth
@@ -111,11 +122,19 @@ const ContactUs = () => {
         </div>
               <div className='flex flex-col items-start col-span-2'>
                 <button className="rounded-md button bg-[#E3BB59] text-white p-2 px-4 w-auto" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
-                  Submit
+                  {loading?<Loader/>:'Submit'}
                 </button>
               </div>
                
             </div>
+            <Snackbar
+         anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
           </Form>
         )}
       </Formik>

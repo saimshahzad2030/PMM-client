@@ -2,8 +2,9 @@ import { config } from "../config/config";
 
  
 
-export const signup = async (email, password,firstName,lastName) => {
+export const signup = async (email, password,firstName,lastName,setLoading) => {
     try {
+      setLoading(true)
       const response = await fetch(
         `${config.BASE_URL}user`,
         {
@@ -20,8 +21,11 @@ export const signup = async (email, password,firstName,lastName) => {
         }
       );
       const data = await response.json(); 
+      setLoading(false)
       return data
     } catch (error) {
+      setLoading(false)
+
       console.log(error);
     }
   };
