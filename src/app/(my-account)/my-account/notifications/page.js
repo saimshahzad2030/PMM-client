@@ -21,7 +21,6 @@ const NotificationsPage = async () => {
     true,
     false
   );
-
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -39,7 +38,11 @@ const NotificationsPage = async () => {
           image={notifications.user.imageUrl}
           name={`${notifications.user.firstName} ${notifications.user.lastName}`}
           notifications={
-            notifications.user.recieverOrders[0].Shippings.ShippingNotifications
+            notifications?.user?.recieverOrders[0]?.Shippings
+              ?.ShippingNotifications
+              ? notifications.user.recieverOrders[0].Shippings
+                  .ShippingNotifications
+              : []
           }
         />
       </div>
