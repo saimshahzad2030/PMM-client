@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { CLIENT_REVIEWS } from "../../../constants/constants";
-import { STAR, VERIFIED } from "../../../constants/icons";
+import { STAR, USER_DEFAULT_IMAGE, VERIFIED } from "../../../constants/icons";
 import Link from "next/link";
 const CustomerReviews = ({ heading, text, reviews }) => {
   const formatDate = (dateString) => {
@@ -17,20 +17,30 @@ const CustomerReviews = ({ heading, text, reviews }) => {
       <h3 className="mt-2 lato text-[12px] md:text-[16px] xl:text-[24px]  ">
         {text}
       </h3>
-      {reviews?.length > 0 ? 
-      <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-12 w-full my-4">
-          {
-            reviews?.map((review, index) => (
-              <div className="flex flex-col items-center w-full" key={review.id}>
+      {reviews?.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-12 w-full my-4">
+            {reviews?.map((review, index) => (
+              <div
+                className="flex flex-col items-center w-full"
+                key={review.id}
+              >
                 <div className="flex flex-col items-center w-full md:w-11/12 border border-gray-600 px-6 rounded-md py-4">
                   <div className="flex flex-row items-center justify-between w-full">
                     <div className="flex flex-row items-center w-7/12">
                       <div className="w-[28px] h-[28px] md:w-8 md:h-8 lg:w-[53px] lg:h-[53px] rounded-full overflow-hidden">
                         <img
                           className="w-full h-full object-cover"
-                          src={review.user.imageUrl}
-                          alt={review.name}
+                          src={
+                            review?.user?.imageUrl
+                              ? review.user.imageUrl
+                              : USER_DEFAULT_IMAGE.image
+                          }
+                          alt={
+                            review?.user?.imageUrl
+                              ? review.user.imageUrl
+                              : USER_DEFAULT_IMAGE.name
+                          }
                         />
                       </div>
                       <div className="flex flex-col items-start ml-4">
@@ -69,16 +79,17 @@ const CustomerReviews = ({ heading, text, reviews }) => {
                   </p>
                 </div>
               </div>
-            ))
-          } 
-      </div>
-      <Link href={"/website-reviews"} className="text-[#E3BB59] underline">
-      View More
-    </Link></>
-      : (
-          <h2 className="text-[20px] font-bold w-full text-center mt-12">No Reviews to show</h2>
-        )}
-      
+            ))}
+          </div>
+          <Link href={"/website-reviews"} className="text-[#E3BB59] underline">
+            View More
+          </Link>
+        </>
+      ) : (
+        <h2 className="text-[20px] font-bold w-full text-center mt-12">
+          No Reviews to show
+        </h2>
+      )}
     </div>
   );
 };

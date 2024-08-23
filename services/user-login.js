@@ -29,8 +29,32 @@ export const login = async (email, password, setLoading) => {
     console.log(error, "error");
   }
 };
+export const logOut = async (setLoading) => {
+  try {
+    setLoading(true);
+    const response = await fetch(`${config.BASE_URL}user/login`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${Cookies.get("token")}`,
+      },
+    });
+    const data = await response.json();
 
-export const autoLogin = async (token) => {
+    if (response.status == 200) {
+      Cookies.set("token", null);
+      Cookies.set("id", null);
+    }
+    setLoading(false);
+
+    return data;
+  } catch (error) {
+    setLoading(false);
+
+    console.log(error, "error");
+  }
+};
+export const authGuard = async (token, setButtonLoading) => {
   try {
     const response = await fetch(`${config.BASE_URL}user`, {
       method: "GET",
@@ -40,7 +64,6 @@ export const autoLogin = async (token) => {
       },
     });
     const data = await response.json();
-
     return data;
   } catch (error) {
     console.log(error, "error");
@@ -61,14 +84,16 @@ export const fetchUserDetails = async (
   senderOrders
 ) => {
   try {
-    const response = await fetch(`${config.BASE_URL}user-details?products=${products}&addresses=${addresses}&notifications=${notifications}&favourites=${favourites}&cart=${cart}&creditCards=${creditCards}&digitalWallets=${digitalWallets}&bankAccounts=${bankAccounts}&recieverOrders=${recieverOrders}&senderOrders=${senderOrders}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-       
-    });
+    const response = await fetch(
+      `${config.BASE_URL}user-details?products=${products}&addresses=${addresses}&notifications=${notifications}&favourites=${favourites}&cart=${cart}&creditCards=${creditCards}&digitalWallets=${digitalWallets}&bankAccounts=${bankAccounts}&recieverOrders=${recieverOrders}&senderOrders=${senderOrders}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `bearer ${token}`,
+        },
+      }
+    );
     const data = await response.json();
 
     return data;

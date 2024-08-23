@@ -2,8 +2,7 @@ import Blogs from "@/components/Blogs/Blogs";
 import Copyright from "@/components/Copyright/Copyright"; 
 import Footer from "@/components/Footer/Footer"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
-import Navbar from "@/components/Navbar/Navbar";
-import Reviews from "@/components/Reviews/Reviews";
+import Navbar from "@/components/Navbar/Navbar"; 
 import { Suspense } from "react";
 
 const BlogsPage = () => {

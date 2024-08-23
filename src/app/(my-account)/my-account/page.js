@@ -1,25 +1,35 @@
 import React, { Suspense } from "react";
-
 import Copyright from "@/components/Copyright/Copyright";
 import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import MyAccount from "@/components/MyAccount/My-Account";
-import { autoLogin, fetchUserDetails } from "../../../../services/user-login";
+import { fetchUserDetails } from "../../../../services/user-login";
 import { cookies } from "next/headers";
 
 const MyAccountPage = async () => {
   const cookieStore = cookies();
-  // token, products, addresses, notifications, favourites, cart, creditCards, digitalWallets, bankAccounts, recieverOrders, senderOrders
-  const userInfo = await fetchUserDetails(cookieStore.get("token").value,false,false,false,false,false,false,false,false,false,false,false); 
- 
+  const userInfo = await fetchUserDetails(
+    cookieStore.get("token").value,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  );
+
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-      <Suspense fallback={<div>Loading...</div>}>
-
-<Navbar />
-</Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navbar />
+        </Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />

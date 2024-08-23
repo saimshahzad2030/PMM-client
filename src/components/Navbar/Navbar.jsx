@@ -3,7 +3,6 @@ import React, { use, useEffect } from "react";
 import Link from "next/link";
 import style from "./Navbar.module.css";
 
-import { styled } from "@mui/system";
 import Backdrop from "@mui/material/Backdrop";
 import {
   cart,
@@ -21,22 +20,24 @@ import ChangePassword from "../ChangePassword/Change-Password";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginSection } from "@/redux/reducers/loginSection";
-import { useSearchParams, usePathname } from "next/navigation";
-import { autoLogin } from "../../../services/user-login";
-const Navbar = ({ loggedIn }) => {
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { authGuard, fetchUserDetails } from "../../../services/user-login";
+import Loader from "../Loader/Loader";
+const Navbar = ({}) => {
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const [buttonloading, setButtonLoading] = React.useState(true);
   const [otpId, setOtpId] = React.useState(null);
   const [email, setEmail] = React.useState(null);
+
   useEffect(() => {
     const fetchUser = async () => {
       const token = Cookies.get("token");
       if (token) {
         try {
-          const userData = await autoLogin(token);
-
-          if (userData?.user) {
-            setUserLoggedIn(true); 
+          const userData = await authGuard(token);
+          if (userData?.message == "User Authorized") {
+            setUserLoggedIn(true);
           }
         } catch (error) {
           console.error("Failed to auto-login:", error);
@@ -60,7 +61,13 @@ const Navbar = ({ loggedIn }) => {
   const [emailVerified, setEmailVerified] = React.useState(false);
   const [otpEntered, setOtpEntered] = React.useState(false);
   const [otpVerified, setOtpVerified] = React.useState(false);
-
+  const [button, setButton] = React.useState(null);
+  const router = useRouter();
+  const handleNavigation = (url, button) => {
+    setButtonLoading(pathname != url);
+    setButton(button);
+    router.push(url);
+  };
   useEffect(() => {
     if (searchParams.get("error") === "unauthorized") {
       setBackdropOpen(true);
@@ -68,6 +75,7 @@ const Navbar = ({ loggedIn }) => {
     }
   }, [searchParams, pathname]);
   const handleBackdropClose = () => {
+    setButton(null);
     setBackdropOpen(false);
     setSigningIn(false);
     setCreatingAcccount(false);
@@ -101,7 +109,15 @@ const Navbar = ({ loggedIn }) => {
           >
             {loading && <p className="text-[#E3BB59]">dsad</p>}
             {!loading && userLoggedIn && (
-              <Link href={"/my-account"}>My Account</Link>
+              <button
+                onClick={() => handleNavigation("/my-account", "My Account")}
+              >
+                {buttonloading && button == "My Account" ? (
+                  <Loader />
+                ) : (
+                  "My Account"
+                )}
+              </button>
             )}
             {!loading && !userLoggedIn && (
               <>
@@ -123,16 +139,21 @@ const Navbar = ({ loggedIn }) => {
                 </button>
               </>
             )}
-            <Link
+            <button
               className="w-auto flex flex-col items-center justify-center"
-              href={"/cart"}
+              onClick={() => handleNavigation("/cart", "Cart")}
             >
-              <img
-                className="ml-4 w-6 h-6 cursor-pointer"
-                src={cart.image}
-                alt={cart.name}
-              />
-            </Link>
+              {userLoggedIn &&
+                (buttonloading && button == "Cart" ? (
+                  <Loader className={"ml-4 w-6 h-6 "} />
+                ) : (
+                  <img
+                    className="ml-4 w-6 h-6 cursor-pointer"
+                    src={cart.image}
+                    alt={cart.name}
+                  />
+                ))}
+            </button>
           </div>
           <div className="relative flex flex-row items-center justify-between w-full  text-lg mt-2 sm:mt-0">
             <Link href={"/"} className=" text-[40px] absolute    left-0">
@@ -191,17 +212,16 @@ const Navbar = ({ loggedIn }) => {
               {isMenuOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
                   <div className="flex flex-col items-center space-y-4">
-                     
-                      <Link href={"/market-place/gold"}>Gold</Link>
-                   
-                      <Link href={"/market-place/silver"}>Silver</Link>
-                   
-                      <Link href={"/market-place/platinum"}>Platinum</Link>
-                   
-                      <Link href={"/market-place/palladium"}>Pladium</Link>
-                    
-                      <Link href={"/"}>Sell</Link>
-                    
+                    <Link href={"/market-place/gold"}>Gold</Link>
+
+                    <Link href={"/market-place/silver"}>Silver</Link>
+
+                    <Link href={"/market-place/platinum"}>Platinum</Link>
+
+                    <Link href={"/market-place/palladium"}>Pladium</Link>
+
+                    <Link href={"/"}>Sell</Link>
+
                     <button
                       className="absolute top-4 right-4 text-2xl"
                       onClick={toggleMenu}
@@ -212,21 +232,15 @@ const Navbar = ({ loggedIn }) => {
                 </div>
               )}
               <div className=" hidden lg:flex flex-row items-center ml-12">
-                 
-                  <Link href={"/market-place/gold"}>Gold</Link>
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-                
-                  <Link href={"/market-place/silver"}>Silver</Link>
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-                
-                  <Link href={"/market-place/platinum"}>Platinum</Link>
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-                 
-                  <Link href={"/market-place/palladium"}>Pladium</Link>
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-               
-                  <Link href={"/"}>Sell</Link>
-               
+                <Link href={"/market-place/gold"}>Gold</Link>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <Link href={"/market-place/silver"}>Silver</Link>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <Link href={"/market-place/platinum"}>Platinum</Link>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <Link href={"/market-place/palladium"}>Pladium</Link>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <Link href={"/"}>Sell</Link>
               </div>
             </div>
           </div>
@@ -264,13 +278,13 @@ const Navbar = ({ loggedIn }) => {
             />
           )}
           {emailVerified && (
-            <OtpVerification 
+            <OtpVerification
               otpId={otpId}
               handleBackdropClose={handleBackdropClose}
               setOtpEntered={setOtpEntered}
               setOtpVerified={setOtpVerified}
               setEmailVerified={setEmailVerified}
-              email={email} 
+              email={email}
             />
           )}
           {otpVerified && (

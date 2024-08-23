@@ -24,10 +24,12 @@ const Product = ({ product, related, reviews, cartItems }) => {
       />
       <div className="grid grid-cols-4 md:grid-cols-8 w-full gap-y-4 gap-x-2 my-8">
         <div className="flex flex-col items-center  h-[90vh]  md:h-[400px] lg:h-[500px] w-full col-span-1 over">
-        {product.images.map((img) => (
-            <div className={`flex flex-col items-center justify-center h-[20vh] w-full md:h-[90px] lg:h-[125px] bg-[#F2F2F2] mb-2`}>
+          {product.images.map((img) => (
+            <div
+              className={`flex flex-col items-center justify-center h-[20vh] w-full md:h-[90px] lg:h-[120px] bg-[#F2F2F2] mb-2`}
+            >
               <img
-                className="h-[20vh] md:h-[90px] lg:h-[125px] w-auto"
+                className="h-[20vh] md:h-[90px] lg:h-[110px] w-auto"
                 src={img.image}
                 alt={product.name}
               />
@@ -51,7 +53,7 @@ const Product = ({ product, related, reviews, cartItems }) => {
             loop={true}
             slidesPerView={1}
             navigation={true}
-            imageWidth={'w-full'}
+            imageWidth={"w-full"}
           />
         </div>
         <ProductInfo product={product} cartItems={cartItems} />

@@ -1,15 +1,18 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import RouteComponent from "../RouteComponent/Route-Component";
 import UserSection from "../MyAccount/User-Section";
-import { My_SHOP_ITEMS, SHIPMENTS, USER } from "../../../constants/constants";
 import SingleProduct from "../Products/SingleProduct";
 import styles from "./My-Shop.module.css";
 import Shippings from "./Shippings";
 import { Backdrop } from "@mui/material";
 import { ALERT } from "../../../constants/icons";
 import { useRouter } from "next/navigation";
+import { Snackbar } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { IconButton } from "@mui/material";
 import { updateShipmentArrangement } from "../../../services/shipments.services";
+import Loader from "../Loader/Loader";
 const MyShop = ({
   myProducts,
   authenticationRequired,
@@ -18,15 +21,6 @@ const MyShop = ({
   name,
   shipments,
 }) => {
-  console.log(
-    myProducts,
-    authenticationRequired,
-    url,
-    image,
-    name,
-    shipments,
-    "myProducts,authenticationRequired,url,image,name,shipments"
-  );
   const router = useRouter();
   if (authenticationRequired == true && url) {
     router.push(url);
@@ -42,6 +36,7 @@ const MyShop = ({
   const [arrangeForDropOff, setArrangeForDropOff] = React.useState(false);
   const [backdropopen, setBackdropOpen] = React.useState(false);
   const [products, setProducts] = React.useState(myProducts);
+  console.log(myShipments);
   const handleBackdropClose = () => {
     setBackdropOpen(false);
   };
@@ -64,12 +59,36 @@ const MyShop = ({
       hour12: true,
     });
   };
+  const [responseMessage, setResponseMessage] = React.useState(null);
 
-  console.log(myShipments, "MY SHIPMENTS");
+  const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
   return (
     <div className="w-full flex flex-col items-start px-8 mb-12">
       <RouteComponent parentRoute={"Home > "} mainRoute={" My shop"} />
-      <UserSection User={{ image, name }} />
+      <Suspense fallback={<div>Loading</div>}>
+        <UserSection User={{ image, name }} />
+      </Suspense>
       {!shippingSelectedForArrangement && (
         <div className="flex flex-row w-full bg-[#F2F2F2] my-4">
           <button
@@ -145,102 +164,106 @@ const MyShop = ({
           ))}
         </div>
       )}
-      {arrangeShipping && myShipments.length > 0 ? (
+      {arrangeShipping && (
         <div className="flex flex-col items-start w-full px-4 my-8">
           <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
-            <table className="table-auto w-full  mb-4 ">
-              <thead className="text-[12px] sm:[text-14px] md:text-[12px] lato-700">
-                <tr>
-                  <th className={`text-start text-gray-400 `}>Product</th>
-                  <th className={`text-start text-gray-400 `}>Total price</th>
-                  <th className={`text-start text-gray-400 `}>Status</th>
-                  <th className={`text-start text-gray-400 `}>Logistics</th>
-                  <th className={`text-start text-gray-400 `}>Action</th>
-                </tr>
-              </thead>
-              <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
-                {myShipments.map((shipment, index) => (
-                  <tr
-                    key={shipment.id}
-                    className="border border-t-0 border-l-0 border-r-0 border-b-gray-600"
-                  >
-                    <td className={` py-4  min-w-[120px] sm:min-w-[200px] `}>
-                      <div className="flex flex-col items-start w-full text-start">
-                        {/* <p>{shipment.description.slice(0, 14)}</p> */}
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.quantity}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4 flex   min-w-[120px] sm:min-w-[200px] `}
-                    >
-                      <div className="flex flex-col items-start w-full text-start">
-                        <p>{shipment.price}</p>
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.paymentMethod}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
-                    >
-                      <div className="flex flex-col items-start w-full text-start">
-                        <p>
-                          {shipment.Shippings.arrangementStatus ==
-                          "NOT_ARRANGED"
-                            ? "To Arrange"
-                            : `To ${shipment.Shippings.arrangementStatus}`}
-                        </p>
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.Shippings.arrangementStatus == "PICK_UP"
-                            ? `Parcel pickup on ${formatDateTime(
-                                shipment.orderExpectedDate
-                              )}`
-                            : `Parcel drop off on ${formatDateTime(
-                                shipment.orderExpectedDate
-                              )}`}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4  text-start  min-w-[150px] sm:min-w-[200px]`}
-                    >
-                      <div className="flex flex-col items-start w-full text-start">
-                        <p>Standard shipping</p>
-                        <p className="text-gray-400 text-[12px]">
-                          {shipment.id}
-                        </p>
-                      </div>
-                    </td>
-                    <td
-                      className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}
-                    >
-                      {shipment.Shippings.arrangementStatus ==
-                        "NOT_ARRANGED" && (
-                        <button
-                          className=" button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-full hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
-                          onClick={() => {
-                            setShippingSelectedForArrangement(shipment);
-                            setShipping(false);
-                            setProductListing(false);
-                            setArrangeShipping(false);
-                          }}
-                        >
-                          Arrange Shipment
-                        </button>
-                      )}
-                    </td>
+            {myShipments.length > 0 ? (
+              <table className="table-auto w-full  mb-4 ">
+                <thead className="text-[12px] sm:[text-14px] md:text-[12px] lato-700">
+                  <tr>
+                    <th className={`text-start text-gray-400 `}>Product</th>
+                    <th className={`text-start text-gray-400 `}>Total price</th>
+                    <th className={`text-start text-gray-400 `}>Status</th>
+                    <th className={`text-start text-gray-400 `}>Logistics</th>
+                    <th className={`text-start text-gray-400 `}>Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
+                  {myShipments.map((shipment, index) => (
+                    <tr
+                      key={shipment.id}
+                      className="border border-t-0 border-l-0 border-r-0 border-b-gray-600"
+                    >
+                      <td className={` py-4  min-w-[120px] sm:min-w-[200px] `}>
+                        <div className="flex flex-col items-start w-full text-start">
+                          <p className="text-gray-400 text-[12px]">
+                            {shipment.quantity}
+                          </p>
+                        </div>
+                      </td>
+                      <td
+                        className={` py-4 flex   min-w-[120px] sm:min-w-[200px] `}
+                      >
+                        <div className="flex flex-col items-start w-full text-start">
+                          <p>{shipment.price}</p>
+                          <p className="text-gray-400 text-[12px]">
+                            {shipment.paymentMethod}
+                          </p>
+                        </div>
+                      </td>
+                      <td
+                        className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
+                      >
+                        <div className="flex flex-col items-start w-full text-start">
+                          <p>
+                            {shipment.Shippings.arrangementStatus ==
+                            "NOT_ARRANGED"
+                              ? "To Arrange"
+                              : `To ${shipment.Shippings.arrangementStatus}`}
+                          </p>
+                          <p className="text-gray-400 text-[12px]">
+                            {shipment.Shippings.arrangementStatus ==
+                            "NOT_ARRANGED"
+                              ? ""
+                              : shipment.Shippings.arrangementStatus ==
+                                "PICK_UP"
+                              ? `Parcel pickup on ${formatDateTime(
+                                  shipment.orderExpectedDate
+                                )}`
+                              : `Parcel drop off on ${formatDateTime(
+                                  shipment.orderExpectedDate
+                                )}`}
+                          </p>
+                        </div>
+                      </td>
+                      <td
+                        className={` py-4  text-start  min-w-[150px] sm:min-w-[200px]`}
+                      >
+                        <div className="flex flex-col items-start w-full text-start">
+                          <p>Standard shipping</p>
+                          <p className="text-gray-400 text-[12px]">
+                            {shipment.id}
+                          </p>
+                        </div>
+                      </td>
+                      <td
+                        className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}
+                      >
+                        {shipment.Shippings.arrangementStatus ==
+                          "NOT_ARRANGED" && (
+                          <button
+                            className=" button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-full hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
+                            onClick={() => {
+                              setShippingSelectedForArrangement(shipment);
+                              setShipping(false);
+                              setProductListing(false);
+                              setArrangeShipping(false);
+                            }}
+                          >
+                            Arrange Shipment
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <h2 className="text-center">No Shipments to show</h2>
+            )}
           </div>
         </div>
-      ) : (
-        <h2 className="text-center">No Shipments to show</h2>
       )}
-
       {shipping && (
         <Shippings
           shipmentsList={myShipments.filter((s) => {
@@ -382,60 +405,86 @@ const MyShop = ({
                   Cancel
                 </button>
                 <button
-                  className="ml-4 button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-4/12 hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
+                  className="ml-4 button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-4/12   rounded-md"
                   onClick={async () => {
+                    console.log(shippingSelectedForArrangement);
+                    console.log(myShipments);
                     if (arrangeForPickUp) {
                       const updatedShipments = await updateShipmentArrangement(
                         "PICK_UP",
-                        shippingSelectedForArrangement.id
+                        shippingSelectedForArrangement.id,
+                        setLoading
                       );
-                      console.log(updatedShipments);
                       if (updatedShipments.updatedShipment) {
+                        setOpen(true);
+                        setResponseMessage(updatedShipments.message);
                         setArrangeForDropOff(false);
                         setArrangeForPickUp(false);
-                        // setMyShipments(prevData =>
-                        //   prevData.map(item =>
-                        //     item.id === shippingSelectedForArrangement.id ? { ...item, arrangementStatus: "PICK_UP" } : item
-                        //   )
-                        // );
-                        // setMyShipments(prevState => {
-                        //   return prevState.map(shipment => {
-                        //     // Check if this is the shipment we want to update
-                        //     if (shipment.id === shippingSelectedForArrangement.id) {
-                        //       return {
-                        //         ...shipment,
-                        //         Shippings: {
-                        //           ...shipment.Shippings,
-                        //           [arrangementStatus
-                        //           ]: "PICK_UP", // Update the specific key
-                        //         },
-                        //       };
-                        //     }
-                        //     return shipment; // Return the original shipment object if no update is needed
-                        //   });
-                        // });
+                        setMyShipments((prevShipments) =>
+                          prevShipments.map((shipment) =>
+                            shipment.id === shippingSelectedForArrangement.id
+                              ? {
+                                  ...shipment,
+                                  Shippings: {
+                                    ...shipment.Shippings,
+                                    arrangementStatus: "PICK_UP",
+                                  },
+                                }
+                              : shipment
+                          )
+                        );
+                        setArrangeShipping(true);
+                        setShippingSelectedForArrangement(null);
                         handleBackdropClose();
                       }
                     } else if (arrangeForDropOff) {
                       const updatedShipments = await updateShipmentArrangement(
                         "DROP_OFF",
-                        shippingSelectedForArrangement.id
+                        shippingSelectedForArrangement.id,
+                        setLoading
                       );
                       if (updatedShipments.updatedShipment) {
+                        setOpen(true);
+                        setResponseMessage(updatedShipments.message);
                         setArrangeForDropOff(false);
                         setArrangeForPickUp(false);
+
+                        setMyShipments((prevShipments) =>
+                          prevShipments.map((shipment) =>
+                            shipment.id === shippingSelectedForArrangement.id
+                              ? {
+                                  ...shipment,
+                                  Shippings: {
+                                    ...shipment.Shippings,
+                                    arrangementStatus: "DROP_OFF",
+                                  },
+                                }
+                              : shipment
+                          )
+                        );
+                        setArrangeShipping(true);
+                        setShippingSelectedForArrangement(null);
+
                         handleBackdropClose();
                       }
                     }
                   }}
                 >
-                  Confirm
+                  {loading ? <Loader /> : "Confirm"}
                 </button>
               </div>
             </div>
           )}
         </div>
       </Backdrop>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={responseMessage}
+        action={action}
+      />
     </div>
   );
 };

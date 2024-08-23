@@ -1,13 +1,11 @@
 import React, { Suspense } from 'react'
-
 import Copyright from "@/components/Copyright/Copyright";
 import Footer from "@/components/Footer/Footer"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";    
 import TrackMyOrders from '@/components/MyAccount/Track-My-Orders';
 import { cookies } from 'next/headers';
-import { autoLogin, fetchUserDetails } from '../../../../../services/user-login';
-import { fetchOrders } from '../../../../../services/order.services';
+import { fetchUserDetails } from '../../../../../services/user-login'; 
 const TrackMyOrdersPage = async() => { 
   const cookieStore = cookies(); 
   const orderDetails = await fetchUserDetails(cookieStore.get("token").value,false,false,false,false,false,false,false,false,true,false); 

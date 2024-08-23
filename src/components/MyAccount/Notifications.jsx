@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import UserSection from "./User-Section";
 import { NOTIFICATIONS, USER } from "../../../constants/constants";
 import RouteComponent from "../RouteComponent/Route-Component";
@@ -24,7 +24,9 @@ const Notifications = ({ notifications, image, name }) => {
         parentRoute={"Home > My Account >"}
         mainRoute={" Notifications"}
       />
-      <UserSection User={{ image, name }} />
+      <Suspense fallback={<div>Loading</div>}>
+    <UserSection User={{image,name}}/>
+    </Suspense>  
       <div className="flex flex-col items-center w-full my-12">
         <h3 className="text-start w-full mb-2">Notifications</h3>
         {notifications.length > 0 ? (

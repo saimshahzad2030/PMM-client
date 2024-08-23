@@ -3,8 +3,7 @@ import React, { Suspense } from 'react'
 import Copyright from "@/components/Copyright/Copyright";
 import Footer from "@/components/Footer/Footer"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
-import Navbar from "@/components/Navbar/Navbar";    
-import MyShop from '@/components/MyShop/My-Shop';
+import Navbar from "@/components/Navbar/Navbar";     
 import AddNewProduct from '@/components/MyShop/Add-New-Product';
 const NewProductListingPage = () => {
   return (

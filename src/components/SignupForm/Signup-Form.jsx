@@ -5,15 +5,13 @@ import * as Yup from "yup";
 import Checkbox from "@mui/material/Checkbox";
 import { CROSS } from "../../../constants/icons";
 
-import {Snackbar} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { Visibility, VisibilityOff } from "@mui/icons-material"; 
+import { Snackbar } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
-import {   TextField, 
-  IconButton,
-    InputAdornment } from "@mui/material";
+import { TextField, IconButton, InputAdornment } from "@mui/material";
 import Link from "next/link";
-import { signup } from "../../../services/user-signup"; 
+import { signup } from "../../../services/user-signup";
 import Loader from "../Loader/Loader";
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
@@ -31,16 +29,11 @@ const validationSchema = Yup.object({
       "Password must contain at least one special character"
     )
     .required("Password is required"),
-  password2: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(
-      /[@$!%*?&#]/,
-      "Password must contain at least one special character"
-    )
-    .required("Password is required"),
+
+  password2: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match"
+  ),
 });
 const SignupForm = ({
   handleBackdropClose,
@@ -48,9 +41,9 @@ const SignupForm = ({
   setSigningIn,
 }) => {
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
-  const [pass1Visibility,setPass1Visibility] = React.useState(false)
-    const [pass2Visibility,setPass2Visibility] = React.useState(false)
-    const [loading,setLoading] = React.useState(false)
+  const [pass1Visibility, setPass1Visibility] = React.useState(false);
+  const [pass2Visibility, setPass2Visibility] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable body scroll when form is open
     return () => {
@@ -62,33 +55,30 @@ const SignupForm = ({
   };
   const togglePassword2Visibility = () => {
     setPass2Visibility(!pass2Visibility);
-  };  
-  const [responseMessage,setResponseMessage] = useState(null)
- 
+  };
+  const [responseMessage, setResponseMessage] = useState(null);
 
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
-   
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpen(false);
-    };
-    const action = (
-      <>
-         
-        <IconButton
-          size="small"
-          aria-label="close"
-          color="inherit"
-          onClick={handleClose}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      </>
-    );
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
   return (
     <div className="form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-20 rounded-xl h-[90vh] overflow-y-scroll">
       <div className="w-full flex flex-col items-end">
@@ -112,7 +102,7 @@ const SignupForm = ({
           password2: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={async(values) => {
+        onSubmit={async (values) => {
           console.log(values);
           const userSignup = await signup(
             values.email,
@@ -121,17 +111,15 @@ const SignupForm = ({
             values.lastName,
             setLoading
           );
-          if(userSignup.user){
+          if (userSignup.user) {
             setOpen(true);
             setResponseMessage(userSignup.message);
-            setTimeout(()=>{
+            setTimeout(() => {
               // handleBackdropClose()
               setCreatingAcccount(false);
               setSigningIn(true);
-            },1500)
-            
-          }
-          else{
+            }, 1500);
+          } else {
             setOpen(true);
             setResponseMessage(userSignup.message);
           }
@@ -204,7 +192,7 @@ const SignupForm = ({
                   id="password"
                   name="password"
                   label="Password"
-                  type={pass1Visibility?'text':'password'}
+                  type={pass1Visibility ? "text" : "password"}
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -236,8 +224,7 @@ const SignupForm = ({
                   id="password2"
                   name="password2"
                   label="Re-Enter Password"
-                  type={pass2Visibility?'text':'password'}
-
+                  type={pass2Visibility ? "text" : "password"}
                   value={values.password2}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -283,7 +270,7 @@ const SignupForm = ({
                   type="submit"
                   onClick={() => setSubmitButtonClicked(true)}
                 >
-                  {loading?<Loader/>:'Sign Up'}
+                  {loading ? <Loader className={"py-[3px]"} /> : "Sign Up"}
                 </button>
               </div>
               <div className="flex flex-col items-center col-span-2">
@@ -302,17 +289,16 @@ const SignupForm = ({
               </div>
             </div>
             <Snackbar
-         anchorOrigin={{ vertical:'top', horizontal:'center' }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={responseMessage}
-        action={action}
-      />
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={open}
+              autoHideDuration={6000}
+              onClose={handleClose}
+              message={responseMessage}
+              action={action}
+            />
           </Form>
         )}
       </Formik>
-      
     </div>
   );
 };

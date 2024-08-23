@@ -1,11 +1,9 @@
 import Copyright from "@/components/Copyright/Copyright";
-import Footer from "@/components/Footer/Footer";
-import Palladium from "@/components/MarketPlace/Palladium";
+import Footer from "@/components/Footer/Footer"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
-import Navbar from "@/components/Navbar/Navbar";
-import GoldSpotPrice from "@/components/SpotPrice/Spot-Price";
+import Navbar from "@/components/Navbar/Navbar"; 
 import React, { Suspense } from "react";
-import { MARKET_PLACE_PAGE, METAL_VALUES } from "../../../../../constants/constants";
+import {   METAL_VALUES } from "../../../../../constants/constants";
 import SpotPrice from "@/components/SpotPrice/Spot-Price";
 import { cookies } from "next/headers";
 import { fetchProductByType } from "../../../../../services/product.services"; 

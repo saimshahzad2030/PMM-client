@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { Suspense } from 'react'
 import RouteComponent from '../../RouteComponent/Route-Component'
 import UserSection from '../User-Section'
 import { ADDRESSES, USER } from '../../../../constants/constants'
@@ -15,7 +15,9 @@ const AccountSettings = ({image,name,email,phone,birthday,gender,addresses,banks
   return (
     <div className='flex flex-col items-center w-full px-8 overflow-x-hidden'>
       <RouteComponent mainRoute={'Account Settings '} parentRoute={'Home > My Account > '}/>
-      <UserSection User={{name,image}}/>
+      <Suspense fallback={<div>Loading</div>}>
+    <UserSection User={{image,name}}/>
+    </Suspense>
       <div className="flex flex-row w-full bg-[#F2F2F2] my-4">
         <button
           className={` text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px]  button w-3/12 border border-t-0 border-r-0 border-l-0 ${

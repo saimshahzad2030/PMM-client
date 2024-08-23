@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import RouteComponent from "../RouteComponent/Route-Component";
 import UserSection from "./User-Section";
 import { SHIPMENTS, USER } from "../../../constants/constants";
@@ -17,7 +17,9 @@ const TrackMyOrders = ({orders,image,name}) => {
         parentRoute={"Home > My Account >"}
         mainRoute={" Track My Orders"}
       />
-      <UserSection User={{image,name}} />
+      <Suspense fallback={<div>Loading</div>}>
+    <UserSection User={{image,name}}/>
+    </Suspense>
       <div className="flex flex-row w-full bg-[#F2F2F2] my-4">
         <button
           className={`button w-6/12 border border-t-0 border-r-0 border-l-0 ${

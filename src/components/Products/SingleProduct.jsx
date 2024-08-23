@@ -13,25 +13,23 @@ import { IconButton } from "@mui/material";
 import { Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Loader from "../Loader/Loader";
-const SingleProduct = ({
-
-  product,
-  buttonText,
-  setProducts,
-  // cartItems,
-  // setCartProducts,
-}) => {
-
+const SingleProduct = ({ product, buttonText, setProducts }) => {
   const router = useRouter();
   const userId = Cookies.get("id");
-  
-  
-  const [cartItems, setCartProducts] = React.useState(product.cart?product.cart:[]);
+  const [cartItems, setCartProducts] = React.useState(
+    product.cart ? product.cart : []
+  );
+  console.log(
+    product.cart?.some((cart) => {
+      return cart.userId == userId;
+    }) == true,
+    product.id
+  );
   const [loading, setLoading] = React.useState(false);
   const productClickHandler = (id) => {
     router.push(`/market-place/product-details/${id}`);
   };
-  console.log(product.cart)
+  console.log(product.cart);
   const [heartLogo, setHeartLogo] = React.useState(
     product.favourites.some(
       (favourite) => favourite.userId == Cookies.get("id")
@@ -63,14 +61,14 @@ const SingleProduct = ({
     </>
   );
   return (
-    <div
-      className="flex flex-col items-center w-full cursor-pointer"
-      onClick={async () => {
-        productClickHandler(product.id);
-      }}
-    >
+    <div className="flex flex-col items-center w-full ">
       <div className="flex flex-col items-center w-11/12 bg-gray-100 min-h-[250px]">
-        <div className="min-w-full h-auto  relative flex flex-col items-center justify-center bg-gray-200">
+        <div
+          className="min-w-full h-auto  relative flex flex-col items-center justify-center bg-gray-200 cursor-pointer"
+          onClick={async () => {
+            productClickHandler(product.id);
+          }}
+        >
           <img
             className="w-fit h-auto   min-h-[200px]  max-h-[200px] py-4 px-4"
             src={product.images[0].image}
@@ -115,7 +113,7 @@ const SingleProduct = ({
                 console.log(response);
                 setHeartLogo(HEART);
               } else {
-                const response = await addToFavourites(product.id);
+                const response = await addToFavourites(product.id, setLoading);
                 const newFavourites = { userId: userId, productId: product.id };
                 setProducts((prevProductsList) =>
                   prevProductsList.map((p) => {
@@ -145,17 +143,16 @@ const SingleProduct = ({
         </div>
         <div className="flex flex-col w-full px-2 overflow-hidden">
           <span className="text-[10px] text-[#FF0F00] mt-2">Best Seller</span>
-          <p className="text-[14px] md:text-[13px] xl:text-[16px] line-clamp-2 min-h-[50px]">
+          <p className="text-[14px] md:text-[13px] xl:text-[16px] line-clamp-2 min-h-[50px] max-h-[50px]">
             {product.description}
           </p>
           <span className="w-full text-end lato-700 text-[14px] md:text-[12px] xl:text-[17px]">
             $ {product.price}
           </span>
           <div className="flex flex-col items-center w-full mb-2">
-          
-            {userId || userId != product.sellerId ? (
+            {(userId && userId != product.sellerId) || buttonText ? (
               <button
-                className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 border border-white text-white hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300"
+                className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 border border-white text-white "
                 onClick={async (e) => {
                   e.stopPropagation();
 
@@ -167,21 +164,23 @@ const SingleProduct = ({
                   } else {
                     if (
                       cartItems.some((cart) => {
-                        return cart.productId == product.id;
+                        return cart.userId == userId;
                       })
                     ) {
                       const remove = await removeFromCart(
                         cartItems.filter((prev) => {
-                          return prev.productId === product.id;
+                          return prev.userId == userId;
                         })[0].id,
                         setLoading
                       );
                       setOpen(true);
-                      setResponseMessage(remove.message);
+                      if (remove.deletedProduct) {
+                        setResponseMessage(remove.message);
+                      }
 
                       setCartProducts((prevItems) =>
                         prevItems.filter((prev) => {
-                          return prev.productId !== product.id;
+                          return prev.userId !== userId;
                         })
                       );
                     } else {
@@ -194,28 +193,31 @@ const SingleProduct = ({
                         {
                           id: addCart?.cartItem?.id,
                           productId: addCart?.cartItem?.productId,
+                          userId,
                         },
                       ]);
                     }
                   }
                 }}
               >
-                {loading
-                  ? <Loader/>
-                  : buttonText
-                  ? buttonText
-                  : cartItems?.some((cart) => {
-                      return cart.productId == product.id;
-                    })
-                  ? "Remove from Cart"
-                  : "Add to cart"}
+                {loading ? (
+                  <Loader className={" py-[3px] "} />
+                ) : buttonText ? (
+                  buttonText
+                ) : cartItems?.some((cart) => {
+                    return cart.userId == Number(userId);
+                  }) == true ? (
+                  "Remove from Cart"
+                ) : (
+                  "Add to cart"
+                )}
               </button>
             ) : (
               <button
                 className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 text-white"
                 disabled
               >
-                Your product
+                Remove Listing
               </button>
             )}
           </div>

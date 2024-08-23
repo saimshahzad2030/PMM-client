@@ -1,17 +1,23 @@
-"use client"
+"use client";
 import Cookies from "js-cookie";
 import React from "react";
 import { deleteUser } from "../../../../../services/user-login";
 import Loader from "@/components/Loader/Loader";
+import { useRouter } from "next/navigation";
 
-const AccountDeletetionConfirmation = ({ handleBackdropClose,id }) => { 
-  const [loading,setLoading] = React.useState(false)
+const AccountDeletetionConfirmation = ({ handleBackdropClose, id }) => {
+  const router = useRouter();
+  const redirect = () => {
+    Cookies.set("token", null);
+    Cookies.set("id", null);
+    router.push("/");
+  };
+  const [loading, setLoading] = React.useState(false);
   return (
     <div className="form-container flex flex-col items-center w-11/12 sm:w-8/12 bg-white p-4 sm:p-8 rounded-sm h-[90vh] overflow-y-auto">
       <div className="w-full flex flex-col items-end">
         <button
           onClick={() => {
-        
             handleBackdropClose();
           }}
           className="text-black"
@@ -19,7 +25,9 @@ const AccountDeletetionConfirmation = ({ handleBackdropClose,id }) => {
           X
         </button>
       </div>
-      <h4 className="text-center w-full text-gray-900 lato-700 text-[22px] sm:text-[16px] md:text-[20px]">Important !</h4>
+      <h4 className="text-center w-full text-gray-900 lato-700 text-[22px] sm:text-[16px] md:text-[20px]">
+        Important !
+      </h4>
       <p className="text-center w-full text-gray-900 lato-700 text-[18px] sm:text-[14px]">
         This action is irreversible.
       </p>
@@ -38,13 +46,15 @@ const AccountDeletetionConfirmation = ({ handleBackdropClose,id }) => {
         >
           Cancel
         </button>
-        <button className=" ml-2 button p-1 px-2 text-[14px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md w-auto  sm:w-[150px]"
-        onClick={async()=>{
-          const deletedUser = await deleteUser(id,setLoading);
-          console.log(deletedUser)
-        }}
+        <button
+          className=" ml-2 button p-1 px-2 text-[14px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md w-auto  sm:w-[150px]"
+          onClick={async () => {
+            const deletedUser = await deleteUser(id, setLoading);
+
+            redirect();
+          }}
         >
-          {loading?<Loader/>:'Delete Account'}
+          {loading ? <Loader /> : "Delete Account"}
         </button>
       </div>
     </div>

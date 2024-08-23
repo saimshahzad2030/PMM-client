@@ -6,12 +6,10 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import AccountSettings from "@/components/MyAccount/AccountSettings/Account-Settings";
 import { cookies } from "next/headers";
-import { autoLogin, fetchUserDetails } from "../../../../../services/user-login";
+import {   fetchUserDetails } from "../../../../../services/user-login";
 
 const AccountSettingsPage = async () => {
-  const cookieStore = cookies(); 
-  // token, products, addresses, notifications, favourites, cart, creditCards, digitalWallets, bankAccounts, recieverOrders, senderOrders
-
+  const cookieStore = cookies();  
   const userInfo = await fetchUserDetails(cookieStore.get("token").value,false,true,false,false,false,true,true,true,false,false); 
 
   console.log(userInfo);

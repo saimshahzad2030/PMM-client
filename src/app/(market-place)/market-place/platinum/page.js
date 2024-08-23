@@ -5,8 +5,7 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import React, { Suspense } from "react";
 import { fetchSpecificProducts } from "../../../../../services/product.services"; 
-import { cookies } from "next/headers";
-import { fetchCartItems } from "../../../../../services/cart.services";
+import { cookies } from "next/headers"; 
 import { fetchUserDetails } from "../../../../../services/user-login";
 const PlatinumPage = async() => {
   const cookieStore = cookies(); 

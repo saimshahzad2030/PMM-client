@@ -1,14 +1,11 @@
 import Copyright from "@/components/Copyright/Copyright";
 import Favourites from "@/components/Favourites/Favourites";
 import Footer from "@/components/Footer/Footer";
-import Gold from "@/components/MarketPlace/Gold"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import React, { Suspense } from "react";
-import { autoLogin, fetchUserDetails } from "../../../../../services/user-login";
+import {  fetchUserDetails } from "../../../../../services/user-login";
 import { cookies } from 'next/headers';
-import { fetchFavourites } from "../../../../../services/favourites.services";
-import { fetchCartItems } from "../../../../../services/cart.services";
 
 const FavouriteProductsPage = async() => {
   const cookieStore = cookies(); 

@@ -1,13 +1,11 @@
 import Copyright from "@/components/Copyright/Copyright";
 import Footer from "@/components/Footer/Footer";
-import Gold from "@/components/MarketPlace/Gold";
-import MarketPlacePage from "@/components/MarketPlace/Market-Place-Page";
+import Gold from "@/components/MarketPlace/Gold"; 
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import React, { Suspense } from "react";
 import { cookies } from "next/headers"; 
-import { fetchSpecificProducts } from "../../../../../services/product.services";
-import { fetchCartItems } from "../../../../../services/cart.services";
+import { fetchSpecificProducts } from "../../../../../services/product.services"; 
 import { fetchUserDetails } from "../../../../../services/user-login";
 
 const GoldPage = async() => {
