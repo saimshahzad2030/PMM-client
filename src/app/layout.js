@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrollerLayout from "@/components/SmoothScroller/SmoothScroller";
+import Script from "next/script";
 import { Providers } from "@/redux/provider";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,8 +12,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <Providers>
-        <html lang="en">
+    <Providers>
+      <html lang="en">
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -30,11 +31,25 @@ export default function RootLayout({ children }) {
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
           />
         </head>
-      <body className={`${inter.className} lato`}>
-      {/* <SmoothScrollerLayout />  */}
-        {children}</body>
+        <body className={`${inter.className} lato`}>
+          {/* <SmoothScrollerLayout />  */}
+          {children}
+        </body>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <Script id="tawk-to" strategy="lazyOnload">
+          {`
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/66cc505b50c10f7a00a0787f/1i671jq7f';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+          `}
+        </Script>
       </html>
-      </Providers>
+    </Providers>
   );
 }

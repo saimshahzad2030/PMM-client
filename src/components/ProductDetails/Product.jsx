@@ -23,7 +23,7 @@ const Product = ({ product, related, reviews, cartItems }) => {
         parentRoute={"Home > MarketPlace >"}
       />
       <div className="grid grid-cols-4 md:grid-cols-8 w-full gap-y-4 gap-x-2 my-8">
-        <div className="flex flex-col items-center  h-[90vh]  md:h-[400px] lg:h-[500px] w-full col-span-1 over">
+        <div className="flex flex-col items-center  h-[90vh]  md:h-[400px] lg:h-[500px] w-full col-span-1  overflow-y-scroll ">
           {product.images.map((img) => (
             <div
               className={`flex flex-col items-center justify-center h-[20vh] w-full md:h-[90px] lg:h-[120px] bg-[#F2F2F2] mb-2`}

@@ -23,12 +23,14 @@ import { setLoginSection } from "@/redux/reducers/loginSection";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { authGuard, fetchUserDetails } from "../../../services/user-login";
 import Loader from "../Loader/Loader";
+import SearchBar from "../SearchBar/SearchBar";
 const Navbar = ({}) => {
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [buttonloading, setButtonLoading] = React.useState(true);
   const [otpId, setOtpId] = React.useState(null);
   const [email, setEmail] = React.useState(null);
+  const [searchLoading, setSearchLoading] = React.useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -161,16 +163,21 @@ const Navbar = ({}) => {
             </Link>
 
             <div className="flex flex-row items-center justify-end w-full">
-              <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12">
-                <input
+              <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12  ">
+                {/* <input
                   type="text"
                   className={` ${style["search-input"]} w-full bg-[#E3BB59] border border-white rounded-lg pl-2`}
                   placeholder="Search"
-                />
-                <img
+                /> */}
+
+                {/* <img
                   className="absolute w-auto h-full right-0 cursor-pointer"
                   src={SEARCH.image}
                   alt={SEARCH.name}
+                /> */}
+                <SearchBar
+                  setSearchLoading={setSearchLoading}
+                  setBackdropOpen={setBackdropOpen}
                 />
               </div>
               <img
@@ -251,6 +258,7 @@ const Navbar = ({}) => {
         open={backdropopen}
       >
         <div className="relative flex flex-col items-center w-full">
+          {searchLoading && <Loader />}
           {signingIn && (
             <LoginForm
               handleBackdropClose={handleBackdropClose}

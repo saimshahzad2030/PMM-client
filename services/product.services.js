@@ -65,6 +65,31 @@ export const fetchProducts = async () => {
   }
 };
 
+export const fetchSearchedProducts = async (searchQuery, setItems) => {
+  try {
+    const response = await fetch(
+      `${config.BASE_URL}search-product?searchQuery=${searchQuery}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    if (response.status == 200) {
+      setItems(
+        data?.products ? data.products : [{ name: "no product found" }]
+      );
+    } else {
+      setItems([{ name: "no product found" }]);
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const fetchProduct = async (id) => {
   try {
     const response = await fetch(`${config.BASE_URL}single-product?id=${id}`, {

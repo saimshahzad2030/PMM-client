@@ -97,3 +97,24 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
+::-webkit-scrollbar {
+  width: 4px; /* Set the width to a minimum */
+}
+
+/* Targeting the track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Optional: Set the background color */
+}
+
+/* Targeting the thumb (scrollbar handle) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Set the color of the scrollbar handle */
+  border-radius: 10px; /* Optional: Add border-radius for a rounded effect */
+}
+
+/* Targeting the thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Optional: Change color on hover */
+}
