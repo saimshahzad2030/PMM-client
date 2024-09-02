@@ -157,7 +157,10 @@ const SingleProduct = ({ product, buttonText, setProducts }) => {
                   e.stopPropagation();
 
                   if (buttonText && true) {
-                    const removeProduct = await deleteProduct(product.id);
+                    const removeProduct = await deleteProduct(
+                      product.id,
+                      setLoading
+                    );
                     setProducts((prevItems) =>
                       prevItems.filter((item) => item.id !== product.id)
                     );
@@ -217,7 +220,7 @@ const SingleProduct = ({ product, buttonText, setProducts }) => {
                 className="button bg-[#E3BB59] w-11/12 py-2 rounded-[8px] mt-2 text-white"
                 disabled
               >
-                Remove Listing
+                {loading ? <Loader /> : "Remove Listing"}
               </button>
             )}
           </div>

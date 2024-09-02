@@ -20,6 +20,7 @@ const MyShop = ({
   image,
   name,
   shipments,
+  buyerPaymentMethodVerified,
 }) => {
   const router = useRouter();
   if (authenticationRequired == true && url) {
@@ -87,7 +88,10 @@ const MyShop = ({
     <div className="w-full flex flex-col items-start px-8 mb-12">
       <RouteComponent parentRoute={"Home > "} mainRoute={" My shop"} />
       <Suspense fallback={<div>Loading</div>}>
-        <UserSection User={{ image, name }} />
+        <UserSection
+          User={{ image, name }}
+          buyerPaymentMethodVerified={buyerPaymentMethodVerified}
+        />
       </Suspense>
       {!shippingSelectedForArrangement && (
         <div className="flex flex-row w-full bg-[#F2F2F2] my-4">

@@ -78,9 +78,7 @@ export const fetchSearchedProducts = async (searchQuery, setItems) => {
     );
     const data = await response.json();
     if (response.status == 200) {
-      setItems(
-        data?.products ? data.products : [{ name: "no product found" }]
-      );
+      setItems(data?.products ? data.products : [{ name: "no product found" }]);
     } else {
       setItems([{ name: "no product found" }]);
     }
@@ -127,8 +125,9 @@ export const fetchProductByType = async (type) => {
   }
 };
 
-export const deleteProduct = async (id) => {
+export const deleteProduct = async (id, setLoading) => {
   try {
+    setLoading(true);
     const response = await fetch(`${config.BASE_URL}product?id=${id}`, {
       method: "DELETE",
       headers: {
@@ -137,9 +136,12 @@ export const deleteProduct = async (id) => {
       },
     });
     const data = await response.json();
+    setLoading(false);
 
     return data;
   } catch (error) {
+    setLoading(false);
+
     console.log(error);
   }
 };

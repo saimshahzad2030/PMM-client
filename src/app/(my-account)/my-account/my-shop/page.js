@@ -49,6 +49,11 @@ const MyShoppage = async () => {
           authenticationRequired={sellerDetails.authenticationRequired}
           url={sellerDetails?.url}
           shipments={shippingDetails.user.senderOrders}
+          buyerPaymentMethodVerified={
+            shippingDetails?.user?.buyerPaymentMethodVerified == "TRUE"
+              ? true
+              : false
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

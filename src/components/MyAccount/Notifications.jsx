@@ -5,19 +5,24 @@ import { NOTIFICATIONS, USER } from "../../../constants/constants";
 import RouteComponent from "../RouteComponent/Route-Component";
 import { LOAD_MORE, NOTIFICATION_REMINDER } from "../../../constants/icons";
 
-const Notifications = ({ notifications, image, name }) => { 
-    const formatDateTime = (isoDate) => {
-        const date = new Date(isoDate);
-        return date.toLocaleString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          second: 'numeric',
-          hour12: true,
-        });
-      };
+const Notifications = ({
+  notifications,
+  image,
+  name,
+  buyerPaymentMethodVerified,
+}) => {
+  const formatDateTime = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: true,
+    });
+  };
   return (
     <div className="flex flex-col items-center w-full px-8">
       <RouteComponent
@@ -25,8 +30,11 @@ const Notifications = ({ notifications, image, name }) => {
         mainRoute={" Notifications"}
       />
       <Suspense fallback={<div>Loading</div>}>
-    <UserSection User={{image,name}}/>
-    </Suspense>  
+        <UserSection
+          User={{ image, name }}
+          buyerPaymentMethodVerified={buyerPaymentMethodVerified}
+        />
+      </Suspense>
       <div className="flex flex-col items-center w-full my-12">
         <h3 className="text-start w-full mb-2">Notifications</h3>
         {notifications.length > 0 ? (
@@ -45,8 +53,8 @@ const Notifications = ({ notifications, image, name }) => {
                     {notification.message}
                   </p> */}
                   <p className="text-gray-600  text-[12px] md:text-[16px]">
-                  {notification.notificationText.charAt(0).toUpperCase() + notification.notificationText.slice(1)}
-
+                    {notification.notificationText.charAt(0).toUpperCase() +
+                      notification.notificationText.slice(1)}
                   </p>
                   <p className="text-gray-600 mt-2 text-[11px] md:text-[12px]">
                     {formatDateTime(notification.notificationTime)}

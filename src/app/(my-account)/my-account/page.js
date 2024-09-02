@@ -23,7 +23,7 @@ const MyAccountPage = async () => {
     false,
     false
   );
-
+  console.log(userInfo);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -44,6 +44,9 @@ const MyAccountPage = async () => {
           birthday={userInfo?.user?.dateOfBirth}
           email={userInfo?.user?.email}
           phone={userInfo?.user?.phone}
+          buyerPaymentMethodVerified={
+            userInfo?.user?.buyerPaymentMethodVerified == "TRUE" ? true : false
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

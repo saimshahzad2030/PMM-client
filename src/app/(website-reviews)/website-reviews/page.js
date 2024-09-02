@@ -25,8 +25,8 @@ const WebsiteReviewspage = async () => {
             text={
               "Your reviews are invaluable in helping others make informed decisions."
             }
-            reviews={reviews.websiteFeedbacks}
-            total={reviews.totalReviews}
+            reviews={reviews?.websiteFeedbacks ? reviews?.websiteFeedbacks : []}
+            total={reviews?.totalReviews}
           />
         </Suspense>
       </div>

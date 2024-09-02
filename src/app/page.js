@@ -33,6 +33,8 @@ export default async function Home() {
             products={products?.products}
             cartItems={products.products}
           />
+        </Suspense>
+        <Suspense fallback={<div>Loading</div>}>
           <CustomerReviews
             heading={"Customer Reviews"}
             text={
@@ -41,6 +43,7 @@ export default async function Home() {
             reviews={reviews?.websiteFeedbacks}
           />
         </Suspense>
+
         <WhyPreciousMarket />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

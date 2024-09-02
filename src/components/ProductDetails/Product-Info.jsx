@@ -11,6 +11,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import Loader from "../Loader/Loader";
 import { useDispatch } from "react-redux";
 import { setOrders } from "@/redux/reducers/order-reducer";
+import { useRouter } from "next/navigation";
+import { setCarts } from "@/redux/reducers/cart-reducer";
 const ProductInfo = ({ product, cartItems }) => {
   console.log(product.sellerId);
   console.log(Cookies.get("id"));
@@ -19,7 +21,10 @@ const ProductInfo = ({ product, cartItems }) => {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   const [responseMessage, setResponseMessage] = React.useState(null);
-
+  const router = useRouter();
+  const routeToCart = () => {
+    router.push("/cart/checkout");
+  };
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -84,63 +89,40 @@ const ProductInfo = ({ product, cartItems }) => {
 
           {product.sellerId != Cookies.get("id") && (
             <button
+              disabled={counter < 1}
               className="border-white w-full mt-4 sm:mt-0 sm:w-[30%] border px-2 p-1 sm:p-2 rounded-md text-white bg-[#E3BB59] hover:border-[#E3BB59]"
               onClick={async (e) => {
+                dispatch(
+                  setCarts([
+                    [
+                      {
+                        unitPrice: product.price,
+                        description: product.description,
+                        sellerName: `${product.seller.firstName} ${product.seller.lastName}`,
+                        buying: counter,
+                        senderId: product.sellerId,
+                        productId: product.id,
+                        image: product.images[0].image,
+                        totalProductPrice: product.price * counter,
+                      },
+                    ],
+                  ])
+                );
+                routeToCart();
+                // console.log([
                 //   [
-                //     [
-                //       {
-                //         unitPrice: 25,
-                //         image: 'https://firebasestorage.googleapis.com/v0/b/precious-metal-market.appspot.com/o/images%2F_1724400314365?alt=media',
-                //         description: 'This is one of my best product',
-                //         sellerName: 'Saim Shahzad',
-                //         buying: 4,
-                //         totalProductPrice: 100,
-                //         productId: 1,
-                //         senderId: 1
-                //       }
-                //     ]
+                //     {
+                //       unitPrice: product.price,
+                //       description: product.description,
+                //       sellerName: `${product.seller.firstName} ${product.seller.lastName}`,
+                //       buying: counter,
+                //       senderId: product.sellerId,
+                //       productId: product.id,
+                //       image: product.images[0].image,
+                //       totalProductPrice: product.price * counter,
+                //     },
                 //   ],
-                // {
-                //   message: 'Product fetched',
-                //   product: {
-                //     id: 2,
-                //     sellerId: 1,
-                //     name: 'Metallic Coin',
-                //     metalType: 'platinum',
-                //     available: 50,
-                //     rating: 4,
-                //     price: 80,
-                //     productDetails: 'It is one of the unique textured product i have which has market values estimated near 100k$ per gram',
-                //     description: 'It is one of the unique textured product i have which has market values estimated near 100k$ per gram',
-                //     model: null,
-                //     createdAt: '2024-08-23T08:36:56.989Z',
-                //     updatedAt: '2024-08-23T08:36:56.989Z',
-                //     images: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
-                //     Specifications: [ [Object], [Object], [Object], [Object], [Object] ],
-                //     productHighlights: [ [Object], [Object] ],
-                //     videos: [ [Object] ],
-                //     favourites: []
-                //   },
-                //   relatedProducts: [],
-                //   productReview: []
-                // }
-                // dispatch(
-                //   setOrders([
-                //     [
-                //       {
-                //         unitPrice: product.price,
-                //         description: product.description,
-                //         sellerName: `${product.seller.firstName} ${product.seller.lastName}`,
-                //         buying: counter,
-                //         senderId: product.sellerId,
-                //         productId: product.id,
-                //         image: product.images[0].image,
-                //         totalProductPrice: product.price * counter,
-                //       },
-                //     ],
-                //   ])
-                // );
-                console.log("hitte");
+                // ]);
               }}
             >
               Buy now

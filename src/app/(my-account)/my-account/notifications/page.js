@@ -44,6 +44,11 @@ const NotificationsPage = async () => {
                   .ShippingNotifications
               : []
           }
+          buyerPaymentMethodVerified={
+            notifications?.user?.buyerPaymentMethodVerified == "TRUE"
+              ? true
+              : false
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

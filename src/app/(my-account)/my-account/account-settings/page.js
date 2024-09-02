@@ -6,20 +6,31 @@ import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import AccountSettings from "@/components/MyAccount/AccountSettings/Account-Settings";
 import { cookies } from "next/headers";
-import {   fetchUserDetails } from "../../../../../services/user-login";
+import { fetchUserDetails } from "../../../../../services/user-login";
 
 const AccountSettingsPage = async () => {
-  const cookieStore = cookies();  
-  const userInfo = await fetchUserDetails(cookieStore.get("token").value,false,true,false,false,false,true,true,true,false,false); 
+  const cookieStore = cookies();
+  const userInfo = await fetchUserDetails(
+    cookieStore.get("token").value,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false
+  );
 
   console.log(userInfo);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
-      <Suspense fallback={<div>Loading...</div>}>
-
-<Navbar />
-</Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navbar />
+        </Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />
@@ -29,19 +40,18 @@ const AccountSettingsPage = async () => {
       <div className="container mx-auto">
         <AccountSettings
           name={`${userInfo.user.firstName} ${userInfo.user.lastName}`}
-          gender={
-            userInfo.user.gender
-          }
-          birthday={
-            userInfo.user.dateOfBirth
-          }
+          gender={userInfo.user.gender}
+          birthday={userInfo.user.dateOfBirth}
           email={userInfo.user.email}
           phone={userInfo.user.phone}
-          addresses = {userInfo.user.addresses}
-          cards = {userInfo.user.creditCards}
-          banks = {userInfo.user.bankAccounts}
-          wallets = {userInfo.user.digitalWallets}
+          addresses={userInfo.user.addresses}
+          cards={userInfo.user.creditCards}
+          banks={userInfo.user.bankAccounts}
+          wallets={userInfo.user.digitalWallets}
           image={userInfo.user?.imageUrl}
+          buyerPaymentMethodVerified={
+            userInfo?.user?.buyerPaymentMethodVerified == "TRUE" ? true : false
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
