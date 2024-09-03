@@ -175,7 +175,7 @@ const LoginForm = ({
                   type="submit"
                   onClick={() => setSubmitButtonClicked(true)}
                 >
-                  {loading ? <Loader className={"py-[3px]"} /> : `sdasdsa`}
+                  {loading ? <Loader className={"py-[3px]"} /> : `Signin`}
                 </button>
               </div>
               <div className="flex flex-col items-center col-span-2">
