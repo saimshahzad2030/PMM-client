@@ -1,3 +1,4 @@
+import axios from "axios";
 import { config } from "../config/config";
 
 import Cookies from "js-cookie";
@@ -7,9 +8,6 @@ export const addProduct = async (values, setLoading) => {
     setLoading(true);
 
     const formData = new FormData();
-    console.log(values, "values");
-    console.log(values.images, "values.images");
-    console.log(values.productHighlights, "values.productHighlights");
 
     values.images.forEach((image) => formData.append("images", image));
     values.videos.forEach((video) => formData.append("videos", video));
@@ -30,7 +28,6 @@ export const addProduct = async (values, setLoading) => {
     formData.append("available", values.available);
     formData.append("model", values.model);
 
-    console.log(formData);
     const response = await fetch(`${config.BASE_URL}product`, {
       method: "POST",
       headers: {
@@ -51,14 +48,13 @@ export const addProduct = async (values, setLoading) => {
 
 export const fetchProducts = async () => {
   try {
-    const response = await fetch(`${config.BASE_URL}product`, {
-      method: "GET",
+    const response = await axios.get(`${config.BASE_URL}product`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const data = await response.json();
+    const data = response.data;
     return data;
   } catch (error) {
     console.log(error);

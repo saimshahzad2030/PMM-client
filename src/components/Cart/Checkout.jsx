@@ -39,8 +39,6 @@ const Checkout = () => {
   const [productSubtotal, setProductSubtotal] = React.useState(0);
   const [grandTotal, setGrandTotal] = React.useState(0);
   const handleMessageChange = (productId, message) => {
-    console.log("req");
-
     // Update orderData state
     setOrderData((prevOrderData) =>
       prevOrderData.map((group) =>
@@ -370,8 +368,6 @@ const Checkout = () => {
                   if (finalOrders[0].newShipping) {
                     setOrderPlaced(true);
                   }
-                  // console.log(orderData.filter((o)=>{return o.length>0}))
-                  console.log(finalOrders);
                 }}
               >
                 {loading ? <Loader /> : "Place Order"}

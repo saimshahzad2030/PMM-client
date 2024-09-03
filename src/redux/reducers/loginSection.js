@@ -5,8 +5,6 @@ const loginSectionSlice = createSlice({
   initialState: false,
   reducers: {
     setLoginSection(state, actions) {
-      console.log(state, "state");
-      console.log(actions, "actions"); 
       return actions.payload;
     },
   },

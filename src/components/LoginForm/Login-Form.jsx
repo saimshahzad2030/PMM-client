@@ -96,10 +96,8 @@ const LoginForm = ({
             values.password,
             setLoading
           );
-          console.log(userLogin);
           setOpen(true);
           setResponseMessage(userLogin?.message);
-          console.log(userLogin?.message);
           if (userLogin.updatedUser) {
             setUserLoggedIn(true);
             setTimeout(() => {

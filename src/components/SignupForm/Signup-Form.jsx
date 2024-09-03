@@ -103,7 +103,6 @@ const SignupForm = ({
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          console.log(values);
           const userSignup = await signup(
             values.email,
             values.password,

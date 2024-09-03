@@ -1,11 +1,10 @@
-// "use client"
 import React from "react";
 import Copyright from "@/components/Copyright/Copyright";
 import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import Cart from "@/components/Cart/Cart";
-
+ 
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { fetchCartItems } from "../../../services/cart.services";
@@ -13,7 +12,6 @@ export default async function CartPage() {
   const cookieStore = cookies();
   const cart = await fetchCartItems(cookieStore.get("token").value);
 
-  // console.log(cart.cartItems )
   const groupedProducts = cart.cartItems.reduce((acc, currentItem) => {
     const sellerId = currentItem.product.sellerId;
     const existingGroup = acc.find(
@@ -29,7 +27,6 @@ export default async function CartPage() {
     return acc;
   }, []);
 
-  console.log(groupedProducts);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

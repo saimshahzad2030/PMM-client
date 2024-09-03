@@ -11,9 +11,8 @@ import { fetchWebFeedbacks } from "../../services/website-feedback";
 import { fetchProducts } from "../../services/product.services";
 import { Suspense } from "react";
 export default async function Home() {
-  const reviews = await fetchWebFeedbacks(0, 4);
   const products = await fetchProducts();
-  console.log(products);
+  const reviews = await fetchWebFeedbacks(0, 4);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59] ">
@@ -28,21 +27,17 @@ export default async function Home() {
       <div className="container mx-auto">
         <SimpleSlider />
         <SecureEscrowService />
-        <Suspense fallback={<div>Loading</div>}>
-          <MarketPlace
-            products={products?.products}
-            cartItems={products.products}
-          />
-        </Suspense>
-        <Suspense fallback={<div>Loading</div>}>
-          <CustomerReviews
-            heading={"Customer Reviews"}
-            text={
-              "Buy and Sell Precious Metals with Confidence and Peace of Mind"
-            }
-            reviews={reviews?.websiteFeedbacks}
-          />
-        </Suspense>
+        <MarketPlace
+          products={products?.products}
+          cartItems={products.products}
+        />
+        <CustomerReviews
+          heading={"Customer Reviews"}
+          text={
+            "Buy and Sell Precious Metals with Confidence and Peace of Mind"
+          }
+          reviews={reviews?.websiteFeedbacks}
+        />
 
         <WhyPreciousMarket />
       </div>

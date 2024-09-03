@@ -77,8 +77,6 @@ const AddNewWallet = ({
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          console.log(values);
-          // setSubmitButtonClicked(true)
           const newCard = await addDigitalCard(
             values.accountname,
             values.walletname,

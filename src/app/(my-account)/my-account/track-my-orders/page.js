@@ -21,7 +21,6 @@ const TrackMyOrdersPage = async () => {
     true,
     false
   );
-  console.log(orderDetails.user.imageUrl);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

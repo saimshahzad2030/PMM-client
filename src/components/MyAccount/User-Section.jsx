@@ -159,16 +159,9 @@ const UserSection = ({ User, buyerPaymentMethodVerified }) => {
             <div className="flex flex-row items-center mt-4 md:mt-0">
               <button
                 className="button text-[10px] sm:text-[16px] bg-[#59E36B] hover:bg-[#3a9d48]   text-white py-[3px] lg:py-[6px] px-2 border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300"
-                onClick={() =>
-                  // handleNavigation(
-                  //   "/my-account/account-settings",
-                  //   "Verify Account"
-                  // )
-                  {
-                    open();
-                    console.log("s");
-                  }
-                }
+                onClick={() => {
+                  open();
+                }}
                 disabled={!ready}
               >
                 {loading ? <Loader className={"py-[3px]"} /> : "Verify Account"}

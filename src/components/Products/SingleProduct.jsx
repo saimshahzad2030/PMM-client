@@ -19,17 +19,11 @@ const SingleProduct = ({ product, buttonText, setProducts }) => {
   const [cartItems, setCartProducts] = React.useState(
     product.cart ? product.cart : []
   );
-  console.log(
-    product.cart?.some((cart) => {
-      return cart.userId == userId;
-    }) == true,
-    product.id
-  );
+
   const [loading, setLoading] = React.useState(false);
   const productClickHandler = (id) => {
     router.push(`/market-place/product-details/${id}`);
   };
-  console.log(product.cart);
   const [heartLogo, setHeartLogo] = React.useState(
     product.favourites.some(
       (favourite) => favourite.userId == Cookies.get("id")
@@ -80,13 +74,7 @@ const SingleProduct = ({ product, buttonText, setProducts }) => {
             alt={heartLogo.name}
             onClick={async (e) => {
               e.stopPropagation();
-              console.log(product.favourites);
-              console.log(
-                product.favourites.some(
-                  (favourite) => favourite.userId == Cookies.get("id")
-                ),
-                "product.favourites.some((favourite) => favourite.userId == Cookies.get(id))"
-              );
+
               if (
                 product.favourites.some(
                   (favourite) => favourite.userId == Cookies.get("id")
@@ -110,7 +98,6 @@ const SingleProduct = ({ product, buttonText, setProducts }) => {
                   })
                 );
 
-                console.log(response);
                 setHeartLogo(HEART);
               } else {
                 const response = await addToFavourites(product.id, setLoading);
@@ -118,24 +105,15 @@ const SingleProduct = ({ product, buttonText, setProducts }) => {
                 setProducts((prevProductsList) =>
                   prevProductsList.map((p) => {
                     if (p.id == product.id) {
-                      // Return the updated product with the new favourites array
                       return {
                         ...p,
                         favourites: [...p.favourites, newFavourites],
                       };
                     }
-                    // Return the product as is if the id doesn't match
                     return p;
                   })
                 );
-                // setProducts((prevItems) => {
-                //   (prev)=>[
-                //     ...prevItems,
-                //     { id: response?.cartItem?.id,productId:addCart?.cartItem?.productId },
-                //   ]
-                // });
 
-                console.log(response);
                 setHeartLogo(HEART_FILLED);
               }
             }}

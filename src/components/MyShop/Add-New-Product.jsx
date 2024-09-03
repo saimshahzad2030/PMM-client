@@ -63,8 +63,7 @@ const AddNewProduct = () => {
 
     // Update the selected files and images upload count
     setSelectedImages([...selectedImages, ...newFiles]);
-    setImagesUpload(imagesUpload + newFiles.length);
-    console.log(newFiles);
+    setImagesUpload(imagesUpload + newFiles.length); 
     setFieldValue("images", [...selectedImages, ...newFiles]);
   };
   const handleVideoChange = (event, setFieldValue) => {
@@ -105,18 +104,9 @@ const AddNewProduct = () => {
   const handleHighlightChange = (index, value, setFieldValue) => {
     const newHighlights = [...highlights];
     newHighlights[index] = value;
-    setHighlights(newHighlights);
-    // Update Formik's values
+    setHighlights(newHighlights); 
     setFieldValue("productHighlights", newHighlights);
-  };
-  const handleFileUpload = () => {
-    if (selectedImages.length > 0) {
-      // Process the file upload here (e.g., send to server)
-      console.log("Uploading:", selectedImages);
-    } else {
-      console.log("No files selected.");
-    }
-  };
+  }; 
   const [responseMessage,setResponseMessage] = React.useState(null)
   
     const [open, setOpen] = React.useState(false);

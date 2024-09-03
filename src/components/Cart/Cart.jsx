@@ -131,10 +131,6 @@ const Cart = ({ data }) => {
     router.push("/market-place/favourites");
   };
 
-  React.useEffect(() => {
-    console.log(transformedArray, "transformedArray");
-  }, [transformedArray]);
-
   return (
     <div className="flex flex-col items-start px-8 mb-8">
       <RouteComponent parentRoute={"Home > "} mainRoute={"Cart"} />

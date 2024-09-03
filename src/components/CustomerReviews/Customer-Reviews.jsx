@@ -2,13 +2,9 @@
 import React from "react";
 import { CLIENT_REVIEWS } from "../../../constants/constants";
 import { STAR, USER_DEFAULT_IMAGE, VERIFIED } from "../../../constants/icons";
+import { formatDate } from "../../../services/date.services";
 import Link from "next/link";
 const CustomerReviews = ({ heading, text, reviews }) => {
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const date = new Date(dateString);
-    return `Date: ${date.toLocaleDateString("en-US", options)}`;
-  };
   return (
     <div className="flex flex-col items-center w-full my-8 mt-16 text-center  px-8">
       <h1 className=" lato-700 text-[24px] md:text-[32px] xl:text-[40px] ">
@@ -48,14 +44,18 @@ const CustomerReviews = ({ heading, text, reviews }) => {
                           <p className="lato-700 text-[11px] md:text-[14px] lg:text-[16px] 2xl:text-[20px]">
                             {review.user.firstName}
                           </p>
-                          <img
-                            className="w-2 h-2 md:w-4 md:h-4 ml-2"
-                            src={VERIFIED.image}
-                            alt={VERIFIED.name}
-                          />
+                          {review.user.buyerPaymentMethodVerified == "TRUE" && (
+                            <img
+                              className="w-2 h-2 md:w-4 md:h-4 ml-2"
+                              src={VERIFIED.image}
+                              alt={VERIFIED.name}
+                            />
+                          )}
                         </div>
                         <span className="text-[10px] md:text-[14px]">
-                          Verified Buyer
+                          {review.user.buyerPaymentMethodVerified == "TRUE"
+                            ? "Verified Buyer"
+                            : "Un-Verified Buyer"}
                         </span>
                       </div>
                     </div>
@@ -66,6 +66,7 @@ const CustomerReviews = ({ heading, text, reviews }) => {
                       <div className="flex flex-row items-center ">
                         {Array.from({ length: review.ratings }, (_, index) => (
                           <img
+                            key={index}
                             className="w-3 h-3 mr-1"
                             src={STAR.image}
                             alt={STAR.name}

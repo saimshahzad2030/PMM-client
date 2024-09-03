@@ -34,9 +34,11 @@ const validationSchema = Yup.object({
 const PersonalInformation = ({ user }) => {
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [loading, setLoading] = useState(false);
-   
-  const [selectedDate, setSelectedDate] = React.useState(user?.birthday?dayjs(user?.birthday):null);
-  console.log(user?.birthday, "user?.dateOfBirth");
+
+  const [selectedDate, setSelectedDate] = React.useState(
+    user?.birthday ? dayjs(user?.birthday) : null
+  );
+
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
   const [responseMessage, setResponseMessage] = React.useState(null);
 
@@ -77,7 +79,6 @@ const PersonalInformation = ({ user }) => {
             ...values,
             dob: values.dob ? values.dob.toISOString() : null, // Convert to ISO string or desired format
           };
-          console.log(formattedValues);
           const user = await updateInfo(
             formattedValues.email,
             formattedValues.fullname,
@@ -174,7 +175,6 @@ const PersonalInformation = ({ user }) => {
                     onChange={(newValue) => {
                       setFieldValue("dob", newValue);
                       setSelectedDate(newValue);
-                      console.log(newValue, "newValue");
                     }}
                     renderInput={(params) => (
                       <TextField

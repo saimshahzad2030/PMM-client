@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { updateShipmentArrangement } from "../../../services/shipments.services";
 import Loader from "../Loader/Loader";
+import { formatDateTime } from "../../../services/date.services";
 const MyShop = ({
   myProducts,
   authenticationRequired,
@@ -37,7 +38,6 @@ const MyShop = ({
   const [arrangeForDropOff, setArrangeForDropOff] = React.useState(false);
   const [backdropopen, setBackdropOpen] = React.useState(false);
   const [products, setProducts] = React.useState(myProducts);
-  console.log(myShipments);
   const handleBackdropClose = () => {
     setBackdropOpen(false);
   };
@@ -48,18 +48,6 @@ const MyShop = ({
     router.push("/my-account/my-shop/new-product-listing");
   };
 
-  const formatDateTime = (isoDate) => {
-    const date = new Date(isoDate);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: true,
-    });
-  };
   const [responseMessage, setResponseMessage] = React.useState(null);
 
   const [open, setOpen] = React.useState(false);
@@ -411,8 +399,6 @@ const MyShop = ({
                 <button
                   className="ml-4 button border bg-[#E3BB59] border-[#E3BB59] text-white p-2 w-4/12   rounded-md"
                   onClick={async () => {
-                    console.log(shippingSelectedForArrangement);
-                    console.log(myShipments);
                     if (arrangeForPickUp) {
                       const updatedShipments = await updateShipmentArrangement(
                         "PICK_UP",

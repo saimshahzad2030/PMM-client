@@ -12,8 +12,7 @@ const PalladiumPage = async() => {
   const cookieStore = cookies(); 
   const palladiumProducts = await fetchSpecificProducts("palladium",0,40,cookieStore.get('token').value)
   const cartItems = await fetchUserDetails(cookieStore.get('token').value,false,false,false,false,true,false,false,false,false,false)
- 
-  console.log(cartItems.cartItems)
+  
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

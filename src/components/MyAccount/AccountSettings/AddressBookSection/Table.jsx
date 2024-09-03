@@ -8,9 +8,8 @@ const Table = ({
   handleChangeDefaultShipping,
   setNewAddressWindowOpen,
   setAddressEditWindowOpen,
-  setSelectedAddress
+  setSelectedAddress,
 }) => {
-  console.log(allAddress)
   return (
     <div className="flex flex-col items-start w-full px-4 my-8">
       <div className={`w-full overflow-x-scroll ${styles.hideScrollbar} `}>
@@ -25,13 +24,19 @@ const Table = ({
           <tbody className="overflow-x-scroll text-[12px] sm:[text-14px] md:text-[16px]">
             {allAddress.map((address, index) => (
               <tr key={address.id}>
-                <td className={` py-4  text-start min-w-[120px] sm:min-w-[200px] `}>
+                <td
+                  className={` py-4  text-start min-w-[120px] sm:min-w-[200px] `}
+                >
                   {address.fullName}
                 </td>
-                <td className={` py-4  text-start min-w-[140px] sm:min-w-[200px] pr-8`}>
+                <td
+                  className={` py-4  text-start min-w-[140px] sm:min-w-[200px] pr-8`}
+                >
                   {address.address}
                 </td>
-                <td className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}>
+                <td
+                  className={` py-4  text-start min-w-[160px] sm:min-w-[200px]`}
+                >
                   {address.phone}
                 </td>
                 <td
@@ -39,39 +44,43 @@ const Table = ({
                 >
                   {address.addressType} address
                 </td>
-                <td className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}>
-                  {address.shippingAddressType ==="DEFAULT" ? (
+                <td
+                  className={` py-4  text-start    min-w-[150px] sm:min-w-[200px]  pr-4`}
+                >
+                  {address.shippingAddressType === "DEFAULT" ? (
                     <span
-                      onClick={ async() => {
-                        const updateAddress = await updateShippingAddress(address.id)
+                      onClick={async () => {
+                        const updateAddress = await updateShippingAddress(
+                          address.id
+                        );
                         setAllAddress((prevItems) =>
                           prevItems.map((item) =>
                             item.id === address.id
-                              ?  updateAddress.newAddress
+                              ? updateAddress.newAddress
                               : item
                           )
                         );
-                        console.log(updateAddress.newAddress,"updateAddress.newAddress")
-                        console.log(address.id,"address.id")
                       }}
                       className="cursor-pointer"
                     >
                       Default Shipping Address
-                      <span className="text-blue-600 underline">Change</span>{" "}
+                      <span className="text-blue-600 underline">
+                        Change
+                      </span>{" "}
                     </span>
                   ) : (
                     <span
-                      onClick={async() => {
-                        const updateAddress = await updateShippingAddress(address.id)
+                      onClick={async () => {
+                        const updateAddress = await updateShippingAddress(
+                          address.id
+                        );
                         setAllAddress((prevItems) =>
                           prevItems.map((item) =>
                             item.id === address.id
-                              ?  updateAddress.newAddress
+                              ? updateAddress.newAddress
                               : item
                           )
                         );
-                        console.log(updateAddress.newAddress,"updateAddress.newAddress")
-                        console.log(address.id,"address.id")
                       }}
                       className="text-blue-600 underline cursor-pointer"
                     >

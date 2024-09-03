@@ -4,25 +4,13 @@ import UserSection from "./User-Section";
 import { NOTIFICATIONS, USER } from "../../../constants/constants";
 import RouteComponent from "../RouteComponent/Route-Component";
 import { LOAD_MORE, NOTIFICATION_REMINDER } from "../../../constants/icons";
-
+import { formatDateTime } from "../../../services/date.services";
 const Notifications = ({
   notifications,
   image,
   name,
   buyerPaymentMethodVerified,
 }) => {
-  const formatDateTime = (isoDate) => {
-    const date = new Date(isoDate);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: true,
-    });
-  };
   return (
     <div className="flex flex-col items-center w-full px-8">
       <RouteComponent

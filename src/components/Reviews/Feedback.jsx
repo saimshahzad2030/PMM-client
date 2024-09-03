@@ -17,9 +17,7 @@ const Feedback = ({ setFeedbacks, setSubmitANewFeedback }) => {
   const [feedback, setFeedback] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [rating, setRating] = React.useState(null);
-  const handleSubmit = async () => {
-    console.log("Rating:", rating);
-    console.log("Feedback:", feedback);
+  const handleSubmit = async () => { 
     const response = await addFeedback(
       feedback,
       rating,

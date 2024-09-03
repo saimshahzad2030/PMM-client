@@ -14,8 +14,6 @@ import { setOrders } from "@/redux/reducers/order-reducer";
 import { useRouter } from "next/navigation";
 import { setCarts } from "@/redux/reducers/cart-reducer";
 const ProductInfo = ({ product, cartItems }) => {
-  console.log(product.sellerId);
-  console.log(Cookies.get("id"));
   const [cart, setCart] = React.useState(cartItems);
   const [counter, setCounter] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
@@ -109,20 +107,6 @@ const ProductInfo = ({ product, cartItems }) => {
                   ])
                 );
                 routeToCart();
-                // console.log([
-                //   [
-                //     {
-                //       unitPrice: product.price,
-                //       description: product.description,
-                //       sellerName: `${product.seller.firstName} ${product.seller.lastName}`,
-                //       buying: counter,
-                //       senderId: product.sellerId,
-                //       productId: product.id,
-                //       image: product.images[0].image,
-                //       totalProductPrice: product.price * counter,
-                //     },
-                //   ],
-                // ]);
               }}
             >
               Buy now
@@ -139,13 +123,6 @@ const ProductInfo = ({ product, cartItems }) => {
                       return c.productId == product.id;
                     })
                   ) {
-                    console.log(cart, "cart");
-                    console.log(
-                      cart.filter((prev) => {
-                        return prev.productId === product.id;
-                      })[0].id,
-                      "cartItems.filter((prev)=>{return prev.productId === product.id})[0].id"
-                    );
                     const remove = await removeFromCart(
                       cart.filter((prev) => {
                         return prev.productId === product.id;
@@ -161,8 +138,7 @@ const ProductInfo = ({ product, cartItems }) => {
                         })
                       );
                     }
-                  } else {
-                    console.log([product.id, "product.id"]);
+                  } else { 
                     const addCart = await addToCart(product.id, setLoading);
 
                     setOpen(true);

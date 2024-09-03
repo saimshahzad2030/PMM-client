@@ -24,7 +24,6 @@ const ProductDetailspage = async ({ params }) => {
     false,
     false
   );
-  console.log(productData);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

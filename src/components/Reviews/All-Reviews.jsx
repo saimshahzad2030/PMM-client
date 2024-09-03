@@ -8,17 +8,13 @@ import {
 import Button from "../Button/Button";
 import JoinNowSection from "../JoinNowSection/Join-Now-Section";
 import { fetchWebFeedbacks } from "../../../services/website-feedback";
+import { formatDate } from "../../../services/date.services";
 const AllReviews = ({ reviews, start, end, setFeedbacks, total }) => {
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const date = new Date(dateString);
-    return `Date: ${date.toLocaleDateString("en-US", options)}`;
-  };
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-12 w-full my-4 ">
         {reviews.map((review, index) => (
-          <div className="flex flex-col items-center w-full" key={index}>
+          <div className="flex flex-col items-center w-full" key={review.id}>
             <div className="flex flex-col items-center w-full md:w-11/12 border border-gray-600 px-6 rounded-md py-4">
               <div className="flex flex-row items-center justify-between w-full">
                 <div className="flex flex-row items-center w-7/12">
@@ -42,14 +38,18 @@ const AllReviews = ({ reviews, start, end, setFeedbacks, total }) => {
                       <p className="lato-700 text-[11px] md:text-[14px] lg:text-[16px] 2xl:text-[20px] capitalize">
                         {`${review.user.firstName} ${review.user.lastName}`}
                       </p>
-                      <img
-                        className="w-2 h-2 md:w-4 md:h-4 ml-2"
-                        src={VERIFIED.image}
-                        alt={VERIFIED.name}
-                      />
+                      {review.user.buyerPaymentMethodVerified == "TRUE" && (
+                        <img
+                          className="w-2 h-2 md:w-4 md:h-4 ml-2"
+                          src={VERIFIED.image}
+                          alt={VERIFIED.name}
+                        />
+                      )}
                     </div>
                     <span className="text-[10px] md:text-[14px]">
-                      Verified Buyer
+                      {review.user.buyerPaymentMethodVerified == "TRUE"
+                        ? "Verified Buyer"
+                        : "Un-Verified Buyer"}
                     </span>
                   </div>
                 </div>
@@ -60,6 +60,7 @@ const AllReviews = ({ reviews, start, end, setFeedbacks, total }) => {
                   <div className="flex flex-row items-center ">
                     {Array.from({ length: review.ratings }, (_, index) => (
                       <img
+                        key={index}
                         className="w-3 h-3 mr-1"
                         src={STAR.image}
                         alt={STAR.name}

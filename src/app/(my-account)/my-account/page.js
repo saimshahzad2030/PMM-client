@@ -23,7 +23,6 @@ const MyAccountPage = async () => {
     false,
     false
   );
-  console.log(userInfo);
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

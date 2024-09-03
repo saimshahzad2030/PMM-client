@@ -22,9 +22,9 @@ const Reviews = ({ heading, text, reviews, total }) => {
           <h1 className="text-center  lato-700 text-[24px] md:text-[32px] xl:text-[40px] ">
             {heading}
           </h1>
-          <h3 className="text-center mt-1 lato text-[12px] md:text-[16px] xl:text-[24px]  ">
+          {/* <h3 className="text-center mt-1 lato text-[12px] md:text-[16px] xl:text-[24px]  ">
             {text}
-          </h3>
+          </h3> */}
           {submitANewFeedback ? (
             <>
               <Feedback
