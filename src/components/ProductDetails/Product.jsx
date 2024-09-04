@@ -29,21 +29,12 @@ const Product = ({ product, related, reviews, cartItems }) => {
               className={`flex flex-col items-center justify-center h-[20vh] w-full md:h-[90px] lg:h-[120px] bg-[#F2F2F2] mb-2`}
             >
               <img
-                className="h-[20vh] md:h-[90px] lg:h-[110px] w-auto"
+                className="w-full h-auto"
                 src={img.image}
                 alt={product.name}
               />
             </div>
           ))}
-          {/* {product.images.map((img) => (
-            <div className="flex flex-col items-center justify-center w-full h-[24%] bg-[#F2F2F2]">
-              <img
-                className="w-6/12 h-auto "
-                src={img.image}
-                alt={product.name}
-              />
-            </div>
-          ))} */}
         </div>
         <div className="w-full col-span-3 h-[90vh]  md:h-[400px] lg:h-[500px]">
           <SingleSlide

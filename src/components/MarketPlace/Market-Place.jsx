@@ -35,7 +35,7 @@ const MarketPlace = ({ products, cartItems }) => {
         </>
       ) : (
         <>
-          <h2 className="text-[20px] w-full text-center font-bold mt-8">
+          <h2 className="text-[16px] w-full text-center font-bold mt-2">
             No Products to show
           </h2>
         </>

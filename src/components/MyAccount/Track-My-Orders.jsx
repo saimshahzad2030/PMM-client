@@ -5,6 +5,7 @@ import UserSection from "./User-Section";
 import { SHIPMENTS, USER } from "../../../constants/constants";
 import ShipmentTrack from "./Shipment-Track";
 import OrderActivites from "./Order-Activites";
+import { formatDateTime } from "../../../services/date.services";
 
 const TrackMyOrders = ({ orders, image, name, buyerPaymentMethodVerified }) => {
   const [shippingSelected, setShippingSelected] = React.useState(true);
@@ -96,10 +97,12 @@ const TrackMyOrders = ({ orders, image, name, buyerPaymentMethodVerified }) => {
                       Pakistan, Kpk, Khi
                     </p>
                     <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">
-                      Order placed in: {shipment?.orderPlacedDate}
+                      Order placed in:{" "}
+                      {formatDateTime(shipment?.orderPlacedDate)}
                     </p>
                     <p className=" text-[10px] sm:text-[14px] mt-2 text-gray-800">
-                      Order expected arrival: {shipment?.orderExpectedDate}
+                      Order expected arrival:{" "}
+                      {formatDateTime(shipment?.orderExpectedDate)}
                     </p>
                   </div>
                   <div className="flex flex-col flex-end w-auto text-end">

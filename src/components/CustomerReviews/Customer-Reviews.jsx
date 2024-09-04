@@ -10,9 +10,11 @@ const CustomerReviews = ({ heading, text, reviews }) => {
       <h1 className=" lato-700 text-[24px] md:text-[32px] xl:text-[40px] ">
         {heading}
       </h1>
-      <h3 className="mt-2 lato text-[12px] md:text-[16px] xl:text-[24px]  ">
-        {text}
-      </h3>
+      {reviews?.length > 0 && (
+        <h3 className="mt-2 lato text-[12px] md:text-[16px] xl:text-[24px]  ">
+          {text}
+        </h3>
+      )}
       {reviews?.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-12 w-full my-4">
@@ -87,7 +89,7 @@ const CustomerReviews = ({ heading, text, reviews }) => {
           </Link>
         </>
       ) : (
-        <h2 className="text-[20px] font-bold w-full text-center mt-12">
+        <h2 className="text-[16px] font-bold w-full text-center mt-2">
           No Reviews to show
         </h2>
       )}

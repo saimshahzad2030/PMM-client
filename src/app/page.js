@@ -28,8 +28,8 @@ export default async function Home() {
         <SimpleSlider />
         <SecureEscrowService />
         <MarketPlace
-          products={products?.products}
-          cartItems={products.products}
+          products={products?.products ? products?.products : []}
+          cartItems={products?.products ? products?.products : []}
         />
         <CustomerReviews
           heading={"Customer Reviews"}

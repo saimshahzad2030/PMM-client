@@ -6,9 +6,7 @@ import style from "./Navbar.module.css";
 import Backdrop from "@mui/material/Backdrop";
 import {
   cart,
-  CROSS,
   HAMBURGER,
-  SEARCH,
   SEARCH_BLACK,
   SEARCH_WITH_NO_BORDER,
 } from "../../../constants/icons";
@@ -18,8 +16,6 @@ import ForgotPassword from "../ForgotPassword/Forgot-Password";
 import OtpVerification from "../OtpVerification/Otp-Verification";
 import ChangePassword from "../ChangePassword/Change-Password";
 import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoginSection } from "@/redux/reducers/loginSection";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { authGuard, fetchUserDetails } from "../../../services/user-login";
 import Loader from "../Loader/Loader";
@@ -54,7 +50,6 @@ const Navbar = ({}) => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
-  // const isLoginSectionOpen = useSelector((state) => state.loginSection);
   const [backdropopen, setBackdropOpen] = React.useState(false);
   const [creatingAccount, setCreatingAcccount] = React.useState(false);
   const [signingIn, setSigningIn] = React.useState(false);
@@ -87,7 +82,6 @@ const Navbar = ({}) => {
     setOtpEntered(false);
     setOtpVerified(false);
   };
-  const dispatch = useDispatch();
   const handleBackdropOpen = () => {
     setBackdropOpen(true);
   };
@@ -164,17 +158,6 @@ const Navbar = ({}) => {
 
             <div className="flex flex-row items-center justify-end w-full">
               <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12  ">
-                {/* <input
-                  type="text"
-                  className={` ${style["search-input"]} w-full bg-[#E3BB59] border border-white rounded-lg pl-2`}
-                  placeholder="Search"
-                /> */}
-
-                {/* <img
-                  className="absolute w-auto h-full right-0 cursor-pointer"
-                  src={SEARCH.image}
-                  alt={SEARCH.name}
-                /> */}
                 <SearchBar
                   setSearchLoading={setSearchLoading}
                   setBackdropOpen={setBackdropOpen}
@@ -188,17 +171,11 @@ const Navbar = ({}) => {
               />
               {isSearchOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
-                  <div className="flex flex-col items-center space-y-4">
+                  <div className="flex flex-col items-center space-y-4 w-full">
                     <div className="relative flex flex-row w-full ">
-                      <input
-                        type="text"
-                        className={` ${style["search-input"]} w-full bg-white border border-black rounded-lg pl-2`}
-                        placeholder="Search"
-                      />
-                      <img
-                        className="absolute w-auto h-full right-0 cursor-pointer"
-                        src={SEARCH_BLACK.image}
-                        alt={SEARCH_BLACK.name}
+                      <SearchBar
+                        setSearchLoading={setSearchLoading}
+                        setBackdropOpen={setBackdropOpen}
                       />
                     </div>
                     <button
@@ -227,7 +204,7 @@ const Navbar = ({}) => {
 
                     <Link href={"/market-place/palladium"}>Pladium</Link>
 
-                    <Link href={"/"}>Sell</Link>
+                    <Link href={"/my-account/my-shop"}>Sell</Link>
 
                     <button
                       className="absolute top-4 right-4 text-2xl"

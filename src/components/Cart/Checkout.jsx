@@ -17,7 +17,7 @@ const Checkout = () => {
     cartData.map((group) =>
       group.map((g) => ({
         quantity: g.buying,
-        price: g.totalProductPrice,
+        price: Number(g.totalProductPrice) * 100,
         productId: g.productId,
         senderId: g.senderId,
         paymentMethod: "",
@@ -354,7 +354,7 @@ const Checkout = () => {
             </div>
             <div className="w-full flex flex-row items-center mt-2 justify-end">
               <button
-                className={`button  border p-1 px-2 sm:p-2 text-white  text-center bg-[#E3BB59] rounded-md border-[#E3BB59] hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 `}
+                className={`button w-[200px] border p-1 px-2 sm:p-2 text-white  text-center bg-[#E3BB59] rounded-md border-[#E3BB59]   hover:bg-[#e1b239] hover:border-[#E3BB59] transition-all duration-300 `}
                 onClick={async () => {
                   const flattenedOrders = orderData.flat(Infinity);
 

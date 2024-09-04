@@ -2,8 +2,8 @@
 import React from "react";
 import RouteComponent from "../RouteComponent/Route-Component";
 
-import {Snackbar} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Snackbar } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Backdrop,
   FormControl,
@@ -52,7 +52,7 @@ const AddNewProduct = () => {
   const [selectedImages, setSelectedImages] = React.useState([]);
   const [selectedVideos, setSelectedVideos] = React.useState([]);
   const [imageError, setImageError] = React.useState(null);
-  const [videoError, setVideoError] = React.useState(null); 
+  const [videoError, setVideoError] = React.useState(null);
   const handleFileChange = (event, setFieldValue) => {
     const files = Array.from(event.target.files);
     const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -63,7 +63,7 @@ const AddNewProduct = () => {
 
     // Update the selected files and images upload count
     setSelectedImages([...selectedImages, ...newFiles]);
-    setImagesUpload(imagesUpload + newFiles.length); 
+    setImagesUpload(imagesUpload + newFiles.length);
     setFieldValue("images", [...selectedImages, ...newFiles]);
   };
   const handleVideoChange = (event, setFieldValue) => {
@@ -104,34 +104,32 @@ const AddNewProduct = () => {
   const handleHighlightChange = (index, value, setFieldValue) => {
     const newHighlights = [...highlights];
     newHighlights[index] = value;
-    setHighlights(newHighlights); 
+    setHighlights(newHighlights);
     setFieldValue("productHighlights", newHighlights);
-  }; 
-  const [responseMessage,setResponseMessage] = React.useState(null)
-  
-    const [open, setOpen] = React.useState(false);
+  };
+  const [responseMessage, setResponseMessage] = React.useState(null);
 
-   
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpen(false);
-    };
-    const action = (
-      <>
-         
-        <IconButton
-          size="small"
-          aria-label="close"
-          color="inherit"
-          onClick={handleClose}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      </>
-    );
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
   return (
     <div className="w-full flex flex-col items-start px-8  mb-12">
       <RouteComponent
@@ -183,20 +181,19 @@ const AddNewProduct = () => {
           setImageError(null);
 
           const addNewProduct = await addProduct(values, setLoading);
-          if(addNewProduct.newProduct){
-            
-          setOpen(true)
-          
-          setResponseMessage(`${addNewProduct.message}. Redirecting you to your products section....`) 
-          setTimeout(()=>{
-            router.push('/my-account/my-shop')
-          },3000)
-          }
-          else{
-            
-          setOpen(true)
-          
-          setResponseMessage(addNewProduct.message) 
+          if (addNewProduct.newProduct) {
+            setOpen(true);
+
+            setResponseMessage(
+              `${addNewProduct.message}. Redirecting you to your products section....`
+            );
+            setTimeout(() => {
+              router.push("/my-account/my-shop");
+            }, 3000);
+          } else {
+            setOpen(true);
+
+            setResponseMessage(addNewProduct.message);
           }
         }}
       >
@@ -416,113 +413,111 @@ const AddNewProduct = () => {
                   alt={DROPDOWN.name}
                 />
               </div>  */}
-              
-               <h2>Specification</h2>
-               <div className="flex flex-col items-center col-span-1 w-full mt-4">
-                  <TextField
-                    fullWidth
-                    id="grade"
-                    name="grade"
-                    label="Grade"
-                    type={"text"}
-                    value={values.grade}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.grade &&
-                      Boolean(errors.grade)
-                    }
-                    helperText={
-                      submitButtonClicked && touched.grade && errors.grade
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center col-span-1 w-full mt-4">
-                  <TextField
-                    fullWidth
-                    id="diameter"
-                    name="diameter"
-                    label="Diameter"
-                    type={"text"}
-                    value={values.diameter}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.diameter &&
-                      Boolean(errors.diameter)
-                    }
-                    helperText={
-                      submitButtonClicked && touched.diameter && errors.diameter
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center w-full mt-4">
-                  <TextField
-                    fullWidth
-                    id="thickness"
-                    name="thickness"
-                    label="Thickness"
-                    type={"text"}
-                    value={values.thickness}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.thickness &&
-                      Boolean(errors.thickness)
-                    }
-                    helperText={
-                      submitButtonClicked &&
-                      touched.thickness &&
-                      errors.thickness
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center w-full mt-4">
-                  <TextField
-                    fullWidth
-                    id="metalcontent"
-                    name="metalcontent"
-                    label="Metal Content"
-                    type={"text"}
-                    value={values.metalcontent}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.metalcontent &&
-                      Boolean(errors.metalcontent)
-                    }
-                    helperText={
-                      submitButtonClicked &&
-                      touched.metalcontent &&
-                      errors.metalcontent
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-center w-full mt-4">
-                  <TextField
-                    fullWidth
-                    id="purity"
-                    name="purity"
-                    label="Purity"
-                    type={"text"}
-                    value={values.purity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      submitButtonClicked &&
-                      touched.purity &&
-                      Boolean(errors.purity)
-                    }
-                    helperText={
-                      submitButtonClicked && touched.purity && errors.purity
-                    }
-                  />
-                </div>
-                <div className="flex flex-col md:flex-row items-start w-full mt-4">
+
+              <h2>Specification</h2>
+              <div className="flex flex-col items-center col-span-1 w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="grade"
+                  name="grade"
+                  label="Grade"
+                  type={"text"}
+                  value={values.grade}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.grade &&
+                    Boolean(errors.grade)
+                  }
+                  helperText={
+                    submitButtonClicked && touched.grade && errors.grade
+                  }
+                />
+              </div>
+              <div className="flex flex-col items-center col-span-1 w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="diameter"
+                  name="diameter"
+                  label="Diameter"
+                  type={"text"}
+                  value={values.diameter}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.diameter &&
+                    Boolean(errors.diameter)
+                  }
+                  helperText={
+                    submitButtonClicked && touched.diameter && errors.diameter
+                  }
+                />
+              </div>
+              <div className="flex flex-col items-center w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="thickness"
+                  name="thickness"
+                  label="Thickness"
+                  type={"text"}
+                  value={values.thickness}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.thickness &&
+                    Boolean(errors.thickness)
+                  }
+                  helperText={
+                    submitButtonClicked && touched.thickness && errors.thickness
+                  }
+                />
+              </div>
+              <div className="flex flex-col items-center w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="metalcontent"
+                  name="metalcontent"
+                  label="Metal Content"
+                  type={"text"}
+                  value={values.metalcontent}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.metalcontent &&
+                    Boolean(errors.metalcontent)
+                  }
+                  helperText={
+                    submitButtonClicked &&
+                    touched.metalcontent &&
+                    errors.metalcontent
+                  }
+                />
+              </div>
+              <div className="flex flex-col items-center w-full mt-4">
+                <TextField
+                  fullWidth
+                  id="purity"
+                  name="purity"
+                  label="Purity"
+                  type={"text"}
+                  value={values.purity}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    submitButtonClicked &&
+                    touched.purity &&
+                    Boolean(errors.purity)
+                  }
+                  helperText={
+                    submitButtonClicked && touched.purity && errors.purity
+                  }
+                />
+              </div>
+              <div className="flex flex-col md:flex-row items-start w-full mt-4">
                 <input
                   type="file"
                   id="file-input"
@@ -657,8 +652,6 @@ const AddNewProduct = () => {
               </div>
             </div>
 
-            
-
             {/* <div className='flex flex-col items-center '>
                 <button className=" button bg-[#E3BB59] text-white p-2 w-full" type="submit" onClick={()=>setSubmitButtonClicked(true)}>
                   Update Password
@@ -677,27 +670,23 @@ const AddNewProduct = () => {
               </button>
               <button
                 type="submit"
-                className=" button border bg-[#E3BB59] border-[#E3BB59] text-white p-2   hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
+                className="w-[140px] button border bg-[#E3BB59] border-[#E3BB59] text-white p-2   hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
                 onClick={() => {
-                  // setArrangeForDropOff(false);
-                  // setArrangeForPickUp(true);
-                  // handleBackdropOpen();
                   setSubmitButtonClicked(true);
                 }}
               >
-                {loading ? <Loader/>: "Save and Publish"}
+                {loading ? <Loader /> : "Save and Publish"}
               </button>
             </div>
             <Snackbar
-         anchorOrigin={{ vertical:'top', horizontal:'center' }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={responseMessage}
-        action={action}
-      />
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={open}
+              autoHideDuration={6000}
+              onClose={handleClose}
+              message={responseMessage}
+              action={action}
+            />
           </Form>
-          
         )}
       </Formik>
 
