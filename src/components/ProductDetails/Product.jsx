@@ -23,13 +23,13 @@ const Product = ({ product, related, reviews, cartItems }) => {
         parentRoute={"Home > MarketPlace >"}
       />
       <div className="grid grid-cols-4 md:grid-cols-8 w-full gap-y-4 gap-x-2 my-8">
-        <div className="flex flex-col items-center  h-[90vh]  md:h-[400px] lg:h-[500px] w-full col-span-1  overflow-y-scroll ">
+        <div className="hide-scrollbar flex flex-col items-center  h-[40vh] sm:h-[75vh]  md:h-[400px] lg:h-[500px] w-full col-span-1  overflow-y-scroll ">
           {product.images.map((img) => (
             <div
-              className={`flex flex-col items-center justify-center h-[20vh] w-full md:h-[90px] lg:h-[120px] bg-[#F2F2F2] mb-2`}
+              className={`flex flex-col items-center justify-center   w-full md:h-[90px] lg:h-[120px] bg-[#F2F2F2] mb-2`}
             >
               <img
-                className="h-[20vh] md:h-[90px] lg:h-[110px] w-auto"
+                className=" md:h-[90px] lg:h-[110px] w-auto"
                 src={img.image}
                 alt={product.name}
               />
@@ -45,7 +45,7 @@ const Product = ({ product, related, reviews, cartItems }) => {
             </div>
           ))} */}
         </div>
-        <div className="w-full col-span-3 h-[90vh]  md:h-[400px] lg:h-[500px]">
+        <div className="w-full col-span-3 h-[40vh] sm:h-[75vh]  md:h-[400px] lg:h-[500px]">
           <SingleSlide
             images={product.images}
             imageName={product.name}

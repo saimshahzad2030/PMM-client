@@ -19,7 +19,13 @@ export const fetchLinkToken = async (setLinkToken, setError) => {
     setError("Failed to fetch link token");
   }
 };
-export const usePlaidLinkSetup = (linkToken, setError, reload) => {
+export const usePlaidLinkSetup = (
+  linkToken,
+  setError,
+  setPlaidToken,
+
+  setVerificationProcessMessage
+) => {
   return usePlaidLink({
     token: linkToken,
     onSuccess: async (public_token, metadata) => {
@@ -41,11 +47,14 @@ export const usePlaidLinkSetup = (linkToken, setError, reload) => {
         }
 
         const data = await response.json();
+        setPlaidToken(data.access_token);
+        setVerificationProcessMessage(data.updatedUser.verificationMessage);
 
         console.log("Access Token:", data.access_token);
-        if (reload) {
-          reload(); // Call the reload function to refresh the page
-        }
+        console.log(
+          "data.updatedUser.verificationMessage:",
+          data.updatedUser.verificationMessage
+        );
       } catch (error) {
         console.error("Error exchanging public token:", error);
         setError("Failed to exchange public token");

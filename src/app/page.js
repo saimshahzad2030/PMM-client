@@ -29,7 +29,6 @@ export default async function Home() {
         <SecureEscrowService />
         <MarketPlace
           products={products?.products}
-          cartItems={products.products}
         />
         <CustomerReviews
           heading={"Customer Reviews"}

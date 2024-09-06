@@ -181,6 +181,28 @@ export const fetchSellerDetails = async (token) => {
   }
 };
 
+export const addDrivingLiscense = async (file, setLoading) => {
+  try {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("license", file);
+    const response = await fetch(`${config.BASE_URL}business-details`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `bearer ${Cookies.get("token")}`,
+      },
+      body: formData,
+    });
+    const data = await response.json();
+    setLoading(false);
+
+    return data;
+  } catch (error) {
+    setLoading(false);
+
+    console.log(error, "error");
+  }
+};
 export const sendOtp = async (email) => {
   try {
     const response = await fetch(`${config.BASE_URL}user/email`, {

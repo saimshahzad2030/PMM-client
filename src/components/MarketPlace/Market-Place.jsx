@@ -5,7 +5,7 @@ import { HEART } from "../../../constants/icons";
 import Link from "next/link";
 import SingleProduct from "../Products/SingleProduct";
 import { useRouter } from "next/navigation";
-const MarketPlace = ({ products, cartItems }) => {
+const MarketPlace = ({ products }) => {
   const [productsList, setProductsList] = React.useState(products);
 
   const router = useRouter();

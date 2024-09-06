@@ -46,6 +46,9 @@ const MyAccountPage = async () => {
           buyerPaymentMethodVerified={
             userInfo?.user?.buyerPaymentMethodVerified == "TRUE" ? true : false
           }
+          plaidAccessToken={userInfo?.user?.plaidAccessToken}
+          licenseImage={userInfo?.user?.licenseImage}
+          verificationMessage={userInfo?.user?.verificationMessage}
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>
