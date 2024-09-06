@@ -238,7 +238,7 @@ const UserSection = ({
               } md:mt-0`}
             >
               <button
-                className={`flex flex-row items-center justify-center button text-[10px] sm:text-[16px] bg-[#59E36B] hover:bg-[#3a9d48]   text-white py-[3px] lg:py-[6px] px-2 border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
+                className={`p-1 sm:p-2 flex flex-row items-center justify-center button text-[10px] sm:text-[16px] bg-[#59E36B] hover:bg-[#3a9d48]   text-white py-[3px] lg:py-[6px] px-2 border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
                   verificationProcessMessage != "LicenseInvalid" &&
                   verificationProcessMessage !=
                     "LicenseImageNotMatchingWithProfile"
@@ -262,7 +262,7 @@ const UserSection = ({
                 )}
               </button>
               <button
-                className={`ml-4 flex flex-row items-center justify-center button text-[10px] sm:text-[16px] bg-[#59E36B] hover:bg-[#3a9d48]   text-white py-[3px] lg:py-[6px] px-2 border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
+                className={`p-1 sm:p-2 ml-4  flex flex-row items-center justify-center button text-[10px] sm:text-[16px] bg-[#59E36B] hover:bg-[#3a9d48]   text-white py-[3px] lg:py-[6px] px-2 border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
                   plaidToken ? "hidden" : ""
                 }`}
                 onClick={() => {
@@ -280,7 +280,7 @@ const UserSection = ({
               </button>
 
               <button
-                className="button p-1  text-[12px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600   rounded-md w-[120px] sm:w-[200px] "
+                className="ml-2 button p-1 text-[12px] md:text-[14px] sm:p-2 bg-red-600 text-white border border-red-600   rounded-md w-auto"
                 onClick={async () => {
                   const logout = await logOut(setlogoutLoading);
                   if (logout.updatedUser) {
@@ -288,7 +288,7 @@ const UserSection = ({
                   }
                 }}
               >
-                {logoutLoading ? <Loader className={"py-[1px] "} /> : "Logout"}
+                {logoutLoading ? <Loader className={"py-[3px] "} /> : "Logout"}
               </button>
             </div>
           )}

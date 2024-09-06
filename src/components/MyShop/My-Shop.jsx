@@ -260,8 +260,7 @@ const MyShop = ({
         <Shippings
           shipmentsList={myShipments.filter((s) => {
             return s.Shippings.status !== "COMPLETED";
-          })}
-          formatDateTime={formatDateTime}
+          })} 
         />
       )}
       {shippingSelectedForArrangement && (
