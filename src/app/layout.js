@@ -35,8 +35,11 @@ export default function RootLayout({ children }) {
           {/* <SmoothScrollerLayout />  */}
           {children}
         </body>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <Script id="tawk-to" strategy="lazyOnload">
+        <script
+          src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+          async
+        ></script>
+        <Script id="tawk-to" strategy="lazyOnload" async>
           {`
             var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){

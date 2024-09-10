@@ -15,8 +15,10 @@ import {
 import Loader from "../Loader/Loader";
 import { usePathname } from "next/navigation";
 import {
+  fetchIdVLinkToken,
   fetchLinkToken,
   usePlaidLinkSetup,
+  usePlaidLinkSetup2,
 } from "../../../services/plaid.services";
 import { Alert } from "@mui/material";
 const UserSection = ({
@@ -43,6 +45,7 @@ const UserSection = ({
     React.useState(verificationMessage);
   const [licenseImg, setLicenseImg] = React.useState(licenseImage);
   const [loading, setLoading] = React.useState(false);
+  const [imageloading, setImageLoading] = React.useState(false);
   const [user, setUser] = React.useState(User);
   const [button, setButton] = React.useState(null);
   const router = useRouter();
@@ -54,7 +57,7 @@ const UserSection = ({
   const handleProfileImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-    const changeProfile = await editProfilePic(file);
+    const changeProfile = await editProfilePic(file, setImageLoading);
     if (changeProfile.updatedUser) {
       setUser((prevUser) => ({
         ...prevUser,
@@ -80,25 +83,30 @@ const UserSection = ({
     console.log(changeProfile);
   };
   const [linkToken, setLinkToken] = React.useState(null);
+  const [idlinkToken, setIdLinkToken] = React.useState(null);
   const [error, setError] = React.useState(null);
+  const [idlinkTokenError, setIdlinkTokenError] = React.useState(null);
   const handleLogout = () => {
     cookieStore.set("token", null);
     cookieStore.set("id", null);
     router.push("/");
   };
   React.useEffect(() => {
-    fetchLinkToken(setLinkToken, setError);
+    fetchLinkToken(setLinkToken, setIdLinkToken, setError);
   }, []);
-
-  const { open, ready } = usePlaidLinkSetup(
+  const [verificationToken, setVerificaitonToken] = React.useState(null);
+  const { open: open1, open: ready1 } = usePlaidLinkSetup(
     linkToken,
     setError,
     setPlaidToken,
     setVerificationProcessMessage
   );
-  useEffect(() => {
-    console.log(verificationProcessMessage);
-  }, [verificationProcessMessage]);
+  const { open, ready } = usePlaidLinkSetup2(
+    idlinkToken,
+    setError,
+    setVerificaitonToken
+  );
+
   return (
     <>
       <span
@@ -108,7 +116,7 @@ const UserSection = ({
       >
         My Account
       </span>
-      {verificationProcessMessage != "DetailsRequired" &&
+      {/* {verificationProcessMessage != "DetailsRequired" &&
         !paymentVerified &&
         licenseImg &&
         user.image &&
@@ -121,7 +129,7 @@ const UserSection = ({
                 ? "Your license is invalid"
                 : "Your License image is not matching with your profile image")}
           </Alert>
-        )}
+        )} */}
       <div
         className={`flex flex-col items-start md:flex-row md:items-end md:justify-between w-full ${
           licenseImg && user.image && plaidToken ? "mt-2" : ""
@@ -129,12 +137,16 @@ const UserSection = ({
       >
         <div className="flex flex-col items-start md:flex-row md:items-end md:justify-between  w-full mb-8">
           <div className="flex flex-row items-center">
-            <div className="w-20 h-20 md:w-24 md:h-24 lg:w-[88px] lg:h-[88px] rounded-full overflow-hidden">
-              <img
-                className="w-full h-full object-cover"
-                src={user.image ? user.image : USER_DEFAULT_IMAGE.image}
-                alt={user.name}
-              />
+            <div className="flex flex-col items-center justify-center w-20 h-20 md:w-24 md:h-24 lg:w-[88px] lg:h-[88px] rounded-full overflow-hidden">
+              {!imageloading ? (
+                <img
+                  className="w-full h-full object-cover"
+                  src={user.image ? user.image : USER_DEFAULT_IMAGE.image}
+                  alt={user.name}
+                />
+              ) : (
+                <Loader color={"gray"} size={40} />
+              )}
             </div>
             <div className="flex flex-col items-start ml-4">
               <div className="flex flex-row items-center">
@@ -238,39 +250,28 @@ const UserSection = ({
               } md:mt-0`}
             >
               <button
-                className={`p-1 sm:p-2 flex flex-row items-center justify-center button text-[10px] sm:text-[16px] bg-[#59E36B] hover:bg-[#3a9d48]   text-white py-[3px] lg:py-[6px] px-2 border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
-                  verificationProcessMessage != "LicenseInvalid" &&
-                  verificationProcessMessage !=
-                    "LicenseImageNotMatchingWithProfile"
-                    ? "hidden"
-                    : ""
-                }`}
+                className={`p-1 sm:p-2 ml-4 button text-[10px] sm:text-[16px] bg-[#3a9d48] hover:bg-[#449e50]   text-white  border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300  `}
+                onClick={() => {
+                  open();
+                }}
                 disabled={!ready}
               >
                 {loading ? (
                   <Loader className={"py-[3px]"} />
                 ) : (
-                  <label className="text-[12px] md:text-[14px] text-white cursor-pointer">
-                    Add Driving License
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleLiscenseUpload}
-                    />
-                  </label>
+                  "Verify Identity"
                 )}
               </button>
               <button
-                className={`p-1 sm:p-2 ml-4  flex flex-row items-center justify-center button text-[10px] sm:text-[16px] bg-[#59E36B] hover:bg-[#3a9d48]   text-white py-[3px] lg:py-[6px] px-2 border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
+                className={`p-1 sm:p-2 ml-2 button text-[10px] sm:text-[16px]  bg-[#3a9d48] hover:bg-[#449e50]   text-white  border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
                   plaidToken ? "hidden" : ""
                 }`}
                 onClick={() => {
                   if (!plaidToken) {
-                    open();
+                    open1();
                   }
                 }}
-                disabled={!ready}
+                disabled={!ready1}
               >
                 {loading ? (
                   <Loader className={"py-[3px]"} />
@@ -280,7 +281,7 @@ const UserSection = ({
               </button>
 
               <button
-                className="ml-2 button p-1 text-[12px] md:text-[14px] sm:p-2 bg-red-600 text-white border border-red-600   rounded-md w-auto"
+                className="ml-2 button p-1 sm:p-2 text-[10px] sm:text-[16px]  bg-red-600 text-white border border-red-600   rounded-md w-[100px]"
                 onClick={async () => {
                   const logout = await logOut(setlogoutLoading);
                   if (logout.updatedUser) {
@@ -294,7 +295,7 @@ const UserSection = ({
           )}
         </div>
       </div>
-      {!buyerPaymentMethodVerified && (
+      {/* {!buyerPaymentMethodVerified && (
         <div className="flex flex-col items-start w-full">
           {!user.image && !plaidToken && !licenseImg && <h2>Note:</h2>}
           {requirements.map((req, index) => (
@@ -310,7 +311,7 @@ const UserSection = ({
             </p>
           ))}
         </div>
-      )}
+      )} */}
 
       <div className="w-full h-[2px] bg-gray-400"></div>
     </>

@@ -59,6 +59,7 @@ const Navbar = ({}) => {
   const [otpEntered, setOtpEntered] = React.useState(false);
   const [otpVerified, setOtpVerified] = React.useState(false);
   const [button, setButton] = React.useState(null);
+
   const router = useRouter();
   const handleNavigation = (url, button) => {
     setButtonLoading(pathname != url);
@@ -94,6 +95,16 @@ const Navbar = ({}) => {
   };
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
+  };
+  const [link, setLink] = React.useState(null);
+  const [linkloading, setLinkLoading] = React.useState(true);
+
+  const routeTo = (url, button) => {
+    setLinkLoading(pathname != url);
+    setLink(button);
+    router.push(url);
+    console.log(url);
+    console.log(button);
   };
 
   return (
@@ -216,15 +227,51 @@ const Navbar = ({}) => {
                 </div>
               )}
               <div className=" hidden lg:flex flex-row items-center ml-12">
-                <Link href={"/market-place/gold"}>Gold</Link>
+                <button
+                  className="w-[40px]"
+                  onClick={() => {
+                    console.log("asd");
+                    routeTo("/market-place/gold", "Gold");
+                  }}
+                >
+                  {linkloading && link == "Gold" ? <Loader /> : "Gold"}
+                </button>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                <Link href={"/market-place/silver"}>Silver</Link>
+                <button
+                  className="w-[50px]"
+                  onClick={() => {
+                    routeTo("/market-place/silver", "Silver");
+                  }}
+                >
+                  {linkloading && link == "Silver" ? <Loader /> : "Silver"}
+                </button>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                <Link href={"/market-place/platinum"}>Platinum</Link>
+                <button
+                  className="w-[70px]"
+                  onClick={() => {
+                    routeTo("/market-place/platinum", "Platinum");
+                  }}
+                >
+                  {linkloading && link == "Platinum" ? <Loader /> : "Platinum"}
+                </button>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                <Link href={"/market-place/palladium"}>Pladium</Link>
+                <button
+                  className="w-[70px]"
+                  onClick={() => {
+                    routeTo("/market-place/palladium", "Pladium");
+                  }}
+                >
+                  {linkloading && link == "Pladium" ? <Loader /> : "Pladium"}
+                </button>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                <Link href={"/"}>Sell</Link>
+                <button
+                  className="w-[45px]"
+                  onClick={() => {
+                    routeTo("/", "Sell");
+                  }}
+                >
+                  {linkloading && link == "Sell" ? <Loader /> : "Sell"}
+                </button>
               </div>
             </div>
           </div>
