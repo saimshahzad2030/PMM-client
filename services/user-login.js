@@ -122,8 +122,9 @@ export const deleteUser = async (id, setLoading) => {
   }
 };
 
-export const editProfilePic = async (file) => {
+export const editProfilePic = async (file, setImageLoading) => {
   try {
+    setImageLoading(true);
     const formData = new FormData();
 
     formData.append("image", file);
@@ -136,8 +137,10 @@ export const editProfilePic = async (file) => {
       body: formData,
     });
     const data = await response.json();
+    setImageLoading(false);
     return data;
   } catch (error) {
+    setImageLoading(false);
     console.log(error, "error");
   }
 };
