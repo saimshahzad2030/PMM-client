@@ -101,12 +101,16 @@ const UserSection = ({
     setIdError,
     setVerificationToken,
     setVerificationDetails,
-    handleLogout
+    handleLogout,
+    handleClick,
+    buttonClickedRef
   );
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
-    setOpen(true);
+    if (buttonClickedRef.current) {
+      setOpen(true);
+    }
   };
 
   const handleClose = (event, reason) => {
@@ -141,13 +145,13 @@ const UserSection = ({
       >
         My Account
       </span>
-      <Snackbar
+      {/* <Snackbar
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
         message="Logging out"
         action={action}
-      />
+      /> */}
       <div
         className={`flex flex-col items-start md:flex-row md:items-end md:justify-between w-full ${
           user.image && plaidToken ? "mt-2" : ""
@@ -282,7 +286,6 @@ const UserSection = ({
                     open2();
                   }
                   buttonClickedRef.current = true;
-                  handleClick();
                 }}
                 disabled={!ready2}
               >

@@ -46,7 +46,8 @@ export const usePlaidLinkSetup2 = (
   setError,
   setVerificationToken,
   setVerificationDetails,
-  handleLogout
+  handleLogout,
+  handleClick
 ) => {
   return usePlaidLink({
     token: idlinkToken,
@@ -60,6 +61,7 @@ export const usePlaidLinkSetup2 = (
           metadata?.link_session_id
         );
         setVerificationDetails(verificationDetails);
+        handleClick();
         handleLogout();
         const response = await fetch(
           `${config.BASE_URL}exchange-id-verification-token`,
