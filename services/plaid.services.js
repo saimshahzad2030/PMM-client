@@ -16,44 +16,94 @@ export const fetchLinkToken = async (
       },
     });
     const data = await response.json();
-    setIdLinkToken(data.id_verification_token);
     setLinkToken(data.link_token);
+    setIdLinkToken(data.id_verification_token);
     console.log(data.id_verification_token);
   } catch (error) {
     console.error("Error fetching link token:", error);
     setError("Failed to fetch link token");
   }
 };
-
-export const fetchIdVLinkToken = async (setLinkToken, setError) => {
+export const fetchVerificationDetails = async (id) => {
   try {
     const response = await fetch(
-      `${config.BASE_URL}generate_link_token_for_idv`,
+      `http://localhost:5000/verificationDetails?identity_verification_id=${id}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `bearer ${Cookies.get("token")}`,
         },
       }
     );
     const data = await response.json();
-    setLinkToken(data.link_token);
-  } catch (error) {
-    console.error("Error fetching link token:", error);
-    setError("Failed to fetch link token");
+    return data?.status;
+  } catch (e) {
+    console.log("error at fetchVerificationDetails: ", e);
   }
 };
-export const usePlaidLinkSetup = (
-  linkToken,
+export const usePlaidLinkSetup2 = (
+  idlinkToken,
   setError,
-  setPlaidToken,
-  setVerificationProcessMessage
+  setVerificationToken,
+  setVerificationDetails,
+  handleLogout
 ) => {
+  return usePlaidLink({
+    token: idlinkToken,
+    onSuccess: async (public_token, metadata) => {
+      try {
+        console.log("idlinkToken:", idlinkToken);
+        console.log("public_token id: ", public_token);
+        console.log("meta deta: ", metadata);
+
+        const verificationDetails = await fetchVerificationDetails(
+          metadata?.link_session_id
+        );
+        setVerificationDetails(verificationDetails);
+        handleLogout();
+        const response = await fetch(
+          `${config.BASE_URL}exchange-id-verification-token`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `bearer ${Cookies.get("token")}`,
+            },
+            body: JSON.stringify({ public_token }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to exchange public token");
+        }
+        const data = await response.json();
+        console.log(data, "data");
+        setVerificationToken(data.access_token);
+      } catch (error) {
+        console.error("Error exchanging public token:", error);
+        setError("Failed to exchange public token");
+      }
+    },
+    onExit: (error, metadata) => {
+      if (error) {
+        console.error("Error during Plaid Link:", error);
+        console.error("onExit metadata:", metadata);
+        setError("Error during Plaid Link");
+      } else {
+        console.log("Plaid Link exited.");
+        console.log("Exit metadata:", metadata);
+      }
+    },
+  });
+};
+
+export const usePlaidLinkSetup = (linkToken, setBankError, setPlaidToken) => {
   return usePlaidLink({
     token: linkToken,
     onSuccess: async (public_token, metadata) => {
       try {
+        console.log("public_token bank: ", public_token);
+
         const response = await fetch(
           `${config.BASE_URL}exchange-public-token`,
           {
@@ -72,65 +122,15 @@ export const usePlaidLinkSetup = (
 
         const data = await response.json();
         setPlaidToken(data.access_token);
-        setVerificationProcessMessage(data.updatedUser.verificationMessage);
-
-        console.log("Access Token:", data.access_token);
-        console.log(
-          "data.updatedUser.verificationMessage:",
-          data.updatedUser.verificationMessage
-        );
       } catch (error) {
         console.error("Error exchanging public token:", error);
-        setError("Failed to exchange public token");
+        setBankError("Failed to exchange public token");
       }
     },
     onExit: (error, metadata) => {
       if (error) {
         console.error("Error during Plaid Link:", error);
-        setError("Error during Plaid Link");
-      }
-    },
-  });
-};
-
-export const usePlaidLinkSetup2 = (
-  linkToken,
-  setError,
-  setVerificaitonToken
-) => {
-  return usePlaidLink({
-    token: linkToken,
-    onSuccess: async (public_token, metadata) => {
-      try {
-        const response = await fetch(
-          `${config.BASE_URL}exchange-id-verification-token`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `bearer ${Cookies.get("token")}`,
-            },
-            body: JSON.stringify({ public_token }),
-          }
-        );
-
-        console.log(public_token, "public_token");
-        if (!response.ok) {
-          throw new Error("Failed to exchange public token");
-        }
-
-        const data = await response.json();
-        setVerificaitonToken(data.access_token);
-        console.log("Data:", data);
-      } catch (error) {
-        console.error("Error exchanging public token:", error);
-        setError("Failed to exchange public token");
-      }
-    },
-    onExit: (error, metadata) => {
-      if (error) {
-        console.error("Error during Plaid Link:", error);
-        setError("Error during Plaid Link");
+        setBankError("Error during Plaid Link");
       }
     },
   });

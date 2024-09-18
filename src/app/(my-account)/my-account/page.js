@@ -23,6 +23,8 @@ const MyAccountPage = async () => {
     false,
     false
   );
+  console.log(userInfo.identityVerificationStatus);
+  console.log(userInfo, "userInfo.user.plaidIdVerificationAccessToken");
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -47,8 +49,14 @@ const MyAccountPage = async () => {
             userInfo?.user?.buyerPaymentMethodVerified == "TRUE" ? true : false
           }
           plaidAccessToken={userInfo?.user?.plaidAccessToken}
-          licenseImage={userInfo?.user?.licenseImage}
-          verificationMessage={userInfo?.user?.verificationMessage}
+          plaidIdVerificationAccessToken={
+            userInfo.user.plaidIdVerificationAccessToken
+          }
+          identityVerificationStatus={
+            userInfo?.identityVerificationStatus
+              ? userInfo.identityVerificationStatus
+              : null
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

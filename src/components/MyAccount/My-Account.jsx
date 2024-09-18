@@ -12,8 +12,8 @@ const MyAccount = ({
   image,
   buyerPaymentMethodVerified,
   plaidAccessToken,
-  licenseImage,
-  verificationMessage,
+  plaidIdVerificationAccessToken,
+  identityVerificationStatus,
 }) => {
   return (
     <>
@@ -24,8 +24,8 @@ const MyAccount = ({
             User={{ image, name }}
             buyerPaymentMethodVerified={buyerPaymentMethodVerified}
             plaidAccessToken={plaidAccessToken}
-            licenseImage={licenseImage}
-            verificationMessage={verificationMessage}
+            plaidIdVerificationAccessToken={plaidIdVerificationAccessToken}
+            identityVerificationStatus={identityVerificationStatus}
           />
         </Suspense>
         <div className="grid grid-cols-2 sm:grid-cols-4 w-full py-4">

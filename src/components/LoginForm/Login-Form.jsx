@@ -160,6 +160,7 @@ const LoginForm = ({
                   </p>
                 </div>
                 <button
+                  type="button"
                   className="text-blue-600  text-[12px] sm:text-[16px]"
                   onClick={() => {
                     setForgotPassword(true);

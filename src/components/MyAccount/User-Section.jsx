@@ -1,5 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
+import Button from "@mui/material/Button";
 import {
   VERIFIED,
   BELL,
@@ -15,25 +20,19 @@ import {
 import Loader from "../Loader/Loader";
 import { usePathname } from "next/navigation";
 import {
-  fetchIdVLinkToken,
   fetchLinkToken,
   usePlaidLinkSetup,
   usePlaidLinkSetup2,
 } from "../../../services/plaid.services";
 import { Alert } from "@mui/material";
+import { usePlaidLink } from "react-plaid-link";
 const UserSection = ({
   plaidAccessToken,
   User,
   buyerPaymentMethodVerified,
-  licenseImage,
-  verificationMessage,
+  plaidIdVerificationAccessToken,
+  identityVerificationStatus,
 }) => {
-  const requirements = [
-    "you must have to set your profile pic",
-    "you must have provide your driving license details",
-    "you must have provide your banking details",
-    // "Your account is undergoing verification please wait usually it takes 4-5 hours of post-account request.",
-  ];
   const [logoutLoading, setlogoutLoading] = React.useState(false);
 
   const [plaidToken, setPlaidToken] = React.useState(plaidAccessToken);
@@ -41,9 +40,6 @@ const UserSection = ({
   const [paymentVerified, setPaymentVerified] = React.useState(
     buyerPaymentMethodVerified
   );
-  const [verificationProcessMessage, setVerificationProcessMessage] =
-    React.useState(verificationMessage);
-  const [licenseImg, setLicenseImg] = React.useState(licenseImage);
   const [loading, setLoading] = React.useState(false);
   const [imageloading, setImageLoading] = React.useState(false);
   const [user, setUser] = React.useState(User);
@@ -63,76 +59,98 @@ const UserSection = ({
         ...prevUser,
         image: changeProfile.imageUrl,
       }));
-      setVerificationProcessMessage(
-        changeProfile?.updatedUser.verificationMessage
-      );
     }
   };
 
-  const handleLiscenseUpload = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-    const changeProfile = await addDrivingLiscense(file, setLoading);
-    if (changeProfile?.licenseImage) {
-      setLicenseImg(changeProfile?.licenseImage);
-      setVerificationProcessMessage(
-        changeProfile?.updatedUser.verificationMessage
-      );
-      console.log(changeProfile?.updatedUser.verificationMessage);
-    }
-    console.log(changeProfile);
-  };
   const [linkToken, setLinkToken] = React.useState(null);
   const [idlinkToken, setIdLinkToken] = React.useState(null);
   const [error, setError] = React.useState(null);
-  const [idlinkTokenError, setIdlinkTokenError] = React.useState(null);
-  const handleLogout = () => {
-    cookieStore.set("token", null);
-    cookieStore.set("id", null);
-    router.push("/");
-  };
+  const [bankError, setBankError] = React.useState(null);
+  const [idError, setIdError] = React.useState(null);
+
   React.useEffect(() => {
     fetchLinkToken(setLinkToken, setIdLinkToken, setError);
   }, []);
-  const [verificationToken, setVerificaitonToken] = React.useState(null);
-  const { open: open1, open: ready1 } = usePlaidLinkSetup(
-    linkToken,
-    setError,
-    setPlaidToken,
-    setVerificationProcessMessage
-  );
-  const { open, ready } = usePlaidLinkSetup2(
-    idlinkToken,
-    setError,
-    setVerificaitonToken
-  );
 
+  const [verificationDetails, setVerificationDetails] = React.useState(null);
+  // React.useEffect(() => {
+  //   console.log("verificationDetails: ", verificationDetails);
+  // }, [verificationDetails]);
+  // const [verificationToken, setVerificationToken] = React.useState(
+  //   plaidIdVerificationAccessToken
+  // );
+  const [verificationToken, setVerificationToken] = React.useState(null);
+
+  // const [buttonClicked, setButtonClicked] = React.useState(false);
+
+  const buttonClickedRef = React.useRef(false);
+  const handleLogout = () => {
+    if (buttonClickedRef.current) {
+      cookieStore.set("token", null);
+      cookieStore.set("id", null);
+      router.push("/");
+    }
+  };
+  const { open: open1, ready: ready1 } = usePlaidLinkSetup(
+    linkToken,
+    setBankError,
+    setPlaidToken
+  );
+  const { open: open2, ready: ready2 } = usePlaidLinkSetup2(
+    idlinkToken,
+    setIdError,
+    setVerificationToken,
+    setVerificationDetails,
+    handleLogout
+  );
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
   return (
     <>
       <span
         className={`w-full text-center bg-[#F2F2F2] text-[#E3BB59] ${
-          licenseImg && user.image && plaidToken ? "mb-2" : "mb-12"
+          user.image && plaidToken ? "mb-2" : "mb-12"
         } py-2`}
       >
         My Account
       </span>
-      {/* {verificationProcessMessage != "DetailsRequired" &&
-        !paymentVerified &&
-        licenseImg &&
-        user.image &&
-        plaidToken && (
-          <Alert severity="info" sx={{ width: "100%", marginBottom: "20px" }}>
-            {verificationProcessMessage &&
-              (verificationProcessMessage == "UnderGoingVerification"
-                ? "Your account is undergoing verification please wait usually it takes 4-5 hours of post-account request."
-                : verificationProcessMessage == "LicenseInvalid"
-                ? "Your license is invalid"
-                : "Your License image is not matching with your profile image")}
-          </Alert>
-        )} */}
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Logging out"
+        action={action}
+      />
       <div
         className={`flex flex-col items-start md:flex-row md:items-end md:justify-between w-full ${
-          licenseImg && user.image && plaidToken ? "mt-2" : ""
+          user.image && plaidToken ? "mt-2" : ""
         }`}
       >
         <div className="flex flex-col items-start md:flex-row md:items-end md:justify-between  w-full mb-8">
@@ -153,16 +171,21 @@ const UserSection = ({
                 <p className="lato-700 text-[16px] md:text-[14px] lg:text-[16px] 2xl:text-[20px] capitalize">
                   {user.name}
                 </p>
-                {paymentVerified == true && (
-                  <img
-                    className="w-3 h-3 md:w-4 md:h-4 ml-2"
-                    src={VERIFIED.image}
-                    alt={VERIFIED.name}
-                  />
-                )}
+                {paymentVerified == true ||
+                  (identityVerificationStatus == "success" &&
+                    plaidAccessToken && (
+                      <img
+                        className="w-3 h-3 md:w-4 md:h-4 ml-2"
+                        src={VERIFIED.image}
+                        alt={VERIFIED.name}
+                      />
+                    ))}
               </div>
               <span className="text-[12px] md:text-[14px]">
-                {paymentVerified == true ? "Verified" : "Not Verified"}
+                {paymentVerified == true ||
+                (identityVerificationStatus == "success" && plaidAccessToken)
+                  ? "Verified"
+                  : "Not Verified"}
               </span>
               {/* <span className="text-[12px] md:text-[14px] underline text-[#2176BD]  cursor-pointer">
                       Edit profile
@@ -178,7 +201,8 @@ const UserSection = ({
               </label>
             </div>
           </div>
-          {paymentVerified == true ? (
+          {paymentVerified == true ||
+          (identityVerificationStatus == "success" && plaidAccessToken) ? (
             <>
               <div className="flex flex-row items-center mt-4 md:mt-0">
                 <span
@@ -246,15 +270,21 @@ const UserSection = ({
           ) : (
             <div
               className={`flex flex-row items-center ${
-                licenseImg || plaidToken ? "mt-4" : ""
+                plaidToken ? "mt-4" : ""
               } md:mt-0`}
             >
               <button
-                className={`p-1 sm:p-2 ml-4 button text-[10px] sm:text-[16px] bg-[#3a9d48] hover:bg-[#449e50]   text-white  border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300  `}
+                className={`p-1 sm:p-2 ml-4 button text-[10px] sm:text-[16px] bg-[#3a9d48] hover:bg-[#449e50]   text-white  border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
+                  identityVerificationStatus == "success" ? "hidden" : ""
+                } `}
                 onClick={() => {
-                  open();
+                  if (!verificationToken) {
+                    open2();
+                  }
+                  buttonClickedRef.current = true;
+                  handleClick();
                 }}
-                disabled={!ready}
+                disabled={!ready2}
               >
                 {loading ? (
                   <Loader className={"py-[3px]"} />
@@ -285,6 +315,7 @@ const UserSection = ({
                 onClick={async () => {
                   const logout = await logOut(setlogoutLoading);
                   if (logout.updatedUser) {
+                    buttonClickedRef.current = true;
                     handleLogout();
                   }
                 }}
@@ -295,23 +326,6 @@ const UserSection = ({
           )}
         </div>
       </div>
-      {/* {!buyerPaymentMethodVerified && (
-        <div className="flex flex-col items-start w-full">
-          {!user.image && !plaidToken && !licenseImg && <h2>Note:</h2>}
-          {requirements.map((req, index) => (
-            <p
-              className={`w-full ${index == 0 && user.image ? "hidden" : ""} ${
-                index == 1 && licenseImg ? "hidden" : ""
-              }
-            ${index == 2 && plaidToken ? "hidden" : ""}
-             `}
-              key={index}
-            >
-              {req}
-            </p>
-          ))}
-        </div>
-      )} */}
 
       <div className="w-full h-[2px] bg-gray-400"></div>
     </>
