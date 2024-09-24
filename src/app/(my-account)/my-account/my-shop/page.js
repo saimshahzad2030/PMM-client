@@ -50,9 +50,16 @@ const MyShoppage = async () => {
           url={sellerDetails?.url}
           shipments={shippingDetails.user.senderOrders}
           buyerPaymentMethodVerified={
-            shippingDetails?.user?.buyerPaymentMethodVerified == "TRUE"
-              ? true
-              : false
+            shippingDetails?.user?.buyerPaymentMethodVerified == "TRUE" ? true : false
+          }
+          plaidAccessToken={shippingDetails?.user?.plaidAccessToken}
+          plaidIdVerificationAccessToken={
+            shippingDetails.user.plaidIdVerificationAccessToken
+          }
+          identityVerificationStatus={
+            shippingDetails?.identityVerificationStatus
+              ? shippingDetails.identityVerificationStatus
+              : null
           }
         />
       </div>

@@ -7,7 +7,15 @@ import ShipmentTrack from "./Shipment-Track";
 import OrderActivites from "./Order-Activites";
 import { formatDateTime } from "../../../services/date.services";
 
-const TrackMyOrders = ({ orders, image, name, buyerPaymentMethodVerified }) => {
+const TrackMyOrders = ({
+  orders,
+  image,
+  name,
+  buyerPaymentMethodVerified,
+  plaidAccessToken,
+  plaidIdVerificationAccessToken,
+  identityVerificationStatus,
+}) => {
   const [shippingSelected, setShippingSelected] = React.useState(true);
   const [shippings, setShippings] = React.useState(
     orders.filter((s) => {
@@ -22,6 +30,9 @@ const TrackMyOrders = ({ orders, image, name, buyerPaymentMethodVerified }) => {
       />
       <Suspense fallback={<div>Loading</div>}>
         <UserSection
+          plaidAccessToken={plaidAccessToken}
+          plaidIdVerificationAccessToken={plaidIdVerificationAccessToken}
+          identityVerificationStatus={identityVerificationStatus}
           User={{ image, name }}
           buyerPaymentMethodVerified={buyerPaymentMethodVerified}
         />

@@ -43,6 +43,15 @@ const TrackMyOrdersPage = async () => {
               ? true
               : false
           }
+          plaidAccessToken={orderDetails?.user?.plaidAccessToken}
+          plaidIdVerificationAccessToken={
+            orderDetails.user.plaidIdVerificationAccessToken
+          }
+          identityVerificationStatus={
+            orderDetails?.identityVerificationStatus
+              ? orderDetails.identityVerificationStatus
+              : null
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

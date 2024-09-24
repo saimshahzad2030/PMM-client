@@ -22,6 +22,9 @@ const MyShop = ({
   name,
   shipments,
   buyerPaymentMethodVerified,
+  plaidAccessToken,
+  plaidIdVerificationAccessToken,
+  identityVerificationStatus,
 }) => {
   const router = useRouter();
   if (authenticationRequired == true && url) {
@@ -77,6 +80,9 @@ const MyShop = ({
       <RouteComponent parentRoute={"Home > "} mainRoute={" My shop"} />
       <Suspense fallback={<div>Loading</div>}>
         <UserSection
+          plaidAccessToken={plaidAccessToken}
+          plaidIdVerificationAccessToken={plaidIdVerificationAccessToken}
+          identityVerificationStatus={identityVerificationStatus}
           User={{ image, name }}
           buyerPaymentMethodVerified={buyerPaymentMethodVerified}
         />
@@ -260,7 +266,7 @@ const MyShop = ({
         <Shippings
           shipmentsList={myShipments.filter((s) => {
             return s.Shippings.status !== "COMPLETED";
-          })} 
+          })}
         />
       )}
       {shippingSelectedForArrangement && (
