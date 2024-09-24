@@ -1,7 +1,6 @@
 "use client";
 import React, { use, useEffect } from "react";
 import Link from "next/link";
-import style from "./Navbar.module.css";
 
 import Backdrop from "@mui/material/Backdrop";
 import {
@@ -17,17 +16,18 @@ import OtpVerification from "../OtpVerification/Otp-Verification";
 import ChangePassword from "../ChangePassword/Change-Password";
 import Cookies from "js-cookie";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { authGuard, fetchUserDetails } from "../../../services/user-login";
+import { authGuard } from "../../../services/user-login";
 import Loader from "../Loader/Loader";
 import SearchBar from "../SearchBar/SearchBar";
+// import { useSelector } from "react-redux";
 const Navbar = ({}) => {
+  // const user = useSelector((state) => state.user);
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [buttonloading, setButtonLoading] = React.useState(true);
   const [otpId, setOtpId] = React.useState(null);
   const [email, setEmail] = React.useState(null);
   const [searchLoading, setSearchLoading] = React.useState(false);
-
   useEffect(() => {
     const fetchUser = async () => {
       const token = Cookies.get("token");

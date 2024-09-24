@@ -1,10 +1,9 @@
-"use client";
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux"; // Import useDispatch
 import Checkbox from "@mui/material/Checkbox";
 import { CROSS } from "../../../constants/icons";
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
 import { TextField } from "@mui/material";
 import Link from "next/link";
 import { login } from "../../../services/user-login";
@@ -12,6 +11,8 @@ import { Snackbar, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
+import { setUser } from "@/redux/reducers/user.reducer"; // Import the action
+
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
@@ -27,6 +28,7 @@ const validationSchema = Yup.object({
     )
     .required("Password is required"),
 });
+
 const LoginForm = ({
   handleBackdropClose,
   setCreatingAcccount,
@@ -34,9 +36,11 @@ const LoginForm = ({
   setForgotPassword,
   setUserLoggedIn,
 }) => {
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
+  const dispatch = useDispatch(); // Initialize useDispatch
+
   React.useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable body scroll when form is open
     return () => {
@@ -44,7 +48,7 @@ const LoginForm = ({
     };
   }, []);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const reload = () => {
     router.refresh();
@@ -57,6 +61,7 @@ const LoginForm = ({
 
     setOpen(false);
   };
+
   const action = (
     <>
       <IconButton
@@ -69,17 +74,18 @@ const LoginForm = ({
       </IconButton>
     </>
   );
+
   return (
     <div className="form-container flex flex-col items-center w-11/12 md:w-8/12 lg:w-7/12 xl:w-5/12 bg-white py-6 pb-12 px-8 md:px-16 rounded-xl h-[90vh] overflow-y-auto">
       <div className="w-full flex flex-col items-end">
         <img
-          className=" mt-1 mr-2 cursor-pointer w-6 h-6"
+          className="mt-1 mr-2 cursor-pointer w-6 h-6"
           onClick={handleBackdropClose}
           src={CROSS.image}
           alt={CROSS.name}
         />
       </div>
-      <h1 className="lato-700  text-[30px] md:text-[32px] xl:text-[40px] text-gray-800 mb-6 text-center">
+      <h1 className="lato-700 text-[30px] md:text-[32px] xl:text-[40px] text-gray-800 mb-6 text-center">
         Signin
       </h1>
 
@@ -90,14 +96,15 @@ const LoginForm = ({
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          // handleBackdropClose()
           const userLogin = await login(
             values.email,
             values.password,
-            setLoading
+            setLoading,
+            (user) => dispatch(setUser(user)) // Dispatch the setUser action
           );
           setOpen(true);
           setResponseMessage(userLogin?.message);
+
           if (userLogin.updatedUser) {
             setUserLoggedIn(true);
             setTimeout(() => {
@@ -154,33 +161,33 @@ const LoginForm = ({
 
               <div className="flex flex-row items-center justify-between col-span-2 py-2">
                 <div className="flex flex-row items-center">
-                  <Checkbox {...label} />
+                  <Checkbox />
                   <p className="text-black text-[12px] sm:text-[16px]">
                     Remember me
                   </p>
                 </div>
                 <button
                   type="button"
-                  className="text-blue-600  text-[12px] sm:text-[16px]"
+                  className="text-blue-600 text-[12px] sm:text-[16px]"
                   onClick={() => {
                     setForgotPassword(true);
                     setSigningIn(false);
                   }}
                 >
-                  forgot password?{" "}
+                  forgot password?
                 </button>
               </div>
               <div className="flex flex-col items-center col-span-2">
                 <button
-                  className=" button bg-[#E3BB59] text-white p-2 w-full"
+                  className="button bg-[#E3BB59] text-white p-2 w-full"
                   type="submit"
                   onClick={() => setSubmitButtonClicked(true)}
                 >
-                  {loading ? <Loader className={"py-[3px]"} /> : `Signin`}
+                  {loading ? <Loader className="py-[3px]" /> : `Signin`}
                 </button>
               </div>
               <div className="flex flex-col items-center col-span-2">
-                <p className="text-black  text-[10px] sm:text-[14px] w-full text-center">
+                <p className="text-black text-[10px] sm:text-[14px] w-full text-center">
                   New to Precious Metal Market? &nbsp;&nbsp;&nbsp;{" "}
                   <span
                     className="cursor-pointer text-blue-600"

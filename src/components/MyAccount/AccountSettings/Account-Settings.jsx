@@ -19,6 +19,9 @@ const AccountSettings = ({
   cards,
   wallets,
   buyerPaymentMethodVerified,
+  plaidAccessToken,
+  plaidIdVerificationAccessToken,
+  identityVerificationStatus,
 }) => {
   const [informationSelected, setInformationSelected] = React.useState(true);
   const [addressBookSelected, setAddressBookSelected] = React.useState(false);
@@ -34,6 +37,9 @@ const AccountSettings = ({
       />
       <Suspense fallback={<div>Loading</div>}>
         <UserSection
+          plaidAccessToken={plaidAccessToken}
+          plaidIdVerificationAccessToken={plaidIdVerificationAccessToken}
+          identityVerificationStatus={identityVerificationStatus}
           User={{ image, name }}
           buyerPaymentMethodVerified={buyerPaymentMethodVerified}
         />

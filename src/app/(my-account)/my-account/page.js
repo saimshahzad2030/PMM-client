@@ -23,8 +23,6 @@ const MyAccountPage = async () => {
     false,
     false
   );
-  console.log(userInfo.identityVerificationStatus);
-  console.log(userInfo, "userInfo.user.plaidIdVerificationAccessToken");
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">

@@ -10,6 +10,9 @@ const Notifications = ({
   image,
   name,
   buyerPaymentMethodVerified,
+  plaidAccessToken,
+  plaidIdVerificationAccessToken,
+  identityVerificationStatus,
 }) => {
   return (
     <div className="flex flex-col items-center w-full px-8">
@@ -19,6 +22,9 @@ const Notifications = ({
       />
       <Suspense fallback={<div>Loading</div>}>
         <UserSection
+          plaidAccessToken={plaidAccessToken}
+          plaidIdVerificationAccessToken={plaidIdVerificationAccessToken}
+          identityVerificationStatus={identityVerificationStatus}
           User={{ image, name }}
           buyerPaymentMethodVerified={buyerPaymentMethodVerified}
         />

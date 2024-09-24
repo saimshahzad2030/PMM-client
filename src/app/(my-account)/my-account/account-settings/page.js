@@ -51,6 +51,15 @@ const AccountSettingsPage = async () => {
           buyerPaymentMethodVerified={
             userInfo?.user?.buyerPaymentMethodVerified == "TRUE" ? true : false
           }
+          plaidAccessToken={userInfo?.user?.plaidAccessToken}
+          plaidIdVerificationAccessToken={
+            userInfo.user.plaidIdVerificationAccessToken
+          }
+          identityVerificationStatus={
+            userInfo?.identityVerificationStatus
+              ? userInfo.identityVerificationStatus
+              : null
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

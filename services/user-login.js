@@ -1,7 +1,7 @@
 import { config } from "../config/config";
-
+import axios from "axios";
 import Cookies from "js-cookie";
-export const login = async (email, password, setLoading) => {
+export const login = async (email, password, setLoading, setUser) => {
   try {
     setLoading(true);
     const response = await fetch(`${config.BASE_URL}user/login`, {
@@ -20,6 +20,7 @@ export const login = async (email, password, setLoading) => {
       Cookies.set("token", data.updatedUser.token);
       Cookies.set("id", data.updatedUser.id);
     }
+    setUser(data.updatedUser);
     setLoading(false);
 
     return data;
@@ -64,6 +65,7 @@ export const authGuard = async (token, setButtonLoading) => {
       },
     });
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.log(error, "error");
@@ -84,21 +86,28 @@ export const fetchUserDetails = async (
   senderOrders
 ) => {
   try {
-    const response = await fetch(
-      `${config.BASE_URL}user-details?products=${products}&addresses=${addresses}&notifications=${notifications}&favourites=${favourites}&cart=${cart}&creditCards=${creditCards}&digitalWallets=${digitalWallets}&bankAccounts=${bankAccounts}&recieverOrders=${recieverOrders}&senderOrders=${senderOrders}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `bearer ${token}`,
-        },
-      }
-    );
-    const data = await response.json();
+    const response = await axios.get(`${config.BASE_URL}user-details`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        products,
+        addresses,
+        notifications,
+        favourites,
+        cart,
+        creditCards,
+        digitalWallets,
+        bankAccounts,
+        recieverOrders,
+        senderOrders,
+      },
+    });
 
-    return data;
+    return response.data;
   } catch (error) {
-    console.log(error, "error");
+    console.error(error);
   }
 };
 export const deleteUser = async (id, setLoading) => {

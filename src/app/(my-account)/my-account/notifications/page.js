@@ -49,6 +49,15 @@ const NotificationsPage = async () => {
               ? true
               : false
           }
+          plaidAccessToken={notifications?.user?.plaidAccessToken}
+          plaidIdVerificationAccessToken={
+            notifications.user.plaidIdVerificationAccessToken
+          }
+          identityVerificationStatus={
+            notifications?.identityVerificationStatus
+              ? notifications.identityVerificationStatus
+              : null
+          }
         />
       </div>
       <div className="w-full h-1 bg-[#E3BB59]"></div>

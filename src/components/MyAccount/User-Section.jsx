@@ -96,22 +96,22 @@ const UserSection = ({
     setBankError,
     setPlaidToken
   );
-  const { open: open2, ready: ready2 } = usePlaidLinkSetup2(
-    idlinkToken,
-    setIdError,
-    setVerificationToken,
-    setVerificationDetails,
-    handleLogout,
-    handleClick,
-    buttonClickedRef
-  );
-  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     if (buttonClickedRef.current) {
       setOpen(true);
     }
   };
+
+  const { open: open2, ready: ready2 } = usePlaidLinkSetup2(
+    idlinkToken,
+    setIdError,
+    setVerificationToken,
+    setVerificationDetails,
+    handleLogout,
+    handleClick
+  );
+  const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
