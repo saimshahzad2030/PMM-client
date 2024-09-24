@@ -1,16 +1,14 @@
- 
-
 import SingleBlog from "@/components/Blogs/Single-Blog";
 import Copyright from "@/components/Copyright/Copyright";
 import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 import { ARTICLES } from "../../../../../constants/constants";
 import { Suspense } from "react";
 
 async function getBlogData(blogId) {
-  const blog = ARTICLES.find((blog,index) => index == blogId);
+  const blog = ARTICLES.find((blog, index) => index == blogId);
 
   if (!blog) {
     return null;
@@ -19,19 +17,18 @@ async function getBlogData(blogId) {
 }
 
 const BlogsPage = async ({ params }) => {
-  const blogId = params['blog-id'];
+  const blogId = params["blog-id"];
   const blogData = await getBlogData(blogId);
   if (!blogData) {
-    notFound(); 
+    notFound();
   }
 
   return (
     <>
       <div className="h-auto w-full bg-[#E3BB59]">
-      <Suspense fallback={<div>Loading...</div>}>
-
-        <Navbar />
-</Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navbar />
+        </Suspense>
       </div>
       <div className="container mx-auto">
         <MetalValues />
