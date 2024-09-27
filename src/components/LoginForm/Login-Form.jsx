@@ -86,7 +86,7 @@ const LoginForm = ({
         />
       </div>
       <h1 className="lato-700 text-[30px] md:text-[32px] xl:text-[40px] text-gray-800 mb-6 text-center">
-        Signin
+        Sign in
       </h1>
 
       <Formik
@@ -174,7 +174,7 @@ const LoginForm = ({
                     setSigningIn(false);
                   }}
                 >
-                  forgot password?
+                  Forgot Password?
                 </button>
               </div>
               <div className="flex flex-col items-center col-span-2">
@@ -183,7 +183,7 @@ const LoginForm = ({
                   type="submit"
                   onClick={() => setSubmitButtonClicked(true)}
                 >
-                  {loading ? <Loader className="py-[3px]" /> : `Signin`}
+                  {loading ? <Loader className="py-[3px]" /> : `Sign in`}
                 </button>
               </div>
               <div className="flex flex-col items-center col-span-2">

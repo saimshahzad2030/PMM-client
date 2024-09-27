@@ -157,7 +157,7 @@ const Navbar = ({}) => {
                   className="cursor-pointer text-white"
                   onClick={handleSignin}
                 >
-                  Signin
+                  Sign in
                 </button>
                 &nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;
                 <button
