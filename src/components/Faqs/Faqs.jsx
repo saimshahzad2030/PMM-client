@@ -42,51 +42,41 @@ const Faqs = () => {
           />
         </div>
       </div>
-      {FAQS.map((faq,index)=>(
+      {FAQS.map((faq, index) => (
         <Accordion
-        key={index}
-        className="w-full"
-        sx={{
-          marginTop: "16px",
-          backgroundColor: "#F4F2F1",
-          boxShadow: "none",
-          border: "1px solid #ddd",
-          "&:before": {
-            display: "none",
-          },
-          "& .MuiAccordionSummary-root": {
-            borderBottom: "1px solid #ddd",
-          },
-        }}
-      >
-        <AccordionSummary
-          expandIcon={
-            <img
-              className="w-4 h-4 "
-              src={DROPDOWN.image}
-              alt={DROPDOWN.name}
-            />
-          }
-          aria-controls="panel1-content"
-          id="panel1-header"
+          key={index}
+          className="w-full"
+          sx={{
+            marginTop: "16px",
+            backgroundColor: "#F4F2F1",
+            boxShadow: "none",
+            border: "1px solid #ddd",
+            "&:before": {
+              display: "none",
+            },
+            "& .MuiAccordionSummary-root": {
+              borderBottom: "1px solid #ddd",
+            },
+          }}
         >
-          <h2 className="lato-700 text-[20px] text-[#515151]">
-            {faq.faq}
-          </h2>
-        </AccordionSummary>
-        <AccordionDetails>
-          {faq.answer}
-        </AccordionDetails>
-      </Accordion>
+          <AccordionSummary
+            expandIcon={
+              <img
+                className="w-4 h-4 "
+                src={DROPDOWN.image}
+                alt={DROPDOWN.name}
+              />
+            }
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            <h2 className="lato-700 text-[20px] text-[#515151]">{faq.faq}</h2>
+          </AccordionSummary>
+          <AccordionDetails>{faq.answer}</AccordionDetails>
+        </Accordion>
       ))}
-       
-       <div className="w-full flex flex-col items-center">
-       <button className='rounded-sm p-1 px-2  sm:p-2 flex flex-row items-center mt-8 text-gray-600 bg-[#F4F2F1]'><img className='w-4 h-auto' src={LOAD_MORE.image} alt={LOAD_MORE.name}/> &nbsp;&nbsp;Load more</button>
 
-       </div>
-       <JoinNowSection
-       text={''}
-       />
+      <JoinNowSection text={""} />
     </div>
   );
 };
