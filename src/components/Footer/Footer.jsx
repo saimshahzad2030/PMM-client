@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import React from "react";
@@ -46,7 +46,10 @@ const Footer = () => {
             <Link href={"/"} className="text-[16px] mt-4">
               Account log in
             </Link>
-            <Link href={"/my-account/track-my-orders"} className="text-[16px] mt-4">
+            <Link
+              href={"/my-account/track-my-orders"}
+              className="text-[16px] mt-4"
+            >
               Track my order
             </Link>
             <Link href={"/"} className="text-[16px] mt-4">
@@ -60,7 +63,10 @@ const Footer = () => {
             <Link href={"/shipping"} className="text-[16px] mt-4">
               Shipping
             </Link>
-            <Link href={"/about-us/precious-metal-market"} className="text-[16px] mt-4">
+            <Link
+              href={"/about-us/precious-metal-market"}
+              className="text-[16px] mt-4"
+            >
               About precious metal market
             </Link>
             <Link href={"/website-reviews"} className="text-[16px] mt-4">
@@ -72,9 +78,7 @@ const Footer = () => {
           <div className="flex flex-col items-start   lg:w-11/12">
             <h4 className="lato-700 text-[16px] uppercase">subscribe</h4>
             <Link href={"/"} className="w-full mt-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              lectus mauris, tincidunt nec efficitur sit amet, sollicitudin et
-              risus.
+              Subscribe to get the latest update on PMM
             </Link>
             <div className="flex flex-row items-center w-full mt-1">
               <input
@@ -94,17 +98,24 @@ const Footer = () => {
                   alt={CONTACT.name}
                 />
               </div>
-              <span className="text-[16px] ml-2">012-3456-789</span>
+              <span className="text-[16px] ml-2">513-549-1221</span>
             </div>
             <div className="mt-4 flex flex-row items-center">
               <div className=" w-7 h-7 rounded-full bg-gray-200 flex flex-col items-center justify-center">
                 <img className="w-4 h-4" src={MAIL.image} alt={MAIL.name} />
               </div>
-              <span className="text-[16px] ml-2">preciousmetalmarket@gmail.com</span>
+              <span className="text-[16px] ml-2">
+                preciousmetalmarket@gmail.com
+              </span>
             </div>
             <div className="flex flex-row items-center mt-4">
-              {SOCIALS.map((social,index)=>(
-                <img className="w-6 h-6 mr-4 cursor-pointer" src={social.image} alt={social.name} key={index}/>
+              {SOCIALS.map((social, index) => (
+                <img
+                  className="w-6 h-6 mr-4 cursor-pointer"
+                  src={social.image}
+                  alt={social.name}
+                  key={index}
+                />
               ))}
             </div>
           </div>
@@ -112,14 +123,16 @@ const Footer = () => {
         <div className="w-full flex flex-col items-center   sm:col-span-3">
           <div className="flex flex-col items-start  w-full">
             <h4 className="lato-700 text-[16px] uppercase">payment</h4>
-             <div className="flex flex-row items-center">
-              {
-                PAYMENTS.map((payment,index)=>(
-                  <img className="h-10 sm:h-20 w-auto mr-3" src={payment.image} alt={payment.name} key={index}/>
-                ))
-              }
-             </div>
-            
+            <div className="flex flex-row items-center">
+              {PAYMENTS.map((payment, index) => (
+                <img
+                  className="h-10 sm:h-20 w-auto mr-3"
+                  src={payment.image}
+                  alt={payment.name}
+                  key={index}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

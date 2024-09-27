@@ -16,18 +16,46 @@ import OtpVerification from "../OtpVerification/Otp-Verification";
 import ChangePassword from "../ChangePassword/Change-Password";
 import Cookies from "js-cookie";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { authGuard } from "../../../services/user-login";
+import { authGuard, logOut } from "../../../services/user-login";
 import Loader from "../Loader/Loader";
 import SearchBar from "../SearchBar/SearchBar";
 // import { useSelector } from "react-redux";
 const Navbar = ({}) => {
+  const router = useRouter();
   // const user = useSelector((state) => state.user);
+  const [logoutLoading, setlogoutLoading] = React.useState(false);
+
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [buttonloading, setButtonLoading] = React.useState(true);
   const [otpId, setOtpId] = React.useState(null);
   const [email, setEmail] = React.useState(null);
   const [searchLoading, setSearchLoading] = React.useState(false);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isSearchOpen, setIsSearchOpen] = React.useState(false);
+  const [backdropopen, setBackdropOpen] = React.useState(false);
+  const [creatingAccount, setCreatingAcccount] = React.useState(false);
+  const [signingIn, setSigningIn] = React.useState(false);
+  const [forgotPassword, setForgotPassword] = React.useState(false);
+  const [emailEntered, setEmailEntered] = React.useState(false);
+  const [emailVerified, setEmailVerified] = React.useState(false);
+  const [otpEntered, setOtpEntered] = React.useState(false);
+  const [otpVerified, setOtpVerified] = React.useState(false);
+  const [button, setButton] = React.useState(null);
+
+  const handleNavigation = (url, button) => {
+    setButtonLoading(pathname != url);
+    setButton(button);
+    router.push(url);
+  };
+  useEffect(() => {
+    if (searchParams.get("error") === "unauthorized") {
+      setBackdropOpen(true);
+      setCreatingAcccount(true);
+    }
+  }, [searchParams, pathname]);
   useEffect(() => {
     const fetchUser = async () => {
       const token = Cookies.get("token");
@@ -46,32 +74,11 @@ const Navbar = ({}) => {
 
     fetchUser();
   }, []);
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isSearchOpen, setIsSearchOpen] = React.useState(false);
-  const [backdropopen, setBackdropOpen] = React.useState(false);
-  const [creatingAccount, setCreatingAcccount] = React.useState(false);
-  const [signingIn, setSigningIn] = React.useState(false);
-  const [forgotPassword, setForgotPassword] = React.useState(false);
-  const [emailEntered, setEmailEntered] = React.useState(false);
-  const [emailVerified, setEmailVerified] = React.useState(false);
-  const [otpEntered, setOtpEntered] = React.useState(false);
-  const [otpVerified, setOtpVerified] = React.useState(false);
-  const [button, setButton] = React.useState(null);
-
-  const router = useRouter();
-  const handleNavigation = (url, button) => {
-    setButtonLoading(pathname != url);
-    setButton(button);
-    router.push(url);
+  const handleLogout = () => {
+    cookieStore.set("token", null);
+    cookieStore.set("id", null);
+    router.push("/");
   };
-  useEffect(() => {
-    if (searchParams.get("error") === "unauthorized") {
-      setBackdropOpen(true);
-      setCreatingAcccount(true);
-    }
-  }, [searchParams, pathname]);
   const handleBackdropClose = () => {
     setButton(null);
     setBackdropOpen(false);
@@ -112,19 +119,37 @@ const Navbar = ({}) => {
       <nav className=" fixed top-0 left-0  bg-[#E3BB59] h-auto w-full flex flex-row items-center justify-between text-white px-8 z-50">
         <div className="  container mx-auto flex flex-col items-center w-full  py-4 pb-10">
           <div
-            className={`flex flex-row items-center w-full justify-end text-[14px] sm:text-lg `}
+            className={`flex flex-row items-center w-full justify-end text-[14px] sm:text-lg pb-1`}
           >
             {loading && <p className="text-[#E3BB59]">dsad</p>}
             {!loading && userLoggedIn && (
-              <button
-                onClick={() => handleNavigation("/my-account", "My Account")}
-              >
-                {buttonloading && button == "My Account" ? (
-                  <Loader />
-                ) : (
-                  "My Account"
-                )}
-              </button>
+              <div className="flex flex-row items-center">
+                <button
+                  onClick={() => handleNavigation("/my-account", "My Account")}
+                >
+                  {buttonloading && button == "My Account" ? (
+                    <Loader />
+                  ) : (
+                    "My Account"
+                  )}
+                </button>
+                <button
+                  className="ml-2 button px-2 py-[2px] text-[10px] sm:text-[16px] bg-red-600   text-white border border-red-400   rounded-md w-[80px]"
+                  onClick={async () => {
+                    const logout = await logOut(setlogoutLoading);
+                    if (logout.updatedUser) {
+                      setUserLoggedIn(false);
+                      handleLogout();
+                    }
+                  }}
+                >
+                  {logoutLoading ? (
+                    <Loader className={"py-[3px] "} />
+                  ) : (
+                    "Logout"
+                  )}
+                </button>
+              </div>
             )}
             {!loading && !userLoggedIn && (
               <>
@@ -167,7 +192,7 @@ const Navbar = ({}) => {
               PMM
             </Link>
 
-            <div className="flex flex-row items-center justify-end w-full">
+            <div className="flex flex-row items-center justify-end lg:justify-center w-full">
               <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12  ">
                 <SearchBar
                   setSearchLoading={setSearchLoading}
@@ -183,7 +208,7 @@ const Navbar = ({}) => {
               {isSearchOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
                   <div className="flex flex-col items-center space-y-4 w-full">
-                    <div className="relative flex flex-row w-full ">
+                    <div className="relative flex flex-row w-10/12 ">
                       <SearchBar
                         setSearchLoading={setSearchLoading}
                         setBackdropOpen={setBackdropOpen}
@@ -207,7 +232,7 @@ const Navbar = ({}) => {
               {isMenuOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
                   <div className="flex flex-col items-center space-y-4">
-                    <Link href={"/market-place/gold"}>Gold</Link>
+                    {/* <Link href={"/market-place/gold"}>Gold</Link>
 
                     <Link href={"/market-place/silver"}>Silver</Link>
 
@@ -215,8 +240,24 @@ const Navbar = ({}) => {
 
                     <Link href={"/market-place/palladium"}>Pladium</Link>
 
-                    <Link href={"/my-account/my-shop"}>Sell</Link>
+                    <Link href={"/my-account/my-shop"}>Sell</Link> */}
 
+                    <button
+                      className="ml-2 button p-1 sm:p-2 text-[10px] sm:text-[16px]  bg-red-600 text-white border border-red-600   rounded-md w-[100px]"
+                      onClick={async () => {
+                        const logout = await logOut(setlogoutLoading);
+                        if (logout.updatedUser) {
+                          setUserLoggedIn(false);
+                          handleLogout();
+                        }
+                      }}
+                    >
+                      {logoutLoading ? (
+                        <Loader className={"py-[3px] "} />
+                      ) : (
+                        "Logout"
+                      )}
+                    </button>
                     <button
                       className="absolute top-4 right-4 text-2xl"
                       onClick={toggleMenu}
@@ -226,7 +267,7 @@ const Navbar = ({}) => {
                   </div>
                 </div>
               )}
-              <div className=" hidden lg:flex flex-row items-center ml-12">
+              {/* <div className=" hidden lg:flex flex-row items-center ml-12">
                 <button
                   className="w-[40px]"
                   onClick={() => {
@@ -272,7 +313,7 @@ const Navbar = ({}) => {
                 >
                   {linkloading && link == "Sell" ? <Loader /> : "Sell"}
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

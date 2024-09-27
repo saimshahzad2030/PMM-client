@@ -30,7 +30,7 @@ function SearchBar({ setSearchLoading, setBackdropOpen }) {
         freeSolo
         options={items}
         getOptionLabel={(option) => option.name}
-        sx={{ width: "90%" }}
+        sx={{ width: "100%" }}
         onChange={handleOptionSelect}
         renderInput={(params) => (
           <TextField
