@@ -4,6 +4,8 @@ import RouteComponent from "../RouteComponent/Route-Component";
 
 import { Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+
+import { useMediaQuery } from "@mui/material";
 import {
   Backdrop,
   FormControl,
@@ -40,6 +42,8 @@ const validationSchema = Yup.object({
   productHighlights: Yup.array().of(Yup.string()),
 });
 const AddNewProduct = () => {
+  const isSmallScreen = useMediaQuery("(max-width:640px)");
+
   const router = useRouter();
   const [selectedFile, setSelectedFile] = React.useState(null);
   const [submitButtonClicked, setSubmitButtonClicked] = React.useState(false);
@@ -131,7 +135,7 @@ const AddNewProduct = () => {
     </>
   );
   return (
-    <div className="w-full flex flex-col items-start px-8  mb-12">
+    <div className="w-full flex flex-col items-start px-2 sm:px-8  mb-12">
       <RouteComponent
         parentRoute={"Home > My Shop >"}
         mainRoute={" New Product Listing"}
@@ -210,6 +214,7 @@ const AddNewProduct = () => {
               <h2>Product Details</h2>
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="name"
                   name="name"
@@ -229,11 +234,11 @@ const AddNewProduct = () => {
               </div>
               <div className="flex flex-col items-center w-full mt-4">
                 <FormControl
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   error={
                     submitButtonClicked && touched.type && Boolean(errors.type)
                   }
-                  // size={isSmallScreen ? "small" : "medium"}
                 >
                   <InputLabel id="type-label">Metal Type</InputLabel>
                   <Select
@@ -263,6 +268,7 @@ const AddNewProduct = () => {
 
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="model"
                   name="model"
@@ -284,6 +290,7 @@ const AddNewProduct = () => {
               </div>
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="available"
                   name="available"
@@ -306,6 +313,7 @@ const AddNewProduct = () => {
 
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="price"
                   name="price"
@@ -327,6 +335,7 @@ const AddNewProduct = () => {
               </div>
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="productDetails"
                   name="productDetails"
@@ -355,6 +364,7 @@ const AddNewProduct = () => {
                 {highlights.map((highlight, index) => (
                   <div key={index} className="flex items-center w-full mt-2">
                     <TextField
+                      size={isSmallScreen ? "small" : "medium"}
                       fullWidth
                       label={`Product Highlight ${index + 1}`}
                       value={highlight}
@@ -414,9 +424,10 @@ const AddNewProduct = () => {
                 />
               </div>  */}
 
-              <h2>Specification</h2>
+              <h2 className="mt-8">Specification</h2>
               <div className="flex flex-col items-center col-span-1 w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="grade"
                   name="grade"
@@ -437,6 +448,7 @@ const AddNewProduct = () => {
               </div>
               <div className="flex flex-col items-center col-span-1 w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="diameter"
                   name="diameter"
@@ -457,6 +469,7 @@ const AddNewProduct = () => {
               </div>
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="thickness"
                   name="thickness"
@@ -477,6 +490,7 @@ const AddNewProduct = () => {
               </div>
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="metalcontent"
                   name="metalcontent"
@@ -499,6 +513,7 @@ const AddNewProduct = () => {
               </div>
               <div className="flex flex-col items-center w-full mt-4">
                 <TextField
+                  size={isSmallScreen ? "small" : "medium"}
                   fullWidth
                   id="purity"
                   name="purity"
@@ -541,7 +556,7 @@ const AddNewProduct = () => {
                     </p>
                     <p className="text-center text-[12px] sm:text-[16px]">{`(${imagesUpload}/9)`}</p>
                   </label>
-                  <ul className="  list-outside list-disc list-inside  text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-1 sm:ml-4">
+                  <ul className=" list-disc list-inside  text-[12px] sm:text-[16px] text-gray-700 pl-2 mb-3 ml-1 sm:ml-4">
                     <li>Size: 3:4 Image</li>
                     <li>File size: Maximum of 25mb</li>
                     <li>Format: Lorem impsum</li>
@@ -670,12 +685,12 @@ const AddNewProduct = () => {
               </button>
               <button
                 type="submit"
-                className="w-[140px] button border bg-[#E3BB59] border-[#E3BB59] text-white p-2   hover:text-[#E3BB59] hover:bg-white hover:border-[#E3BB59] transition-all duration-300 rounded-md"
+                className="w-[140px] button border bg-[#E3BB59] border-[#E3BB59] text-white p-2   hover:bg-[#ecca75] transition-all duration-300 rounded-md"
                 onClick={() => {
                   setSubmitButtonClicked(true);
                 }}
               >
-                {loading ? <Loader /> : "Save and Publish"}
+                {loading ? <Loader color={"white"} /> : "Save and Publish"}
               </button>
             </div>
             <Snackbar
