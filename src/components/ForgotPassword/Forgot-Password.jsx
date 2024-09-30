@@ -84,6 +84,7 @@ const ForgotPassword = ({
         validationSchema={validationSchema}
         onSubmit={async (values) => {
           const sendEmail = await sendOtp(values.email);
+          console.log(sendEmail);
           if (sendEmail.otpId) {
             setOtpId(sendEmail.otpId);
             setEmail(values.email);
