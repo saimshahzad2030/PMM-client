@@ -17,7 +17,7 @@ const Checkout = () => {
     cartData.map((group) =>
       group.map((g) => ({
         quantity: g.buying,
-        price: Number(g.totalProductPrice) * 100,
+        price: Number(g.totalProductPrice),
         productId: g.productId,
         senderId: g.senderId,
         paymentMethod: "",
