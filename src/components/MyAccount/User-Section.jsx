@@ -26,6 +26,7 @@ import {
 } from "../../../services/plaid.services";
 import { Alert } from "@mui/material";
 import { usePlaidLink } from "react-plaid-link";
+import { useSelector } from "react-redux";
 const UserSection = ({
   plaidAccessToken,
   User,
@@ -120,6 +121,7 @@ const UserSection = ({
 
     setOpen(false);
   };
+  const mode = useSelector((state) => state.mode);
 
   const action = (
     <React.Fragment>
@@ -209,21 +211,6 @@ const UserSection = ({
           (identityVerificationStatus == "success" && plaidAccessToken) ? (
             <>
               <div className="flex flex-row items-center mt-4 md:mt-0">
-                <span
-                  className="underline text-[#2176BD]  mr-1 sm:mr-4 cursor-pointer text-[11px] sm:text-[14px] md:text-[14px] lg:text-[16px]"
-                  onClick={() =>
-                    handleNavigation(
-                      "/my-account/track-my-orders",
-                      "Track My Orders"
-                    )
-                  }
-                >
-                  {loading && button == "Track My Orders" ? (
-                    <Loader color={"#E3BB59"} />
-                  ) : (
-                    "Track My Orders"
-                  )}
-                </span>
                 {loading && button == "Notifications" ? (
                   <Loader
                     color={"#E3BB59"}
@@ -242,18 +229,38 @@ const UserSection = ({
                     }
                   />
                 )}
-                <button
-                  className="button text-[10px] sm:text-[16px] bg-[#E3BB59] text-white py-[3px] lg:py-[6px] px-2 mr-1 sm:mr-4 rounded-md border border-[#E3BB59] min-w-[55px] sm:min-w-[100px]"
-                  onClick={() =>
-                    handleNavigation("/my-account/my-shop", "My Shop")
-                  }
-                >
-                  {loading && button == "My Shop" ? (
-                    <Loader className={" py-[3px]   px-2 mr-1 "} />
-                  ) : (
-                    "My Shop"
-                  )}
-                </button>
+                {mode != "Buyer" && (
+                  <button
+                    className="button text-[10px] sm:text-[16px] bg-[#E3BB59] text-white py-[3px] lg:py-[6px] px-2 mr-1 sm:mr-4 rounded-md border border-[#E3BB59]  w-[80px] sm:w-[150px]"
+                    onClick={() =>
+                      handleNavigation(
+                        "/my-account/track-my-orders",
+                        "Track My Orders"
+                      )
+                    }
+                  >
+                    {loading && button == "Track My Orders" ? (
+                      <Loader className={" py-[3px]   px-2 mr-1 "} />
+                    ) : (
+                      "Track My Orders"
+                    )}
+                  </button>
+                )}
+
+                {mode == "Buyer" && (
+                  <button
+                    className="button text-[10px] sm:text-[16px] bg-[#E3BB59] text-white py-[3px] lg:py-[6px] px-2 mr-1 sm:mr-4 rounded-md border border-[#E3BB59] min-w-[55px] sm:min-w-[100px]"
+                    onClick={() =>
+                      handleNavigation("/my-account/my-shop", "My Shop")
+                    }
+                  >
+                    {loading && button == "My Shop" ? (
+                      <Loader className={" py-[3px]   px-2 mr-1 "} />
+                    ) : (
+                      "My Shop"
+                    )}
+                  </button>
+                )}
                 <button
                   className="button text-[10px] sm:text-[16px] bg-white text-[#E3BB59] py-[3px] lg:py-[6px] px-2 border border-[#E3BB59]  rounded-md  min-w-[90px] sm:min-w-[150px]"
                   onClick={() =>
@@ -279,7 +286,9 @@ const UserSection = ({
             >
               <button
                 className={`p-1 sm:p-2 ml-4 button text-[10px] sm:text-[16px] bg-[#3a9d48] hover:bg-[#449e50]   text-white  border border-[#59E36B]  rounded-md  min-w-[90px] sm:min-w-[150px] transition-colors duration-300 ${
-                  identityVerificationStatus == "success" ? "hidden" : ""
+                  identityVerificationStatus == "success" || mode == "Buyer"
+                    ? "hidden"
+                    : ""
                 } `}
                 onClick={() => {
                   if (!verificationToken) {

@@ -1,5 +1,9 @@
 export const cart = { image: "/assets/cart.svg", name: "cart logo" };
 export const SEARCH = { image: "/assets/search.svg", name: "search logo" };
+export const LOGOUT = { image: "/assets/logout.svg", name: "logout logo" };
+export const ACCOUNT = { image: "/assets/account.svg", name: "account logo" };
+export const BUYING = { image: "/assets/buying.svg", name: "Buying logo" };
+export const SELLING = { image: "/assets/selling.svg", name: "Selling logo" };
 export const SEARCH_BLACK = {
   image: "/assets/search-black.svg",
   name: "search logo",

@@ -12,6 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
 import { setUser } from "@/redux/reducers/user.reducer"; // Import the action
+import Cookies from "js-cookie";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -107,10 +108,12 @@ const LoginForm = ({
 
           if (userLogin.updatedUser) {
             setUserLoggedIn(true);
+            Cookies.set("firstname", userLogin?.updatedUser.firstName);
+            Cookies.set("imageUrl", userLogin?.updatedUser.imageUrl);
             setTimeout(() => {
               setSigningIn(false);
               handleBackdropClose();
-              reload();
+              // reload();
             }, 1500);
           }
         }}
