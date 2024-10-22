@@ -75,7 +75,7 @@ const MetalValues = () => {
     router.push(`/market-place/${lowercaseMetal}-spot-price`);
   };
   return (
-    <div className="pt-36 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-4  w-full py-4 ">
+    <div className="pt-32 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-4  w-full py-4 ">
       {Object.entries(metalData).map(([metalName, value], index) => (
         <div
           className="cursor-pointer flex flex-row items-center w-full justify-center"

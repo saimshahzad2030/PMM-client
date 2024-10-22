@@ -2,12 +2,17 @@ import { NextResponse } from "next/server";
 // import { notFound } from "next/navigation";
 import { authGuard } from "../services/user-login";
 export async function middleware(req) {
-  // const { pathname, searchParams } = req.nextUrl;
+  // const modeRes = await fetch(`${req.nextUrl.origin}/api/getMode`);
+  // const { mode } = await modeRes.json();
   const cookie = req.cookies.get("token");
   if (cookie) {
     const login = await authGuard(cookie.value);
     if (login?.message == "User Authorized") {
+      // if (mode === "Buyer") {
       return NextResponse.next();
+      // } else {
+      //   return NextResponse.redirect(new URL("/404", req.url));
+      // }
     }
   }
   // const referrer = req.headers.get("referer") || "/";

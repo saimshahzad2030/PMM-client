@@ -27,9 +27,7 @@ export default async function Home() {
       <div className="container mx-auto">
         <SimpleSlider />
         <SecureEscrowService />
-        <MarketPlace
-          products={products?.products}
-        />
+        <MarketPlace products={products?.products} />
         <CustomerReviews
           heading={"Customer Reviews"}
           text={

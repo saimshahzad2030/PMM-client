@@ -1,13 +1,18 @@
 "use client";
-import React, { use, useEffect } from "react";
+import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 
 import Backdrop from "@mui/material/Backdrop";
 import {
+  ACCOUNT,
+  BUYING,
   cart,
   HAMBURGER,
+  LOGOUT,
   SEARCH_BLACK,
   SEARCH_WITH_NO_BORDER,
+  SELLING,
+  USER_DEFAULT_IMAGE,
 } from "../../../constants/icons";
 import LoginForm from "../LoginForm/Login-Form";
 import SignupForm from "../SignupForm/Signup-Form";
@@ -19,11 +24,191 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { authGuard, logOut } from "../../../services/user-login";
 import Loader from "../Loader/Loader";
 import SearchBar from "../SearchBar/SearchBar";
-// import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setMode } from "@/redux/reducers/user-mode.reducer";
+
+const UserMenu = ({
+  handleBackdropOpen,
+  handleSignin,
+  userLoggedIn,
+  loading,
+  setUserLoggedIn,
+  handleLogout,
+  handleNavigation,
+  dropdownOpen,
+  setDropdownOpen,
+  setCreatingAcccount,
+  logoutLoading,
+  buttonloading,
+  button,
+  className,
+}) => {
+  const user = useSelector((state) => state.user);
+  const [modeChangeLoading, setModeChangeLoading] = useState(false);
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  const mode = useSelector((state) => state.mode);
+  const dispatch = useDispatch();
+  const handleModeChange = () => {
+    setModeChangeLoading(true);
+    setTimeout(() => {
+      dispatch(setMode(mode === "Buyer" ? "Seller" : "Buyer"));
+      handleNavigation("/my-account", "My Account");
+      setModeChangeLoading(false);
+    }, 3000);
+  };
+  return (
+    <div
+      className={`relative ${className} flex flex-row items-center lg:ml-0 ml-2`}
+    >
+      <span className=" font-bold mr-2 lg:block hidden">
+        {user?.firstName || Cookies.get("firstname")}
+      </span>
+      <button
+        onClick={handleDropdownToggle}
+        className="overflow-hidden rounded-full flex flex-col items-center justify-center w-11 h-11 bg-white"
+      >
+        <img
+          className="w-10 h-10 rounded-full cursor-pointer"
+          src={
+            userLoggedIn
+              ? user?.imageUrl ||
+                Cookies.get("imageUrl") ||
+                USER_DEFAULT_IMAGE.image
+              : HAMBURGER.image
+          }
+          alt="User"
+        />
+      </button>
+
+      {dropdownOpen && (
+        <div className="absolute top-[70%] right-0 mt-2 w-56 bg-white border rounded-lg shadow-lg z-10">
+          <div className="flex flex-col items-start p-2 text-black">
+            {/* Show loading state */}
+            {loading && <p className="text-[#E3BB59]">Loading...</p>}
+
+            {/* Logged-in state */}
+            {!loading && userLoggedIn && (
+              <>
+                <button
+                  className={`w-full  p-2 bg-[#2db84b] hover:bg-[#E3BB59] flex flex-row items-center transition-colors duration-300 ${
+                    modeChangeLoading ? "text-center" : "text-left"
+                  }`}
+                  onClick={() => {
+                    handleModeChange();
+                  }}
+                >
+                  {userLoggedIn &&
+                    (modeChangeLoading ? (
+                      <Loader className="w-6 h-6" color={"white"} />
+                    ) : (
+                      <>
+                        <img
+                          className="w-6 h-6"
+                          src={mode == "Buyer" ? SELLING.image : BUYING.image}
+                          alt={mode == "Buyer" ? SELLING.name : BUYING.name}
+                        />
+                        <p className="text-white ml-2">
+                          Switch to {mode == "Buyer" ? "Selling" : "Buying"}
+                        </p>
+                      </>
+                    ))}
+                </button>
+                <button
+                  onClick={() => handleNavigation("/my-account", "My Account")}
+                  className="flex flex-row items-center w-full text-left p-2 hover:bg-gray-100"
+                >
+                  {buttonloading && button === "My Account" ? (
+                    <Loader color={"#E3BB59"} className="w-6 h-6 py-2" />
+                  ) : (
+                    <>
+                      <img
+                        className="w-6 h-6"
+                        src={ACCOUNT.image}
+                        alt={ACCOUNT.name}
+                      />
+                      <p className="text-[#E3BB59] ml-2">My Account</p>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  className="w-full text-left p-2 hover:bg-gray-100 flex flex-row items-center"
+                  onClick={() => handleNavigation("/cart", "Cart")}
+                >
+                  {userLoggedIn &&
+                    (buttonloading && button === "Cart" ? (
+                      <Loader color={"#E3BB59"} className="w-6 h-6 py-2" />
+                    ) : (
+                      <>
+                        <img
+                          className="w-6 h-6"
+                          src={cart.image}
+                          alt={cart.name}
+                        />
+                        <p className="text-[#E3BB59] ml-2">Cart</p>
+                      </>
+                    ))}
+                </button>
+                <button
+                  className="w-full text-left p-2 hover:bg-gray-100 flex flex-row items-center"
+                  onClick={handleLogout}
+                >
+                  {logoutLoading ? (
+                    <Loader color={"#E3BB59"} className="w-6 h-6 py-2" />
+                  ) : (
+                    <>
+                      <img
+                        className="w-6 h-6"
+                        src={LOGOUT.image}
+                        alt={LOGOUT.name}
+                      />
+                      <p className="text-[#ef4242] ml-2">Logout</p>
+                    </>
+                  )}
+                </button>
+              </>
+            )}
+
+            {/* Logged-out state */}
+            {!loading && !userLoggedIn && (
+              <>
+                <button
+                  className="w-full text-left p-2 hover:bg-gray-100"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    handleSignin();
+                  }}
+                >
+                  Sign in
+                </button>
+                <button
+                  className="w-full text-left p-2 hover:bg-gray-100"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    handleBackdropOpen();
+                    setCreatingAcccount(true);
+                  }}
+                >
+                  Create Account
+                </button>
+              </>
+            )}
+
+            {/* Cart button */}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Navbar = ({}) => {
   const router = useRouter();
   // const user = useSelector((state) => state.user);
   const [logoutLoading, setlogoutLoading] = React.useState(false);
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -75,9 +260,18 @@ const Navbar = ({}) => {
     fetchUser();
   }, []);
   const handleLogout = () => {
+    setlogoutLoading(true);
+    setUserLoggedIn(false);
     cookieStore.set("token", null);
     cookieStore.set("id", null);
+    handleBackdropClose();
+    setBackdropOpen(false);
+    Cookies.remove("firstname");
+    Cookies.remove("imageUrl");
     router.push("/");
+    setTimeout(() => {
+      setlogoutLoading(false);
+    }, 3000);
   };
   const handleBackdropClose = () => {
     setButton(null);
@@ -94,6 +288,7 @@ const Navbar = ({}) => {
     setBackdropOpen(true);
   };
   const handleSignin = () => {
+    setBackdropOpen(close);
     handleBackdropOpen();
     setSigningIn(true);
   };
@@ -117,131 +312,87 @@ const Navbar = ({}) => {
   return (
     <>
       <nav className=" fixed top-0 left-0  bg-[#E3BB59] h-auto w-full flex flex-row items-center justify-between text-white px-8 z-50">
-        <div className="  container mx-auto flex flex-col items-center w-full  py-4 pb-10">
-          <div
-            className={`flex flex-row items-center w-full justify-end text-[14px] sm:text-lg pb-1`}
-          >
-            {loading && <p className="text-[#E3BB59]">dsad</p>}
-            {!loading && userLoggedIn && (
-              <div className="flex flex-row items-center">
-                <button
-                  onClick={() => handleNavigation("/my-account", "My Account")}
-                >
-                  {buttonloading && button == "My Account" ? (
-                    <Loader />
-                  ) : (
-                    "My Account"
-                  )}
-                </button>
-                <button
-                  className="ml-2 button px-2 py-[2px] text-[10px] sm:text-[16px] bg-red-600   text-white border border-red-400   rounded-md w-[80px]"
-                  onClick={async () => {
-                    const logout = await logOut(setlogoutLoading);
-                    if (logout.updatedUser) {
-                      setUserLoggedIn(false);
-                      handleLogout();
-                    }
-                  }}
-                >
-                  {logoutLoading ? (
-                    <Loader className={"py-[3px] "} />
-                  ) : (
-                    "Logout"
-                  )}
-                </button>
-              </div>
-            )}
-            {!loading && !userLoggedIn && (
-              <>
-                <button
-                  className="cursor-pointer text-white"
-                  onClick={handleSignin}
-                >
-                  Sign in
-                </button>
-                &nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;
-                <button
-                  className="cursor-pointer text-white"
-                  onClick={() => {
-                    handleBackdropOpen();
-                    setCreatingAcccount(true);
-                  }}
-                >
-                  Create Account
-                </button>
-              </>
-            )}
-            <button
-              className="w-auto flex flex-col items-center justify-center"
-              onClick={() => handleNavigation("/cart", "Cart")}
-            >
-              {userLoggedIn &&
-                (buttonloading && button == "Cart" ? (
-                  <Loader className={"ml-4 w-6 h-6 "} />
-                ) : (
-                  <img
-                    className="ml-4 w-6 h-6 cursor-pointer"
-                    src={cart.image}
-                    alt={cart.name}
-                  />
-                ))}
-            </button>
-          </div>
+        <div className="  container mx-auto flex flex-col items-center w-full  py-8 ">
+          {/* <div className="w-full flex flex-row items-center justify-end">
+            <UserMenu
+              handleSignin={handleSignin}
+              userLoggedIn={userLoggedIn}
+              loading={loading}
+              setUserLoggedIn={setUserLoggedIn}
+              handleLogout={handleLogout}
+              handleNavigation={handleNavigation}
+              dropdownOpen={dropdownOpen}
+              setDropdownOpen={setDropdownOpen}
+              setCreatingAcccount={setCreatingAcccount}
+              handleBackdropOpen={handleBackdropOpen}
+              button={button}
+              logoutLoading={logoutLoading}
+              buttonloading={buttonloading}
+              className={"hidden lg:flex"}
+            />
+          </div> */}
           <div className="relative flex flex-row items-center justify-between w-full  text-lg mt-2 sm:mt-0">
-            <Link href={"/"} className=" text-[40px] absolute    left-0">
+            <Link href={"/"} className=" text-[40px]    left-0">
               PMM
             </Link>
 
-            <div className="flex flex-row items-center justify-end lg:justify-center w-full">
-              <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12  ">
-                <SearchBar
-                  setSearchLoading={setSearchLoading}
-                  setBackdropOpen={setBackdropOpen}
-                />
-              </div>
+            <div className="relative hidden lg:flex flex-row w-6/12 lg:w-4/12  ">
+              <SearchBar
+                setSearchLoading={setSearchLoading}
+                setBackdropOpen={setBackdropOpen}
+              />
+            </div>
+            <div className="flex flex-row items-center justify-end">
               <img
                 className=" w-8 h-8 cursor-pointer block lg:hidden"
                 src={SEARCH_WITH_NO_BORDER.image}
                 alt={SEARCH_WITH_NO_BORDER.name}
                 onClick={toggleSearch}
               />
-              {isSearchOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
-                  <div className="flex flex-col items-center space-y-4 w-full">
-                    <div className="relative flex flex-row w-10/12 ">
-                      <SearchBar
-                        setSearchLoading={setSearchLoading}
-                        setBackdropOpen={setBackdropOpen}
-                      />
-                    </div>
-                    <button
-                      className="absolute top-4 right-4 text-2xl"
-                      onClick={toggleSearch}
-                    >
-                      ✕
-                    </button>
+              <UserMenu
+                handleSignin={handleSignin}
+                userLoggedIn={userLoggedIn}
+                loading={loading}
+                setUserLoggedIn={setUserLoggedIn}
+                handleLogout={handleLogout}
+                handleNavigation={handleNavigation}
+                dropdownOpen={dropdownOpen}
+                setDropdownOpen={setDropdownOpen}
+                setCreatingAcccount={setCreatingAcccount}
+                handleBackdropOpen={handleBackdropOpen}
+                button={button}
+                logoutLoading={logoutLoading}
+                buttonloading={buttonloading}
+                // className={" lg:hidden ml-2"}
+              />
+            </div>
+            {isSearchOpen && (
+              <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
+                <div className="flex flex-col items-center space-y-4 w-full">
+                  <div className="relative flex flex-row w-10/12 ">
+                    <SearchBar
+                      setSearchLoading={setSearchLoading}
+                      setBackdropOpen={setBackdropOpen}
+                    />
                   </div>
+                  <button
+                    className="absolute top-4 right-4 text-2xl"
+                    onClick={toggleSearch}
+                  >
+                    ✕
+                  </button>
                 </div>
-              )}
-              <img
+              </div>
+            )}
+            {/* <img
                 className=" w-8 h-8 cursor-pointer block lg:hidden"
                 src={HAMBURGER.image}
                 alt={HAMBURGER.name}
                 onClick={toggleMenu}
-              />
-              {isMenuOpen && (
+              /> */}
+            {/* {isMenuOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center text-white transition-opacity duration-300">
                   <div className="flex flex-col items-center space-y-4">
-                    {/* <Link href={"/market-place/gold"}>Gold</Link>
-
-                    <Link href={"/market-place/silver"}>Silver</Link>
-
-                    <Link href={"/market-place/platinum"}>Platinum</Link>
-
-                    <Link href={"/market-place/palladium"}>Pladium</Link>
-
-                    <Link href={"/my-account/my-shop"}>Sell</Link> */}
-
                     <button
                       className="ml-2 button p-1 sm:p-2 text-[10px] sm:text-[16px]  bg-red-600 text-white border border-red-600   rounded-md w-[100px]"
                       onClick={async () => {
@@ -266,55 +417,8 @@ const Navbar = ({}) => {
                     </button>
                   </div>
                 </div>
-              )}
-              {/* <div className=" hidden lg:flex flex-row items-center ml-12">
-                <button
-                  className="w-[40px]"
-                  onClick={() => {
-                    console.log("asd");
-                    routeTo("/market-place/gold", "Gold");
-                  }}
-                >
-                  {linkloading && link == "Gold" ? <Loader /> : "Gold"}
-                </button>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <button
-                  className="w-[50px]"
-                  onClick={() => {
-                    routeTo("/market-place/silver", "Silver");
-                  }}
-                >
-                  {linkloading && link == "Silver" ? <Loader /> : "Silver"}
-                </button>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <button
-                  className="w-[70px]"
-                  onClick={() => {
-                    routeTo("/market-place/platinum", "Platinum");
-                  }}
-                >
-                  {linkloading && link == "Platinum" ? <Loader /> : "Platinum"}
-                </button>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <button
-                  className="w-[70px]"
-                  onClick={() => {
-                    routeTo("/market-place/palladium", "Pladium");
-                  }}
-                >
-                  {linkloading && link == "Pladium" ? <Loader /> : "Pladium"}
-                </button>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <button
-                  className="w-[45px]"
-                  onClick={() => {
-                    routeTo("/", "Sell");
-                  }}
-                >
-                  {linkloading && link == "Sell" ? <Loader /> : "Sell"}
-                </button>
-              </div> */}
-            </div>
+              )} */}
+            {/* </div> */}
           </div>
         </div>
       </nav>
