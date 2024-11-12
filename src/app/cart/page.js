@@ -4,7 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import MetalValues from "@/components/MetalValues/Metal-Values";
 import Navbar from "@/components/Navbar/Navbar";
 import Cart from "@/components/Cart/Cart";
- 
+
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { fetchCartItems } from "../../../services/cart.services";
@@ -26,7 +26,6 @@ export default async function CartPage() {
 
     return acc;
   }, []);
-
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
