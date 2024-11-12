@@ -154,7 +154,7 @@ const Cart = ({ data }) => {
                   </div>
                 </th>
                 <th className={`text-start text-gray-400 p-4`}>Unit price</th>
-                <th className={`text-start text-gray-400 p-4`}>Quanitiy</th>
+                <th className={`text-start text-gray-400 p-4`}>Quantity</th>
                 <th className={`text-start text-gray-400 p-4`}>Total Price</th>
               </tr>
             </thead>

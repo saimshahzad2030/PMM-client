@@ -208,7 +208,7 @@ const UserSection = ({
             </div>
           </div>
           {paymentVerified == true ||
-          ((identityVerificationStatus == "success" || mode != "Buyer") &&
+          ((identityVerificationStatus == "success" || mode == "Buyer") &&
             plaidAccessToken) ? (
             <>
               <div className="flex flex-row items-center mt-4 md:mt-0">
@@ -230,7 +230,7 @@ const UserSection = ({
                     }
                   />
                 )}
-                {mode != "Buyer" && (
+                {mode == "Buyer" && (
                   <button
                     className="button text-[10px] sm:text-[16px] bg-[#E3BB59] text-white py-[3px] lg:py-[6px] px-2 mr-1 sm:mr-4 rounded-md border border-[#E3BB59]  w-[80px] sm:w-[150px]"
                     onClick={() =>
@@ -248,7 +248,7 @@ const UserSection = ({
                   </button>
                 )}
 
-                {mode == "Buyer" && (
+                {mode != "Buyer" && (
                   <button
                     className="button text-[10px] sm:text-[16px] bg-[#E3BB59] text-white py-[3px] lg:py-[6px] px-2 mr-1 sm:mr-4 rounded-md border border-[#E3BB59] min-w-[55px] sm:min-w-[100px]"
                     onClick={() =>
