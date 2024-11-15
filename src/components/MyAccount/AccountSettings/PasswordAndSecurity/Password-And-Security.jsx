@@ -50,21 +50,7 @@ const PasswordAndSecurity = () => {
               {logoutLoading ? <Loader /> : "Logout"}
             </button>
           </div>
-          <div className="w-full flex flex-row items-center justify-between my-3">
-            <p className="text-gray-700 text-[12px] sm:text-[16px]">
-              Request Account Deletion
-            </p>
-            <button
-              className="button p-1  text-[12px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md w-[120px] sm:w-[200px] "
-              onClick={() => {
-                setAccountDeletionClicked(true);
-                setChangeAccountPassword(false);
-                setAccountDeletionConfirmed(false);
-              }}
-            >
-              Delete
-            </button>
-          </div>
+
           <div className="w-full flex flex-row items-center justify-between my-3">
             <p className="text-gray-700 text-[12px] sm:text-[16px]">
               Change Password
@@ -80,6 +66,21 @@ const PasswordAndSecurity = () => {
               }}
             >
               Set Password
+            </button>
+          </div>
+          <div className="w-full flex flex-row items-center justify-between my-3">
+            <p className="text-gray-700 text-[12px] sm:text-[16px]">
+              Request Account Deletion
+            </p>
+            <button
+              className="button p-1  text-[12px] sm:text-[16px] sm:p-2 bg-red-600 text-white border border-red-600 hover:text-red-600 hover:border-red-600 hover:bg-white transition-all duration-300 rounded-md w-[120px] sm:w-[200px] "
+              onClick={() => {
+                setAccountDeletionClicked(true);
+                setChangeAccountPassword(false);
+                setAccountDeletionConfirmed(false);
+              }}
+            >
+              Delete
             </button>
           </div>
         </>

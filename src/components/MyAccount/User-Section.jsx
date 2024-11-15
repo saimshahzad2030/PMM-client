@@ -27,6 +27,7 @@ import {
 import { Alert } from "@mui/material";
 import { usePlaidLink } from "react-plaid-link";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 const UserSection = ({
   plaidAccessToken,
   User,
@@ -196,8 +197,8 @@ const UserSection = ({
               {/* <span className="text-[12px] md:text-[14px] underline text-[#2176BD]  cursor-pointer">
                       Edit profile
                     </span> */}
-              <label className="text-[12px] md:text-[14px] underline text-[#2176BD] cursor-pointer">
-                {User?.image ? "Edit profile" : "Add profile"}
+              <label className="text-[12px] md:text-[14px]  text-[#2176BD] cursor-pointer">
+                {User?.image ? "Edit Profile Pic" : "Add Profile Pic"}
                 <input
                   type="file"
                   accept="image/*"
@@ -205,6 +206,12 @@ const UserSection = ({
                   onChange={handleProfileImageUpload}
                 />
               </label>
+              <Link
+                className="text-[12px] md:text-[14px]  text-[#2176BD] cursor-pointer"
+                href={"/my-account/account-settings"}
+              >
+                {"Edit Personal Information"}
+              </Link>
             </div>
           </div>
           {paymentVerified == true ||

@@ -49,7 +49,7 @@ const AllReviews = ({ reviews, start, end, setFeedbacks, total }) => {
                     <span className="text-[10px] md:text-[14px]">
                       {review.user.buyerPaymentMethodVerified == "TRUE"
                         ? "Verified Buyer"
-                        : "Un-Verified Buyer"}
+                        : "Unverified Buyer"}
                     </span>
                   </div>
                 </div>
@@ -61,7 +61,7 @@ const AllReviews = ({ reviews, start, end, setFeedbacks, total }) => {
                     {Array.from({ length: review.ratings }, (_, index) => (
                       <img
                         key={index}
-                        className="w-3 h-3 mr-1"
+                        className="w-3 xl:w-4 h-3 xl:h-4 mr-[2px]"
                         src={STAR.image}
                         alt={STAR.name}
                       />
@@ -69,7 +69,7 @@ const AllReviews = ({ reviews, start, end, setFeedbacks, total }) => {
                   </div>
                 </div>
               </div>
-              <p className="my-4 text-[10px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]">
+              <p className="text-start w-full my-4 text-[10px] lg:text-[16px] xl:text-[14 xl:w-4px] 2xl:text-[20px]">
                 {review.review}
               </p>
             </div>
