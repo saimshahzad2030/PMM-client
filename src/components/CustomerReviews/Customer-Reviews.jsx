@@ -57,7 +57,7 @@ const CustomerReviews = ({ heading, text, reviews }) => {
                         <span className="text-[10px] md:text-[14px]">
                           {review.user.buyerPaymentMethodVerified == "TRUE"
                             ? "Verified Buyer"
-                            : "Un-Verified Buyer"}
+                            : "Unverified Buyer"}
                         </span>
                       </div>
                     </div>
@@ -77,7 +77,7 @@ const CustomerReviews = ({ heading, text, reviews }) => {
                       </div>
                     </div>
                   </div>
-                  <p className="my-4 text-[10px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]">
+                  <p className=" my-4 text-[10px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]">
                     {review.review}
                   </p>
                 </div>
