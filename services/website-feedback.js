@@ -1,5 +1,5 @@
+"use server";
 import { config } from "../config/config";
-
 export const fetchWebFeedbacks = async (start, end) => {
   try {
     const response = await fetch(
