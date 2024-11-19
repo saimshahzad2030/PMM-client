@@ -1,3 +1,5 @@
+"use server";
+
 import { config } from "../config/config";
 import Cookies from "js-cookie";
 export const fetchShipments = async (token) => {

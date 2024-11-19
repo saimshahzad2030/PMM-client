@@ -378,6 +378,9 @@ const Navbar = () => {
     setBackdropOpen(false);
     Cookies.remove("firstname");
     Cookies.remove("imageUrl");
+    Cookies.remove("token");
+    Cookies.remove("id");
+
     router.push("/");
     setTimeout(() => {
       setlogoutLoading(false);

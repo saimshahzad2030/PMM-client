@@ -194,9 +194,7 @@ const UserSection = ({
                   ? "Verified"
                   : "Not Verified"}
               </span>
-              {/* <span className="text-[12px] md:text-[14px] underline text-[#2176BD]  cursor-pointer">
-                      Edit profile
-                    </span> */}
+
               <label className="text-[12px] md:text-[14px]  text-[#2176BD] cursor-pointer">
                 {User?.image ? "Edit Profile Pic" : "Add Profile Pic"}
                 <input

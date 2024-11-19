@@ -91,9 +91,9 @@ const Footer = () => {
               </button>
             </div>
             <div className="mt-4 flex flex-row items-center">
-              <div className=" w-7 h-7 rounded-full bg-gray-200 flex flex-col items-center justify-center">
+              <div className=" w-8 h-8 rounded-full bg-[#E3BB59] flex flex-col items-center justify-center">
                 <img
-                  className="w-4 h-4 "
+                  className="w-5 h-5 "
                   src={CONTACT.image}
                   alt={CONTACT.name}
                 />
@@ -101,8 +101,8 @@ const Footer = () => {
               <span className="text-[16px] ml-2">513-549-1221</span>
             </div>
             <div className="mt-4 flex flex-row items-center">
-              <div className=" w-7 h-7 rounded-full bg-gray-200 flex flex-col items-center justify-center">
-                <img className="w-4 h-4" src={MAIL.image} alt={MAIL.name} />
+              <div className=" w-8 h-8 rounded-full bg-[#E3BB59] flex flex-col items-center justify-center">
+                <img className="w-5 h-5" src={MAIL.image} alt={MAIL.name} />
               </div>
               <span className="text-[16px] ml-2">
                 preciousmetalmarket@gmail.com
