@@ -1,5 +1,3 @@
-"use server";
-
 import { config } from "../config/config";
 import axios from "axios";
 import Cookies from "js-cookie";

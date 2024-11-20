@@ -103,6 +103,7 @@ const LoginForm = ({
             setLoading,
             (user) => dispatch(setUser(user)) // Dispatch the setUser action
           );
+          console.log("values");
           setOpen(true);
           setResponseMessage(userLogin?.message);
 
@@ -184,7 +185,10 @@ const LoginForm = ({
                 <button
                   className="button bg-[#E3BB59] text-white p-2 w-full"
                   type="submit"
-                  onClick={() => setSubmitButtonClicked(true)}
+                  onClick={() => {
+                    console.log("first");
+                    setSubmitButtonClicked(true);
+                  }}
                 >
                   {loading ? <Loader className="py-[3px]" /> : `Sign in`}
                 </button>
