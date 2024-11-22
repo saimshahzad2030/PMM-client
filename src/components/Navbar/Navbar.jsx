@@ -105,7 +105,11 @@ const UserMenu = ({
         href={"/"}
         className="ml-2 sm:ml-4 text-xl sm:text-2xl lg:text-4xl font-extrabold "
       >
-        <img src="/assets/logo.jpg" className="h-12 w-auto" alt="logo" />
+        <img
+          src="/assets/logo.jpg"
+          className="sm:h-12 sm:w-auto h-auto w-28"
+          alt="logo"
+        />
       </Link>
 
       {dropdownOpen && (
@@ -426,7 +430,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className=" fixed top-0 left-0  bg-[#E3BB59] h-auto w-full flex flex-row items-center justify-between text-white px-8 z-50">
+      <nav className=" fixed top-0 left-0  bg-[#E3BB59] h-auto w-full flex flex-row items-center justify-between text-white px-4 sm:px-8 z-50">
         <div className="  container mx-auto flex flex-row items-center justify-between w-full  py-8 ">
           <div className="flex flex-row items-center justify-start">
             {/* <img
