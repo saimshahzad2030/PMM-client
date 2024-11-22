@@ -72,7 +72,9 @@ const UserMenu = ({
     >
       <button
         onClick={handleDropdownToggle}
-        className=" text-white  overflow-hidden rounded-full flex flex-col items-center justify-center  w-8 h-8  bg-[#E3BB59]"
+        className={` text-white  overflow-hidden rounded-full flex flex-col items-center justify-center  w-8 h-8  bg-[#E3BB59] ${
+          !userLoggedIn && " sm:hidden"
+        }`}
       >
         <svg
           viewBox="0 0 24 24"
@@ -673,7 +675,7 @@ const Navbar = () => {
               </TooltipComponent>
             </div>
           ) : (
-            <div className="flex flex-row items-center  justify-end  mr-2">
+            <div className="sm:flex  flex-row items-center  justify-end  mr-2 hidden">
               <button
                 onClick={() => {
                   handleSignin();
