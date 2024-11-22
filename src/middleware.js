@@ -29,7 +29,7 @@ export async function middleware(req) {
 export const config = {
   matcher: [
     "/my-account/:path*",
-    "/market-place/:path*",
+    "/market-place/favourites/:path*",
     "/cart/:path*",
     "/shipping/:path*",
     "/contact-us",

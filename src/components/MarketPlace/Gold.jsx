@@ -1,15 +1,11 @@
-'use client'
+"use client";
 import React from "react";
 import RouteComponent from "../RouteComponent/Route-Component";
-import {
-  MARKET_PLACE_PAGE,
-  
-} from "../../../constants/constants";
- 
-import JoinNowSection from "../JoinNowSection/Join-Now-Section"; 
+import { MARKET_PLACE_PAGE } from "../../../constants/constants";
+
+import JoinNowSection from "../JoinNowSection/Join-Now-Section";
 import Productscomponent from "../Products/Products-component";
-const Gold = ({products,cartItems}) => {
-   
+const Gold = ({ userLoggedIn, products, cartItems }) => {
   return (
     <div className="flex flex-col items-center w-full px-8 mt-4 mb-12">
       <RouteComponent
@@ -17,13 +13,12 @@ const Gold = ({products,cartItems}) => {
         parentRoute={`Home > Market Place >`}
       />
       <Productscomponent
-      products={products}
-      cartItems={cartItems}
-      selectedMetal={'gold'}
+        userLoggedIn={userLoggedIn}
+        products={products}
+        cartItems={cartItems}
+        selectedMetal={"gold"}
       />
-      <JoinNowSection
-       
-      />
+      <JoinNowSection />
     </div>
   );
 };

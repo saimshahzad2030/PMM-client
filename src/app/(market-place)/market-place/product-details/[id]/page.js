@@ -11,19 +11,22 @@ const ProductDetailspage = async ({ params }) => {
   const cookieStore = cookies();
   const productId = params.id;
   const productData = await fetchProduct(productId);
-  const cartItems = await fetchUserDetails(
-    cookieStore.get("token").value,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false,
-    false,
-    false
-  );
+  let cartItems;
+  if (cookieStore.get("token")?.value) {
+    cartItems = await fetchUserDetails(
+      cookieStore.get("token")?.value,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    );
+  }
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -38,7 +41,12 @@ const ProductDetailspage = async ({ params }) => {
       <div className="w-full h-[1px] bg-gray-400"></div>
       <div className="container mx-auto">
         <Product
-          cartItems={cartItems.user.cart ? cartItems.user.cart : []}
+          userLoggedIn={cookieStore.get("token")?.value ? true : false}
+          cartItems={
+            cookieStore.get("token")?.value && cartItems.user.cart
+              ? cartItems.user.cart
+              : []
+          }
           product={productData.product}
           related={productData?.relatedProducts}
           reviews={productData?.productReview}
