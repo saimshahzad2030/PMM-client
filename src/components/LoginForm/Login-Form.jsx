@@ -4,16 +4,17 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux"; // Import useDispatch
 import Checkbox from "@mui/material/Checkbox";
 import { CROSS } from "../../../constants/icons";
-import { TextField } from "@mui/material";
 import Link from "next/link";
 import { login } from "../../../services/user-login";
-import { Snackbar, IconButton } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
 import { setUser } from "@/redux/reducers/user.reducer"; // Import the action
 import Cookies from "js-cookie";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
+import { TextField, IconButton, InputAdornment } from "@mui/material";
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
@@ -37,6 +38,10 @@ const LoginForm = ({
   setForgotPassword,
   setUserLoggedIn,
 }) => {
+  const [passVisibility, setPassVisibility] = React.useState(false);
+  const togglePassword1Visibility = () => {
+    setPassVisibility(!passVisibility);
+  };
   const [loading, setLoading] = useState(false);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
@@ -148,7 +153,7 @@ const LoginForm = ({
                   id="password"
                   name="password"
                   label="Password"
-                  type="password"
+                  type={passVisibility ? "text" : "password"}
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -160,6 +165,18 @@ const LoginForm = ({
                   helperText={
                     submitButtonClicked && touched.password && errors.password
                   }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={togglePassword1Visibility}
+                        >
+                          {passVisibility ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </div>
 
