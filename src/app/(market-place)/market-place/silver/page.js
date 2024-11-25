@@ -10,25 +10,23 @@ import { fetchUserDetails } from "../../../../../services/user-login";
 
 const SilverPage = async () => {
   const cookieStore = cookies();
-  const silverProducts = await fetchSpecificProducts(
-    "silver",
-    0,
-    40,
-    cookieStore.get("token").value
-  );
-  const cartItems = await fetchUserDetails(
-    cookieStore.get("token").value,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false,
-    false,
-    false
-  );
+  const silverProducts = await fetchSpecificProducts("silver", 0, 40);
+  let cartItems;
+  if (cookieStore.get("token")?.value) {
+    cartItems = await fetchUserDetails(
+      cookieStore.get("token").value,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    );
+  }
 
   return (
     <>
@@ -45,7 +43,11 @@ const SilverPage = async () => {
       <div className="container mx-auto">
         <Silver
           products={silverProducts.products}
-          cartItems={cartItems.user.cart ? cartItems.user.cart : []}
+          cartItems={
+            cookieStore.get("token")?.value && cartItems?.user?.cart
+              ? cartItems.user.cart
+              : []
+          }
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

@@ -386,7 +386,7 @@ const Navbar = () => {
     Cookies.remove("imageUrl");
     Cookies.remove("token");
     Cookies.remove("id");
-
+    setDropdownOpen(false);
     router.push("/");
     setTimeout(() => {
       setlogoutLoading(false);
