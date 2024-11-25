@@ -13,14 +13,29 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { useRouter } from "next/navigation";
 import SingleProduct from "./SingleProduct";
+import { fetchSpecificProducts } from "../../../services/product.services";
 
 const Productscomponent = ({
   products,
   selectedMetal,
   selectedType,
   cartItems,
+  totalPages,
 }) => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const handlePageChange = async (event, page) => {
+    const newProducts = await fetchSpecificProducts(
+      selectedMetal,
+      24 * currentPage,
+      24 * (currentPage + 1)
+    );
+    setCurrentPage(page);
+    setTotalPages(newProducts.totalPages);
+    setProductList(newProducts.products);
+  };
   const [cartProducts, setCartProducts] = React.useState(cartItems);
+  const [totalpages, setTotalPages] = React.useState(totalPages);
   const [productsList, setProductList] = React.useState(products);
   const router = useRouter();
   const productClickHandler = (id) => {
@@ -73,7 +88,11 @@ const Productscomponent = ({
             ))}
           </div>
           <div className="w-full flex flex-row justify-center my-4">
-            <Pagination count={10} />
+            <Pagination
+              count={totalpages}
+              page={currentPage}
+              onChange={handlePageChange}
+            />
           </div>
         </div>
       ) : (

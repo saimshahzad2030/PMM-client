@@ -10,7 +10,7 @@ import { fetchUserDetails } from "../../../../../services/user-login";
 
 const GoldPage = async () => {
   const cookieStore = cookies();
-  const goldProducts = await fetchSpecificProducts("gold", 0, 40);
+  const goldProducts = await fetchSpecificProducts("gold", 0, 24);
   let cartItems;
   if (cookieStore.get("token")?.value) {
     cartItems = await fetchUserDetails(
@@ -48,6 +48,7 @@ const GoldPage = async () => {
               : []
           }
           products={goldProducts.products}
+          totalPages={goldProducts.totalPages}
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

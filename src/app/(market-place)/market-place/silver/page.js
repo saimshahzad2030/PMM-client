@@ -48,6 +48,7 @@ const SilverPage = async () => {
               ? cartItems.user.cart
               : []
           }
+          totalPages={silverProducts.totalPages}
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
