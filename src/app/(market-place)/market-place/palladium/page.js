@@ -47,6 +47,7 @@ const PalladiumPage = async () => {
               ? cartItems.user.cart
               : []
           }
+          totalPages={palladiumProducts.totalPages}
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

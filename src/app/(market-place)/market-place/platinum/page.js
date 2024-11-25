@@ -46,6 +46,7 @@ const PlatinumPage = async () => {
               ? cartItems.user.cart
               : []
           }
+          totalPages={platinumProducts.totalPages}
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>
