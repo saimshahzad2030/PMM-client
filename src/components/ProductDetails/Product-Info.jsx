@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { setOrders } from "@/redux/reducers/order-reducer";
 import { useRouter } from "next/navigation";
 import { setCarts } from "@/redux/reducers/cart-reducer";
-const ProductInfo = ({ product, cartItems }) => {
+const ProductInfo = ({ userLoggedIn, product, cartItems }) => {
   const [cart, setCart] = React.useState(cartItems);
   const [counter, setCounter] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
@@ -61,7 +61,7 @@ const ProductInfo = ({ product, cartItems }) => {
           $ {Math.ceil(Number(product.price) * 1.2)}
         </h3>
       </div>
-      {product.sellerId != Cookies.get("id") && (
+      {userLoggedIn && product.sellerId != Cookies.get("id") && (
         <div className="mt-[5%] flex flex-col sm:flex-row items-center justify-between w-full my-8">
           <div className="w-auto md:w-auto grid grid-cols-3">
             <button
@@ -138,7 +138,7 @@ const ProductInfo = ({ product, cartItems }) => {
                         })
                       );
                     }
-                  } else { 
+                  } else {
                     const addCart = await addToCart(product.id, setLoading);
 
                     setOpen(true);

@@ -12,19 +12,21 @@ import { fetchUserDetails } from "../../../../../services/user-login";
 const PlatinumSpotPricePage = async () => {
   const cookieStore = cookies();
   const productData = await fetchProductByType("platinum");
-  const cartItems = await fetchUserDetails(
-    cookieStore.get("token").value,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false,
-    false,
-    false
-  );
+  if (cookieStore.get("token")?.value) {
+    cartItems = await fetchUserDetails(
+      cookieStore.get("token").value,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    );
+  }
 
   return (
     <>
@@ -41,10 +43,14 @@ const PlatinumSpotPricePage = async () => {
       <div className="container mx-auto">
         <SpotPrice
           color={"#00AA30"}
-          spotPrice={METAL_VALUES[2]}
+          spotPrice={METAL_VALUES.platinum}
           metalName={"platinum"}
           related={productData?.relatedProducts}
-          cartItems={cartItems.user.cart ? cartItems.user.cart : []}
+          cartItems={
+            cookieStore.get("token")?.value && cartItems?.user?.cart
+              ? cartItems.user.cart
+              : []
+          }
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

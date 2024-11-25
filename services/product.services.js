@@ -142,16 +142,12 @@ export const deleteProduct = async (id, setLoading) => {
   }
 };
 
-export const fetchSpecificProducts = async (typeOfMetal, start, end, token) => {
+export const fetchSpecificProducts = async (typeOfMetal, start, end) => {
   try {
     const response = await fetch(
       `${config.BASE_URL}specific-product?typeOfMetal=${typeOfMetal}&start=${start}&end=${end}`,
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `bearer ${token}`,
-        },
       }
     );
     const data = await response.json();

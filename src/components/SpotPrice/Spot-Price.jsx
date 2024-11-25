@@ -10,27 +10,25 @@ import { CAN_USD, EURO, USD } from "../../../constants/icons";
 import { RARE_COINS, USA_BG } from "../../../constants/constants";
 import RelatedPorducts from "../ProductDetails/Related-Porducts";
 import AreaChart from "../AreaChart/Area-Chart";
-const SpotPrice = ({ metalName,  spotPrice,color,related,cartItems }) => {
+const SpotPrice = ({ metalName, spotPrice, color, related, cartItems }) => {
   const [currency, setCurrency] = React.useState("usd");
 
   const handleChange = (event) => {
     setCurrency(event.target.value);
-    if(event.target.value == 'usd'){
-      multiplyValues(1)
-    }
-    else if(event.target.value == 'euro'){
-      multiplyValues(0.92)
-    }
-    else{
-      multiplyValues(1.38)
+    if (event.target.value == "usd") {
+      multiplyValues(1);
+    } else if (event.target.value == "euro") {
+      multiplyValues(0.92);
+    } else {
+      multiplyValues(1.38);
     }
   };
   const dataset = Array.from({ length: 200 }, (_, i) => ({
     date: new Date(2023, i, 1),
-   
-  value: Math.floor(Math.random() * 900) + 100,
-  }))
-  const [data1,setData1] = React.useState(dataset)
+
+    value: Math.floor(Math.random() * 900) + 100,
+  }));
+  const [data1, setData1] = React.useState(dataset);
   const multiplyValues = (factor) => {
     setData1(
       dataset.map((item) => ({
@@ -39,18 +37,18 @@ const SpotPrice = ({ metalName,  spotPrice,color,related,cartItems }) => {
       }))
     );
   };
-//   const data1 = [
-//     { date: new Date(2023, 0, 1), value: 30 },
-//     { date: new Date(2023, 1, 1), value: 50 },
-//     { date: new Date(2023, 2, 1), value: 70 },
-//     { date: new Date(2023, 3, 1), value: 90 },
-//     { date: new Date(2023, 4, 1), value: 60 },
-//     { date: new Date(2023, 5, 1), value: 100 },
-//     { date: new Date(2023, 6, 1), value: 120 },
-//     { date: new Date(2023, 7, 1), value: 30 },
-//     { date: new Date(2023, 8, 1), value: 50 },
-    
-// ];
+  //   const data1 = [
+  //     { date: new Date(2023, 0, 1), value: 30 },
+  //     { date: new Date(2023, 1, 1), value: 50 },
+  //     { date: new Date(2023, 2, 1), value: 70 },
+  //     { date: new Date(2023, 3, 1), value: 90 },
+  //     { date: new Date(2023, 4, 1), value: 60 },
+  //     { date: new Date(2023, 5, 1), value: 100 },
+  //     { date: new Date(2023, 6, 1), value: 120 },
+  //     { date: new Date(2023, 7, 1), value: 30 },
+  //     { date: new Date(2023, 8, 1), value: 50 },
+
+  // ];
   return (
     <div className="w-full flex flex-col items-start px-8">
       <RouteComponent
@@ -101,12 +99,15 @@ const SpotPrice = ({ metalName,  spotPrice,color,related,cartItems }) => {
       </div>
       <div className="flex flex-row items-center justify-start w-full sm:w-6/12 md:w-5/12 lg:w-3/12">
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">{`${spotPrice.name} Live Spot Pricing`}</InputLabel>
+          <InputLabel
+            id="demo-simple-select-label"
+            className="first-letter:uppercase"
+          >{`${metalName} Live Spot Pricing`}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={currency}
-            label={`${spotPrice.name} Live Spot Pricing`}
+            label={`${metalName} Live Spot Pricing`}
             onChange={handleChange}
           >
             <MenuItem value={"usd"}>
@@ -145,9 +146,9 @@ const SpotPrice = ({ metalName,  spotPrice,color,related,cartItems }) => {
         </FormControl>
       </div>
       <div className="grid grid-cols-4 w-full sm:w-6/12 md:w-5/12 lg:w-4/12 text-start my-8">
-        <span className="text-gray-600 lato-700">{spotPrice.name}</span>
-        <span className="text-gray-600">{spotPrice.price1}</span>
-        <span className="text-[#E3BB59]">{spotPrice.price2}</span>
+        <span className="text-gray-600 lato-700">{metalName}</span>
+        <span className="text-gray-600">{spotPrice.price}</span>
+        <span className="text-[#E3BB59]">{spotPrice.price}</span>
         <span
           className={`${
             spotPrice.status == "negative" ? "text-red-700" : "text-green-700"
@@ -157,33 +158,39 @@ const SpotPrice = ({ metalName,  spotPrice,color,related,cartItems }) => {
           {spotPrice.rate}
         </span>
       </div>
-      <AreaChart data={data1} color={color} currency={currency=='usd'?'$':currency=='euro'?'€':'$'}/>
+      <AreaChart
+        data={data1}
+        color={color}
+        currency={currency == "usd" ? "$" : currency == "euro" ? "€" : "$"}
+      />
       <div className="flex flex-col items-center justify-center relative w-full rounded-lg mt-8">
-                      <img
-                        className="w-full h-auto md:h-[500px] rounded-lg bg-black opacity-70"
-                        src={USA_BG.image}
-                        alt={USA_BG.name}
-                      />
-                      <div className="flex flex-col items-center absolute rounded-lg bg-black opacity-70 w-full h-full justify-center">
-                        <h3 className="lato-700 text-[24px] md:text-[32px] xl:text-[40px] text-center text-white mt-4">
-                          Collect rare coins
-                        </h3>
-                        <button className="button bg-white text-[#E3BB59] p-1 px-2 sm:p-2 mt-4">Shop Now</button>
-                        <img
-                          className="w-7/12 h-auto opacity-90 mt-4"
-                          src={RARE_COINS.image}
-                          alt={RARE_COINS.name}
-                        />
-                      </div>
-                      <Link
-                        href={"/market-place/rare-collection"}
-                        className="text-[12px] sm:text-[16px] text-white underline absolute right-2 bottom-2 sm:right-10 sm:bottom-10"
-                      >
-                        View all rare coins
-                      </Link>
-                    </div>
-                    <RelatedPorducts  products={related} cartItems={cartItems} />
-    </div> 
+        <img
+          className="w-full h-auto md:h-[500px] rounded-lg bg-black opacity-70"
+          src={USA_BG.image}
+          alt={USA_BG.name}
+        />
+        <div className="flex flex-col items-center absolute rounded-lg bg-black opacity-70 w-full h-full justify-center">
+          <h3 className="lato-700 text-[24px] md:text-[32px] xl:text-[40px] text-center text-white mt-4">
+            Collect rare coins
+          </h3>
+          <button className="button bg-white text-[#E3BB59] p-1 px-2 sm:p-2 mt-4">
+            Shop Now
+          </button>
+          <img
+            className="w-7/12 h-auto opacity-90 mt-4"
+            src={RARE_COINS.image}
+            alt={RARE_COINS.name}
+          />
+        </div>
+        <Link
+          href={"/market-place/rare-collection"}
+          className="text-[12px] sm:text-[16px] text-white underline absolute right-2 bottom-2 sm:right-10 sm:bottom-10"
+        >
+          View all rare coins
+        </Link>
+      </div>
+      <RelatedPorducts products={related} cartItems={cartItems} />
+    </div>
   );
 };
 

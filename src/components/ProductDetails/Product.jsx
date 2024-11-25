@@ -12,7 +12,7 @@ import ProductSpecification from "./Product-Specification";
 import RelatedPorducts from "./Related-Porducts";
 import JoinNowSection from "../JoinNowSection/Join-Now-Section";
 import CustomerReviews from "../CustomerReviews/Customer-Reviews";
-const Product = ({ product, related, reviews, cartItems }) => {
+const Product = ({ userLoggedIn, product, related, reviews, cartItems }) => {
   const [productDetailsSelected, setProductDetailsSelected] =
     React.useState(true);
 
@@ -47,7 +47,11 @@ const Product = ({ product, related, reviews, cartItems }) => {
             imageWidth={"w-full"}
           />
         </div>
-        <ProductInfo product={product} cartItems={cartItems} />
+        <ProductInfo
+          userLoggedIn={userLoggedIn}
+          product={product}
+          cartItems={cartItems}
+        />
       </div>
       <div className="flex flex-row w-full bg-[#F2F2F2] my-4">
         <button

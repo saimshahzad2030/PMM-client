@@ -13,20 +13,22 @@ const SilverSpotPricePage = async () => {
   const cookieStore = cookies();
   const myCookie = cookieStore.get("token")?.value;
   const productData = await fetchProductByType("platinum");
-  const cartItems = await fetchUserDetails(
-    cookieStore.get("token").value,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false,
-    false,
-    false
-  );
-
+  let cartItems;
+  if (cookieStore.get("token")?.value) {
+    cartItems = await fetchUserDetails(
+      cookieStore.get("token").value,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    );
+  }
   return (
     <>
       <div className=" h-auto w-full bg-[#E3BB59]">
@@ -42,10 +44,14 @@ const SilverSpotPricePage = async () => {
       <div className="container mx-auto">
         <SpotPrice
           color={"#CFCFCF"}
-          spotPrice={METAL_VALUES[1]}
+          spotPrice={METAL_VALUES.silver}
           metalName={"silver"}
           related={productData?.relatedProducts}
-          cartItems={cartItems.user.cart ? cartItems.user.cart : []}
+          cartItems={
+            cookieStore.get("token")?.value && cartItems?.user?.cart
+              ? cartItems.user.cart
+              : []
+          }
         />
       </div>
       <div className="w-full h-[2px] bg-gray-400"></div>

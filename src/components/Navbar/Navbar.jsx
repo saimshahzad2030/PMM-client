@@ -386,7 +386,7 @@ const Navbar = () => {
     Cookies.remove("imageUrl");
     Cookies.remove("token");
     Cookies.remove("id");
-
+    setDropdownOpen(false);
     router.push("/");
     setTimeout(() => {
       setlogoutLoading(false);
@@ -520,6 +520,31 @@ const Navbar = () => {
                 </button>
               </div>
             )
+          )}
+          {!userLoggedIn && (
+            <TooltipComponent title={"Search"}>
+              <button
+                onClick={() => {
+                  setIsSearchOpen(true);
+                }}
+                className="ml-4"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="mr-4 sm:mr-0 w-5 sm:w-6 h-auto transition-transform transform hover:scale-125 duration-300"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </TooltipComponent>
           )}
           {loading ? (
             <Loader />
